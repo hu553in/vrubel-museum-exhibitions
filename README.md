@@ -4,7 +4,7 @@
 
 * React (TypeScript)
 
-## How to run the app locally
+## How to run
 
 1. Install `Node.js` (≥ 15.13.0)
 2. Install `yarn` npm package globally
@@ -15,3 +15,4 @@
 
 1. Do steps 1-3 from the previous section
 2. Run `yarn build` to create the production build
+3. See `./build` directory contents
