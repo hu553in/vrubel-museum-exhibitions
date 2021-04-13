@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './style.scss';
 
+interface Source {
+  src: string;
+  mimeType: string;
+}
+
 interface Props {
-  webmSrc?: string;
-  mp4Src?: string;
+  sources?: Source[];
   onEnded?: () => any;
   autoPlay?: boolean;
   muted?: boolean;
 }
 
 const FullSizeVideo: React.FC<Props> = props => {
-  const { webmSrc, mp4Src, onEnded, autoPlay = true, muted = true } = props;
-  if (!webmSrc && !mp4Src) {
+  const { sources = [], onEnded, autoPlay = true, muted = true } = props;
+  const sourceElements = useMemo(
+    () =>
+      sources.map((source, index) => (
+        <source
+          key={`source-${index}`}
+          src={source.src}
+          type={source.mimeType}
+        />
+      )),
+    [sources]
+  );
+  if (sourceElements.length === 0) {
     return null;
   }
   return (
@@ -22,8 +37,7 @@ const FullSizeVideo: React.FC<Props> = props => {
       onEnded={onEnded}
       playsInline
     >
-      {webmSrc && <source src={webmSrc} type='video/webm' />}
-      {mp4Src && <source src={mp4Src} type='video/mp4' />}
+      {sourceElements}
       Browser is not suppoted.
     </video>
   );
