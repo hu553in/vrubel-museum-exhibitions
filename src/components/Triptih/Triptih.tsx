@@ -1,5 +1,5 @@
-import { useSpring, animated } from 'react-spring';
 import React from 'react';
+import { animated, useSpring } from 'react-spring';
 import left from './images/left.png';
 import middle from './images/middle.png';
 import right from './images/right.png';
@@ -14,6 +14,7 @@ const Triptih: React.FC = () => {
       duration: 1500,
     },
   });
+
   return (
     <animated.div style={style} className='triptih'>
       <img className='triptih__left' src={left} alt='Триптих - левая часть' />

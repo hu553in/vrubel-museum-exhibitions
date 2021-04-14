@@ -15,6 +15,7 @@ interface Props {
 
 const FullSizeVideo: React.FC<Props> = props => {
   const { sources = [], onEnded, autoPlay = true, muted = true } = props;
+
   const sourceElements = useMemo(
     () =>
       sources.map((source, index) => (
@@ -26,9 +27,11 @@ const FullSizeVideo: React.FC<Props> = props => {
       )),
     [sources]
   );
+
   if (sourceElements.length === 0) {
     return null;
   }
+
   return (
     <video
       className='full-size-video'

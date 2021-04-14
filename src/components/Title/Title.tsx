@@ -1,5 +1,5 @@
-import { useSpring, animated } from 'react-spring';
 import React from 'react';
+import { animated, useSpring } from 'react-spring';
 import './style.scss';
 
 const Title: React.FC = () => {
@@ -11,6 +11,7 @@ const Title: React.FC = () => {
       duration: 1500,
     },
   });
+
   return (
     <animated.div style={style} className='title'>
       <p className='title__first-line'>Выставка</p>

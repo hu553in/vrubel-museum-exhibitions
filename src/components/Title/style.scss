@@ -8,28 +8,28 @@
   align-items: center;
   padding-left: 40px;
   padding-right: 40px;
+}
 
-  &__first-line,
-  &__second-line,
-  &__third-line {
-    color: #fff;
-    font-family: 'Lighthaus', sans-serif;
-    text-align: center;
-    margin: 0;
-  }
+.title__first-line,
+.title__second-line,
+.title__third-line {
+  color: #fff;
+  font-family: 'Lighthaus', sans-serif;
+  text-align: center;
+  margin: 0;
+}
 
-  &__first-line {
-    font-size: 10.22vmin;
-    line-height: 13.2vmin;
-  }
+.title__first-line {
+  font-size: 10.22vmin;
+  line-height: 13.2vmin;
+}
 
-  &__second-line {
-    font-size: 13.95vmin;
-    line-height: 17.95vmin;
-  }
+.title__second-line {
+  font-size: 13.95vmin;
+  line-height: 17.95vmin;
+}
 
-  &__third-line {
-    font-size: 5.58vmin;
-    line-height: 19.15vmin;
-  }
+.title__third-line {
+  font-size: 5.58vmin;
+  line-height: 19.15vmin;
 }
