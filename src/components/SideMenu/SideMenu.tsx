@@ -13,12 +13,12 @@ interface Link {
 interface Props {
   open: boolean;
   onClose: () => void;
-  parentEl: HTMLElement;
+  parentElement: HTMLElement;
   links: Link[];
 }
 
 const SideMenu: React.FC<Props> = props => {
-  const { open, onClose, links, parentEl: parentElement } = props;
+  const { open, onClose, links, parentElement } = props;
   const location = useLocation();
 
   const linkElements = useMemo(
@@ -31,6 +31,7 @@ const SideMenu: React.FC<Props> = props => {
           className: cn('side-menu__link', {
             'side-menu__link_active': dest === location.pathname,
           }),
+          onClick: onClose,
         };
 
         return external ? (
@@ -43,7 +44,7 @@ const SideMenu: React.FC<Props> = props => {
           </NavLink>
         );
       }),
-    [links, location.pathname]
+    [links, location.pathname, onClose]
   );
 
   const sideMenuClassName = useMemo(

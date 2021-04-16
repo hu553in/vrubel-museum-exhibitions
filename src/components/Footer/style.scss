@@ -3,9 +3,9 @@
   grid-template-columns: 1fr;
   grid-template-rows: 2fr 1fr;
   width: 100%;
-  min-width: 400px;
   height: 230px;
   border-top: 1px solid #5c5c5c;
+  flex-shrink: 0;
 
   @media (max-width: 1250px) {
     grid-template-rows: 1.65fr 1fr;
@@ -22,7 +22,7 @@
   }
 }
 
-.footer__logo-link {
+.footer__logo {
   width: 300px;
   height: 62px;
   margin-right: 85px;
@@ -78,7 +78,7 @@
   }
 }
 
-.footer__social-icon {
+.footer__social-link-icon {
   width: 100%;
   height: 100%;
 }
@@ -99,19 +99,15 @@
 
 .footer__copyright-text,
 .footer__copyright-link,
-.footer__link {
+.footer__nav-bar-link {
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   color: #d2d2d2;
+  text-align: center;
 
   @media (max-width: 1250px) {
     font-size: 14px;
   }
-}
-
-.footer__copyright-text,
-.footer__copyright-link {
-  text-align: center;
 }
 
 .footer__copyright-text {
@@ -124,12 +120,8 @@
   margin-top: 7px;
 }
 
-.footer__link {
-  text-align: center;
-}
-
 .footer__copyright-link,
-.footer__link {
+.footer__nav-bar-link {
   text-decoration: none;
 
   &:hover {

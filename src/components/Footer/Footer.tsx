@@ -10,74 +10,87 @@ import vk from './images/vk.png';
 import youtube from './images/youtube.png';
 import './style.scss';
 
+const navBarLinkElements = [
+  {
+    label: 'Главная',
+    route: ROUTES.DEFAULT,
+  },
+  {
+    label: 'Контакты',
+    route: ROUTES.CONTACTS,
+  },
+  {
+    label: 'Каталог',
+    route: ROUTES.CATALOGUE,
+  },
+  {
+    label: 'О проекте',
+    route: ROUTES.ABOUT,
+  },
+].map((navBarLink, index) => (
+  <NavLink
+    key={`nav-bar-link-${index}`}
+    className='footer__nav-bar-link'
+    to={navBarLink.route}
+  >
+    {navBarLink.label}
+  </NavLink>
+));
+
+const socialLinkElements = [
+  {
+    href: 'https://vk.com/club7412186',
+    icon: vk,
+    iconAlt: 'VK музея',
+  },
+  {
+    href:
+      'https://www.facebook.com/Омский-областной-музей-изобразительных-искусств-имени-МА-Врубеля-358420747675784/',
+    icon: facebook,
+    iconAlt: 'Facebook музея',
+  },
+  {
+    href: 'https://www.instagram.com/vrubelmuseum',
+    icon: instagram,
+    iconAlt: 'Instagram музея',
+  },
+  {
+    href: 'https://www.tiktok.com/@vrubelmuseum',
+    icon: tiktok,
+    iconAlt: 'TikTok музея',
+  },
+  {
+    href: 'https://ok.ru/muzeyimeni',
+    icon: ok,
+    iconAlt: 'Odnoklassniki музея',
+  },
+  {
+    href: 'https://www.youtube.com/channel/UCP91mcNT5-iftKg7vLx3G9w',
+    icon: youtube,
+    iconAlt: 'YouTube музея',
+  },
+].map((socialLink, index) => (
+  <a
+    key={`social-link-${index}`}
+    className='footer__social-link'
+    href={socialLink.href}
+  >
+    <img
+      className='footer__social-link-icon'
+      src={socialLink.icon}
+      alt={socialLink.iconAlt}
+    />
+  </a>
+));
+
 const Footer: React.FC = () => (
   <footer className='footer'>
     <section className='footer__first-row-wrapper'>
-      <a className='footer__logo-link' href='https://vrubel.ru'>
+      <a className='footer__logo' href='https://vrubel.ru'>
         <img src={logo} alt='Логотип музея' />
       </a>
-      <nav className='footer__nav-bar'>
-        <NavLink className='footer__link footer__link' to={ROUTES.DEFAULT}>
-          Главная
-        </NavLink>
-        <NavLink className='footer__link footer__link' to={ROUTES.CONTACTS}>
-          Контакты
-        </NavLink>
-        <NavLink className='footer__link footer__link' to={ROUTES.CATALOGUE}>
-          Каталог
-        </NavLink>
-        <NavLink className='footer__link footer__link' to={ROUTES.ABOUT}>
-          О проекте
-        </NavLink>
-      </nav>
-      <nav className='footer__social-links'>
-        <a className='footer__social-link' href='https://vk.com/club7412186'>
-          <img className='footer__social-icon' src={vk} alt='Логотип музея' />
-        </a>
-        <a
-          className='footer__social-link'
-          href='https://www.facebook.com/%D0%9E%D0%BC%D1%81%D0%BA%D0%B8%D0%B9-%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D0%BD%D0%BE%D0%B9-%D0%BC%D1%83%D0%B7%D0%B5%D0%B9-%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%B8%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85-%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2-%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8-%D0%9C%D0%90-%D0%92%D1%80%D1%83%D0%B1%D0%B5%D0%BB%D1%8F-358420747675784/'
-        >
-          <img
-            className='footer__social-icon'
-            src={facebook}
-            alt='Логотип музея'
-          />
-        </a>
-        <a
-          className='footer__social-link'
-          href='https://www.instagram.com/vrubelmuseum'
-        >
-          <img
-            className='footer__social-icon'
-            src={instagram}
-            alt='Логотип музея'
-          />
-        </a>
-        <a
-          className='footer__social-link'
-          href='https://www.tiktok.com/@vrubelmuseum'
-        >
-          <img
-            className='footer__social-icon'
-            src={tiktok}
-            alt='Логотип музея'
-          />
-        </a>
-        <a className='footer__social-link' href='https://ok.ru/muzeyimeni'>
-          <img className='footer__social-icon' src={ok} alt='Логотип музея' />
-        </a>
-        <a
-          className='footer__social-link'
-          href='https://www.youtube.com/channel/UCP91mcNT5-iftKg7vLx3G9w'
-        >
-          <img
-            className='footer__social-icon'
-            src={youtube}
-            alt='Логотип музея'
-          />
-        </a>
-      </nav>
+      <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
+      <nav className='footer__social-links'>{socialLinkElements}</nav>
     </section>
     <div className='footer__copyright'>
       <span className='footer__copyright-text'>

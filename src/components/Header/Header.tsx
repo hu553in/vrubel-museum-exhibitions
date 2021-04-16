@@ -17,8 +17,8 @@ const Header: React.FC = () => {
   const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
   const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
 
-  const rootEl = document.getElementById('root');
-  if (!rootEl) return null;
+  const rootElement = document.getElementById('root');
+  if (!rootElement) return null;
 
   return (
     <header className='header'>
@@ -30,7 +30,7 @@ const Header: React.FC = () => {
         open={menuOpen}
         onClose={closeMenu}
         links={sideMenuLinks}
-        parentEl={rootEl}
+        parentElement={rootElement}
       />
     </header>
   );
