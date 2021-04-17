@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import './style.scss';
 
 interface Source {
@@ -15,7 +15,7 @@ interface Props {
   muted?: boolean;
   controls?: boolean;
   objectFit?: FitMode;
-  onClick?: React.MouseEventHandler<HTMLVideoElement>;
+  loop?: boolean;
 }
 
 const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
@@ -26,7 +26,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     muted = true,
     controls = false,
     objectFit = 'cover',
-    onClick,
+    loop = false,
   } = props;
 
   const sourceElements = useMemo(
@@ -41,11 +41,15 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [sources]
   );
 
+  const { clientHeight: rootElementHeight } =
+    document.getElementById('root') ?? {};
+
   const style = useMemo(
     () => ({
       objectFit,
+      maxHeight: rootElementHeight,
     }),
-    [objectFit]
+    [objectFit, rootElementHeight]
   );
 
   if (sourceElements.length === 0) {
@@ -63,8 +67,8 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
       controlsList='nodownload nofullscreen'
       style={style}
       playsInline
-      onClick={onClick}
       ref={ref}
+      loop={loop}
     >
       {sourceElements}
       Browser is not suppoted.

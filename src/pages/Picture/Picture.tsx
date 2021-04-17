@@ -7,9 +7,6 @@ import { ROUTES } from '../../constants';
 import pictures from '../../shared/pictures';
 import './style.scss';
 
-const handleVideoClick = (e: React.MouseEvent<HTMLVideoElement>) =>
-  e.currentTarget.paused ? e.currentTarget.play() : e.currentTarget.pause();
-
 const videoCallbackRef = (node: HTMLVideoElement) => node && node.focus();
 
 interface Params {
@@ -82,8 +79,8 @@ const Picture: React.FC = () => {
         controls
         autoPlay={false}
         objectFit='contain'
-        onClick={handleVideoClick}
         ref={videoCallbackRef}
+        loop
       />
     </main>
   );
