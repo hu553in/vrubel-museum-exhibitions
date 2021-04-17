@@ -20,10 +20,9 @@ const welcomeVideoSources = [
 const Main: React.FC = () => {
   const [shouldShowWelcomeVideo, setShouldShowWelcomeVideo] = useState(true);
 
-  const hideWelcomeVideo = useCallback(
-    () => setShouldShowWelcomeVideo(false),
-    []
-  );
+  const hideWelcomeVideo = useCallback(() => setShouldShowWelcomeVideo(false), [
+    setShouldShowWelcomeVideo,
+  ]);
 
   useEffect(() => {
     setShouldShowWelcomeVideo(true);

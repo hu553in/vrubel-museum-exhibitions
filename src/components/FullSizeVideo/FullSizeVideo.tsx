@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 import './style.scss';
 
 interface Source {
@@ -6,15 +6,28 @@ interface Source {
   mimeType: string;
 }
 
+type FitMode = 'cover' | 'contain';
+
 interface Props {
   sources?: Source[];
   onEnded?: () => any;
   autoPlay?: boolean;
   muted?: boolean;
+  controls?: boolean;
+  objectFit?: FitMode;
+  onClick?: React.MouseEventHandler<HTMLVideoElement>;
 }
 
-const FullSizeVideo: React.FC<Props> = props => {
-  const { sources = [], onEnded, autoPlay = true, muted = true } = props;
+const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
+  const {
+    sources = [],
+    onEnded,
+    autoPlay = true,
+    muted = true,
+    controls = false,
+    objectFit = 'cover',
+    onClick,
+  } = props;
 
   const sourceElements = useMemo(
     () =>
@@ -28,6 +41,13 @@ const FullSizeVideo: React.FC<Props> = props => {
     [sources]
   );
 
+  const style = useMemo(
+    () => ({
+      objectFit,
+    }),
+    [objectFit]
+  );
+
   if (sourceElements.length === 0) {
     return null;
   }
@@ -38,12 +58,18 @@ const FullSizeVideo: React.FC<Props> = props => {
       autoPlay={autoPlay}
       muted={autoPlay || muted}
       onEnded={onEnded}
+      controls={controls}
+      disablePictureInPicture
+      controlsList='nodownload nofullscreen'
+      style={style}
       playsInline
+      onClick={onClick}
+      ref={ref}
     >
       {sourceElements}
       Browser is not suppoted.
     </video>
   );
-};
+});
 
 export default FullSizeVideo;

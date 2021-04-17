@@ -1,0 +1,42 @@
+.catalogue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.catalogue__title {
+  font-family: 'Lighthaus', sans-serif;
+  font-size: 70px;
+  color: #fff;
+  margin: 30px 0 50px;
+  text-align: center;
+
+  @media (max-width: 1250px) {
+    font-size: 50px;
+  }
+}
+
+.catalogue__body {
+  display: grid;
+  grid-template-columns: repeat(3, 25vw);
+  gap: 1.5vw;
+  margin-bottom: 30px;
+
+  @media (max-width: 1250px) {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+}
+
+.catalogue__picture {
+  width: 25vw;
+  height: 20vw;
+  object-fit: cover;
+
+  @media (max-width: 1250px) {
+    width: 75vw;
+    height: 60vw;
+  }
+}
