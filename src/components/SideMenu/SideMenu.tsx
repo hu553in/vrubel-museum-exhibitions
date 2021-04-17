@@ -47,7 +47,7 @@ const SideMenu: React.FC<Props> = props => {
     [links, location.pathname, onClose]
   );
 
-  const sideMenuClassName = useMemo(
+  const classNameToUse = useMemo(
     () =>
       cn('side-menu', {
         'side-menu_open': open,
@@ -57,7 +57,7 @@ const SideMenu: React.FC<Props> = props => {
 
   return ReactDOM.createPortal(
     <>
-      <aside className={sideMenuClassName}>
+      <aside className={classNameToUse}>
         {linkElements}
         <button className='side-menu__close-button' onClick={onClose} />
       </aside>

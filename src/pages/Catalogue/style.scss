@@ -31,9 +31,16 @@
 }
 
 .catalogue__picture {
+  position: relative;
   width: 25vw;
   height: 20vw;
   object-fit: cover;
+
+  @media (hover: hover) {
+    &:hover {
+      filter: opacity(0.7);
+    }
+  }
 
   @media (max-width: 1250px) {
     width: 75vw;

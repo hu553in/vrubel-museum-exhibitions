@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import FullSizeVideo from '../../components/FullSizeVideo/FullSizeVideo';
 import logo from '../../components/Header/images/logo.svg';
+import SideInfoPanel from '../../components/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '../../constants';
 import pictures from '../../shared/pictures';
 import './style.scss';
@@ -56,6 +57,19 @@ const Picture: React.FC = () => {
     }
   }, [history, openedFrom]);
 
+  const [infoPanelOpen, setInfoPanelOpen] = useState(false);
+
+  const openInfoPanel = useCallback(() => setInfoPanelOpen(true), [
+    setInfoPanelOpen,
+  ]);
+
+  const closeInfoPanel = useCallback(() => setInfoPanelOpen(false), [
+    setInfoPanelOpen,
+  ]);
+
+  const rootElement = document.getElementById('root');
+  if (!rootElement) return null;
+
   if (!picture || animatedSources.length === 0) {
     return <Redirect to={ROUTES.DEFAULT} />;
   }
@@ -71,7 +85,7 @@ const Picture: React.FC = () => {
             className='picture__return-button'
             onClick={handleReturnClick}
           />
-          <button className='picture__info-button' />
+          <button className='picture__info-button' onClick={openInfoPanel} />
         </section>
       </header>
       <FullSizeVideo
@@ -82,6 +96,14 @@ const Picture: React.FC = () => {
         ref={videoCallbackRef}
         loop
         oneHundredPercentHeight={false}
+      />
+      <SideInfoPanel
+        open={infoPanelOpen}
+        onClose={closeInfoPanel}
+        header={picture.name}
+        subheader={picture.authorAndYear}
+        paragraphs={picture.descriptionParagraphs}
+        parentElement={rootElement}
       />
     </main>
   );
