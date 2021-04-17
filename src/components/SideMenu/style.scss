@@ -38,8 +38,10 @@
     margin-bottom: 0;
   }
 
-  &:hover {
-    color: #fff;
+  @media (hover: hover) {
+    &:hover {
+      color: #fff;
+    }
   }
 }
 

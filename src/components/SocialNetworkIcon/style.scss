@@ -1,0 +1,9 @@
+.social-network-icon {
+  fill: #fff;
+
+  @media (hover: hover) {
+    &:hover {
+      fill: #d2d2d2;
+    }
+  }
+}

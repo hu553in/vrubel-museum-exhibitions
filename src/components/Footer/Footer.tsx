@@ -1,13 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../constants';
-import facebook from './images/facebook.png';
-import instagram from './images/instagram.png';
+import SocialNetworkIcon, {
+  SocialNetwork,
+} from '../SocialNetworkIcon/SocialNetworkIcon';
 import logo from './images/logo.svg';
-import ok from './images/ok.png';
-import tiktok from './images/tiktok.png';
-import vk from './images/vk.png';
-import youtube from './images/youtube.png';
 import './style.scss';
 
 const navBarLinkElements = [
@@ -40,34 +37,28 @@ const navBarLinkElements = [
 const socialLinkElements = [
   {
     href: 'https://vk.com/club7412186',
-    icon: vk,
-    iconAlt: 'VK музея',
+    socialNetwork: 'vk',
   },
   {
     href:
       'https://www.facebook.com/Омский-областной-музей-изобразительных-искусств-имени-МА-Врубеля-358420747675784/',
-    icon: facebook,
-    iconAlt: 'Facebook музея',
+    socialNetwork: 'facebook',
   },
   {
     href: 'https://www.instagram.com/vrubelmuseum',
-    icon: instagram,
-    iconAlt: 'Instagram музея',
+    socialNetwork: 'instagram',
   },
   {
     href: 'https://www.tiktok.com/@vrubelmuseum',
-    icon: tiktok,
-    iconAlt: 'TikTok музея',
+    socialNetwork: 'tiktok',
   },
   {
     href: 'https://ok.ru/muzeyimeni',
-    icon: ok,
-    iconAlt: 'Odnoklassniki музея',
+    socialNetwork: 'ok',
   },
   {
     href: 'https://www.youtube.com/channel/UCP91mcNT5-iftKg7vLx3G9w',
-    icon: youtube,
-    iconAlt: 'YouTube музея',
+    socialNetwork: 'youtube',
   },
 ].map((socialLink, index) => (
   <a
@@ -75,10 +66,8 @@ const socialLinkElements = [
     className='footer__social-link'
     href={socialLink.href}
   >
-    <img
-      className='footer__social-link-icon'
-      src={socialLink.icon}
-      alt={socialLink.iconAlt}
+    <SocialNetworkIcon
+      socialNetwork={socialLink.socialNetwork as SocialNetwork}
     />
   </a>
 ));
