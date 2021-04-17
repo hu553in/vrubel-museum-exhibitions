@@ -16,6 +16,7 @@ interface Props {
   controls?: boolean;
   objectFit?: FitMode;
   loop?: boolean;
+  oneHundredPercentHeight?: boolean;
 }
 
 const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
@@ -27,6 +28,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     controls = false,
     objectFit = 'cover',
     loop = false,
+    oneHundredPercentHeight = true,
   } = props;
 
   const sourceElements = useMemo(
@@ -48,8 +50,9 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     () => ({
       objectFit,
       maxHeight: rootElementHeight,
+      ...(oneHundredPercentHeight && { height: '100%' }),
     }),
-    [objectFit, rootElementHeight]
+    [objectFit, oneHundredPercentHeight, rootElementHeight]
   );
 
   if (sourceElements.length === 0) {

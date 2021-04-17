@@ -81,6 +81,7 @@ const Picture: React.FC = () => {
         objectFit='contain'
         ref={videoCallbackRef}
         loop
+        oneHundredPercentHeight={false}
       />
     </main>
   );
