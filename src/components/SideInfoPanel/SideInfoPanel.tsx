@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './style.scss';
 
@@ -14,6 +14,41 @@ interface Props {
 
 const SideInfoPanel: React.FC<Props> = props => {
   const { open, onClose, parentElement, header, subheader, paragraphs } = props;
+
+  const [collapseButtonShown, setCollapseButtonShown] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => setCollapseButtonShown(true), 250);
+
+      document.documentElement.style.overflowY = 'hidden';
+      const rootElement = document.getElementById('root');
+
+      if (rootElement) {
+        rootElement.style.overflowY = 'hidden';
+      }
+    } else {
+      setCollapseButtonShown(false);
+
+      document.documentElement.style.removeProperty('overflow-y');
+      const rootElement = document.getElementById('root');
+
+      if (rootElement) {
+        rootElement.style.removeProperty('overflow-y');
+      }
+    }
+
+    return () => {
+      setCollapseButtonShown(false);
+
+      document.documentElement.style.removeProperty('overflow-y');
+      const rootElement = document.getElementById('root');
+
+      if (rootElement) {
+        rootElement.style.removeProperty('overflow-y');
+      }
+    };
+  }, [open]);
 
   const paragraphElements = useMemo(
     () =>
@@ -42,10 +77,12 @@ const SideInfoPanel: React.FC<Props> = props => {
       </aside>
       {open && (
         <>
-          <button
-            className='side-info-panel__collapse-button'
-            onClick={onClose}
-          />
+          {collapseButtonShown && (
+            <button
+              className='side-info-panel__collapse-button'
+              onClick={onClose}
+            />
+          )}
           <div className='side-info-panel-overlay' onClick={onClose} />
         </>
       )}

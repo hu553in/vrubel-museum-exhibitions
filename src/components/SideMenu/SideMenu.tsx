@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -20,6 +20,33 @@ interface Props {
 const SideMenu: React.FC<Props> = props => {
   const { open, onClose, links, parentElement } = props;
   const location = useLocation();
+
+  useEffect(() => {
+    if (open) {
+      document.documentElement.style.overflowY = 'hidden';
+      const rootElement = document.getElementById('root');
+
+      if (rootElement) {
+        rootElement.style.overflowY = 'hidden';
+      }
+    } else {
+      document.documentElement.style.removeProperty('overflow-y');
+      const rootElement = document.getElementById('root');
+
+      if (rootElement) {
+        rootElement.style.removeProperty('overflow-y');
+      }
+    }
+
+    return () => {
+      document.documentElement.style.removeProperty('overflow-y');
+      const rootElement = document.getElementById('root');
+
+      if (rootElement) {
+        rootElement.style.removeProperty('overflow-y');
+      }
+    };
+  }, [open]);
 
   const linkElements = useMemo(
     () =>

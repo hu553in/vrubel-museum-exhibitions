@@ -9,12 +9,13 @@
   background-color: #000;
   border-left: 1px solid #5c5c5c;
   z-index: 10001;
-  transition: transform 0.25s ease-in-out;
+  transition: transform 0.25s linear;
   display: flex;
   flex-direction: column;
   padding: 50px 100px;
 
   &_open {
+    position: absolute;
     transform: translateX(0);
   }
 
@@ -40,6 +41,10 @@
 .side-info-panel__header {
   font-size: 40px;
   margin-bottom: 25px;
+
+  @media (max-width: 1200px) {
+    font-size: 26px;
+  }
 }
 
 .side-info-panel__subheader {
@@ -55,6 +60,10 @@
     border-bottom: 1px solid #d2d2d2;
     bottom: -25px;
     left: 0;
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 24px;
   }
 }
 
@@ -81,7 +90,7 @@
 .side-info-panel__collapse-button {
   width: 19.9px;
   height: 29.7px;
-  position: fixed;
+  position: absolute;
   cursor: pointer;
   top: calc(50% - 14.85px);
   right: 1160.1px;

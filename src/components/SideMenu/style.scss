@@ -9,13 +9,14 @@
   background-color: #000;
   border-left: 1px solid #5c5c5c;
   z-index: 10001;
-  transition: transform 0.25s ease-in-out;
+  transition: transform 0.25s linear;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 50px 0;
 
   &_open {
+    position: absolute;
     transform: translateX(0);
   }
 
