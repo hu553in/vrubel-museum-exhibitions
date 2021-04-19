@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -20,33 +20,33 @@ interface Props {
 const SideMenu: React.FC<Props> = props => {
   const { open, onClose, links, parentElement } = props;
   const location = useLocation();
+  const [stateRef, setStateRef] = useState<HTMLElement | null>(null);
+  const callbackRef = useCallback(node => setStateRef(node), []);
 
   useEffect(() => {
     if (open) {
+      setTimeout(() => {
+        if (stateRef) {
+          stateRef.style.position = 'absolute';
+        }
+      }, 250);
+
       document.documentElement.style.overflowY = 'hidden';
-      const rootElement = document.getElementById('root');
-
-      if (rootElement) {
-        rootElement.style.overflowY = 'hidden';
-      }
+      parentElement.style.overflowY = 'hidden';
     } else {
-      document.documentElement.style.removeProperty('overflow-y');
-      const rootElement = document.getElementById('root');
-
-      if (rootElement) {
-        rootElement.style.removeProperty('overflow-y');
+      if (stateRef) {
+        stateRef.style.removeProperty('position');
       }
+
+      document.documentElement.style.removeProperty('overflow-y');
+      parentElement.style.removeProperty('overflow-y');
     }
 
     return () => {
       document.documentElement.style.removeProperty('overflow-y');
-      const rootElement = document.getElementById('root');
-
-      if (rootElement) {
-        rootElement.style.removeProperty('overflow-y');
-      }
+      parentElement.style.removeProperty('overflow-y');
     };
-  }, [open]);
+  }, [open, parentElement.style, stateRef]);
 
   const linkElements = useMemo(
     () =>
@@ -84,7 +84,7 @@ const SideMenu: React.FC<Props> = props => {
 
   return ReactDOM.createPortal(
     <>
-      <aside className={classNameToUse}>
+      <aside className={classNameToUse} ref={callbackRef}>
         {linkElements}
         <button className='side-menu__close-button' onClick={onClose} />
       </aside>

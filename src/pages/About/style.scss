@@ -16,6 +16,10 @@
   @media (max-width: 1250px) {
     font-size: 50px;
   }
+
+  @media (max-width: 400px) {
+    font-size: 45px;
+  }
 }
 
 .about__body {
@@ -24,7 +28,6 @@
 }
 
 .about__body-paragraph {
-  font-family: 'Montserrat', sans-serif;
   margin: 0 0 20px;
   color: #d2d2d2;
   line-height: 22px;

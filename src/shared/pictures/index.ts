@@ -1,11 +1,11 @@
 import welcomeMp4 from '../../pages/Main/videos/welcome.mp4';
 import welcomeWebm from '../../pages/Main/videos/welcome.webm';
-import burjaNaChernomMorePreview from './burja-na-chernom-more/preview.png';
-import danajaPreview from './danaja/preview.png';
-import elochnyjTorgPreview from './elochnyj-torg/preview.png';
-import trojkaZimojPreview from './trojka-zimoj/preview.png';
-import vozvrashhenieSLovliMulejPreview from './vozvrashhenie-s-lovli-mulej/preview.png';
-import zhenyIzdaliSmotrjashhieNaGolgofuPreview from './zheny-izdali-smotrjashhie-na-golgofu/preview.png';
+import burjaNaChernomMorePreview from './burja-na-chernom-more/preview.webp';
+import danajaPreview from './danaja/preview.webp';
+import elochnyjTorgPreview from './elochnyj-torg/preview.webp';
+import trojkaZimojPreview from './trojka-zimoj/preview.webp';
+import vozvrashhenieSLovliMulejPreview from './vozvrashhenie-s-lovli-mulej/preview.webp';
+import zhenyIzdaliSmotrjashhieNaGolgofuPreview from './zheny-izdali-smotrjashhie-na-golgofu/preview.webp';
 
 const pictures = [
   {

@@ -74,13 +74,11 @@ const socialLinkElements = [
 
 const Footer: React.FC = () => (
   <footer className='footer'>
-    <section className='footer__first-row-wrapper'>
-      <a className='footer__logo' href='https://vrubel.ru'>
-        <img src={logo} alt='Логотип музея' />
-      </a>
-      <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
-      <nav className='footer__social-links'>{socialLinkElements}</nav>
-    </section>
+    <a className='footer__logo' href='https://vrubel.ru'>
+      <img src={logo} alt='Логотип музея' />
+    </a>
+    <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
+    <nav className='footer__social-links'>{socialLinkElements}</nav>
     <div className='footer__copyright'>
       <span className='footer__copyright-text'>
         © Омский областной музей изобразительных искусств имени М.А. Врубеля

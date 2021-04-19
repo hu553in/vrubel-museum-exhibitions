@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './style.scss';
 
@@ -14,41 +14,42 @@ interface Props {
 
 const SideInfoPanel: React.FC<Props> = props => {
   const { open, onClose, parentElement, header, subheader, paragraphs } = props;
-
   const [collapseButtonShown, setCollapseButtonShown] = useState(false);
+  const [stateRef, setStateRef] = useState<HTMLElement | null>(null);
+  const callbackRef = useCallback(node => setStateRef(node), []);
 
   useEffect(() => {
     if (open) {
-      setTimeout(() => setCollapseButtonShown(true), 250);
+      setTimeout(() => {
+        if (stateRef) {
+          stateRef.style.position = 'absolute';
+        }
+
+        setCollapseButtonShown(true);
+      }, 250);
 
       document.documentElement.style.overflowY = 'hidden';
-      const rootElement = document.getElementById('root');
-
-      if (rootElement) {
-        rootElement.style.overflowY = 'hidden';
-      }
+      parentElement.style.overflowY = 'hidden';
     } else {
-      setCollapseButtonShown(false);
-
-      document.documentElement.style.removeProperty('overflow-y');
-      const rootElement = document.getElementById('root');
-
-      if (rootElement) {
-        rootElement.style.removeProperty('overflow-y');
+      if (stateRef) {
+        stateRef.style.removeProperty('position');
       }
+
+      setCollapseButtonShown(false);
+      document.documentElement.style.removeProperty('overflow-y');
+      parentElement.style.overflowY = 'hidden';
     }
 
     return () => {
-      setCollapseButtonShown(false);
-
-      document.documentElement.style.removeProperty('overflow-y');
-      const rootElement = document.getElementById('root');
-
-      if (rootElement) {
-        rootElement.style.removeProperty('overflow-y');
+      if (stateRef) {
+        stateRef.style.removeProperty('position');
       }
+
+      setCollapseButtonShown(false);
+      document.documentElement.style.removeProperty('overflow-y');
+      parentElement.style.overflowY = 'hidden';
     };
-  }, [open]);
+  }, [open, parentElement.style, stateRef]);
 
   const paragraphElements = useMemo(
     () =>
@@ -70,7 +71,7 @@ const SideInfoPanel: React.FC<Props> = props => {
 
   return ReactDOM.createPortal(
     <>
-      <aside className={classNameToUse}>
+      <aside className={classNameToUse} ref={callbackRef}>
         <p className='side-info-panel__header'>{header}</p>
         <p className='side-info-panel__subheader'>{subheader}</p>
         {paragraphElements}

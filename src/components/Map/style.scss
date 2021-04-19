@@ -1,5 +1,17 @@
+.map-wrapper,
 .map {
-  width: 80%;
   max-width: 700px;
   height: 400px;
+}
+
+.map-wrapper {
+  display: inline-block;
+  width: 80%;
+  background-image: url('./images/spinner.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.map {
+  width: 100%;
 }

@@ -60,7 +60,7 @@ const Contacts: React.FC = () => {
           10:00-19:00 (касса до 18:00), пн — выходной
         </p>
       </section>
-      <Map src={mapSrc} className='contacts__map' />
+      <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
     </main>
   );
 };

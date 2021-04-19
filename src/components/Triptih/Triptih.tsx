@@ -1,8 +1,8 @@
 import React from 'react';
 import { animated, useSpring } from 'react-spring';
-import left from './images/left.png';
-import middle from './images/middle.png';
-import right from './images/right.png';
+import left from './images/left.webp';
+import middle from './images/middle.webp';
+import right from './images/right.webp';
 import './style.scss';
 
 const Triptih: React.FC = () => {

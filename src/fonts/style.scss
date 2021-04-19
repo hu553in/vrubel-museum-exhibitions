@@ -1,12 +1,11 @@
 @font-face {
   font-family: 'Lighthaus';
-  src: url('./Lighthaus/Lighthaus.eot');
+  font-display: swap;
   src:
-    url('./Lighthaus/Lighthaus.eot?#iefix') format('embedded-opentype'),
+    local('Lighthaus'),
     url('./Lighthaus/Lighthaus.woff2') format('woff2'),
     url('./Lighthaus/Lighthaus.woff') format('woff'),
-    url('./Lighthaus/Lighthaus.ttf') format('truetype'),
-    url('./Lighthaus/Lighthaus.svg#Lighthaus') format('svg');
+    url('./Lighthaus/Lighthaus.ttf') format('truetype');
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+@import 'https://fonts.googleapis.com/css2?family=Montserrat&display=swap';

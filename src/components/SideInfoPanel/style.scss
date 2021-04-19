@@ -15,7 +15,6 @@
   padding: 50px 100px;
 
   &_open {
-    position: absolute;
     transform: translateX(0);
   }
 
@@ -45,6 +44,10 @@
   @media (max-width: 1200px) {
     font-size: 26px;
   }
+
+  @media (max-width: 400px) {
+    font-size: 23px;
+  }
 }
 
 .side-info-panel__subheader {
@@ -65,12 +68,15 @@
   @media (max-width: 1200px) {
     font-size: 24px;
   }
+
+  @media (max-width: 400px) {
+    font-size: 23px;
+  }
 }
 
 .side-info-panel__paragraph {
   margin-top: 0;
   margin-bottom: 20px;
-  font-family: 'Montserrat', sans-serif;
   color: #d2d2d2;
   line-height: 22px;
 
