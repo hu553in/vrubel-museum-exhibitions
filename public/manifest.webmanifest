@@ -1,6 +1,7 @@
 {
   "short_name": "five0f-diploma-work",
   "name": "five0f-diploma-work",
+  "description": "five0f-diploma-work",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
