@@ -68,13 +68,14 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
       controls={controls}
       disablePictureInPicture
       controlsList='nodownload nofullscreen'
+      preload='metadata'
       style={style}
       playsInline
       ref={ref}
       loop={loop}
     >
       {sourceElements}
-      Browser is not suppoted.
+      Browser is not supported.
     </video>
   );
 });
