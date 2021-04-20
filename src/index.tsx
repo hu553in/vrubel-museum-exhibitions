@@ -6,7 +6,7 @@ import HeaderFooterLayout from './layouts/HeaderFooter/HeaderFooterLayout';
 import About from './pages/About/About';
 import Catalogue from './pages/Catalogue/Catalogue';
 import Contacts from './pages/Contacts/Contacts';
-import MainPage from './pages/Main/Main';
+import Gallery from './pages/Gallery/Gallery';
 import Picture from './pages/Picture/Picture';
 import './style.scss';
 
@@ -14,7 +14,10 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route exact path={ROUTES.DEFAULT}>
-        <MainPage />
+        <Redirect to={ROUTES.GALLERY} />
+      </Route>
+      <Route path={ROUTES.GALLERY}>
+        <Gallery />
       </Route>
       <Route path={ROUTES.ABOUT}>
         <HeaderFooterLayout>

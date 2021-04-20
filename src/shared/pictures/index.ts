@@ -1,5 +1,5 @@
-import welcomeMp4 from '../../pages/Main/videos/welcome.mp4';
-import welcomeWebm from '../../pages/Main/videos/welcome.webm';
+import welcomeMp4 from '../../pages/Gallery/videos/welcome.mp4';
+import welcomeWebm from '../../pages/Gallery/videos/welcome.webm';
 import burjaNaChernomMorePreview from './burja-na-chernom-more/preview.webp';
 import danajaPreview from './danaja/preview.webp';
 import elochnyjTorgPreview from './elochnyj-torg/preview.webp';

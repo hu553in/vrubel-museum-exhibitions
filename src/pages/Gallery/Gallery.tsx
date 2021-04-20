@@ -17,7 +17,7 @@ const welcomeVideoSources = [
   },
 ];
 
-const Main: React.FC = () => {
+const Gallery: React.FC = () => {
   const [shouldShowWelcomeVideo, setShouldShowWelcomeVideo] = useState(true);
 
   const hideWelcomeVideo = useCallback(() => setShouldShowWelcomeVideo(false), [
@@ -30,7 +30,7 @@ const Main: React.FC = () => {
   }, [hideWelcomeVideo]);
 
   return (
-    <main className='main'>
+    <main className='gallery'>
       {shouldShowWelcomeVideo ? (
         <FullSizeVideo
           sources={welcomeVideoSources}
@@ -46,4 +46,4 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+export default Gallery;
