@@ -82,10 +82,15 @@ const Picture: React.FC = () => {
         </NavLink>
         <section className='picture__buttons'>
           <button
+            aria-label='Вернуться назад'
             className='picture__return-button'
             onClick={handleReturnClick}
           />
-          <button className='picture__info-button' onClick={openInfoPanel} />
+          <button
+            aria-label='Информация о картине'
+            className='picture__info-button'
+            onClick={openInfoPanel}
+          />
         </section>
       </header>
       <FullSizeVideo

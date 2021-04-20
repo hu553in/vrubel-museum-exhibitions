@@ -25,7 +25,11 @@ const Header: React.FC = () => {
       <NavLink to={ROUTES.DEFAULT} className='header__homepage-link'>
         <img className='header__logo' src={logo} alt='Логотип музея' />
       </NavLink>
-      <button className='header__menu-button' onClick={openMenu} />
+      <button
+        aria-label='Открыть меню'
+        className='header__menu-button'
+        onClick={openMenu}
+      />
       <SideMenu
         open={menuOpen}
         onClose={closeMenu}

@@ -86,7 +86,11 @@ const SideMenu: React.FC<Props> = props => {
     <>
       <aside className={classNameToUse} ref={callbackRef}>
         {linkElements}
-        <button className='side-menu__close-button' onClick={onClose} />
+        <button
+          aria-label='Закрыть меню'
+          className='side-menu__close-button'
+          onClick={onClose}
+        />
       </aside>
       {open && <div className='side-menu-overlay' onClick={onClose} />}
     </>,
