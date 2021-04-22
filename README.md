@@ -1,4 +1,4 @@
-# five0f-diploma-work
+# Revived paintings exhibition
 
 ## Description
 

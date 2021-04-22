@@ -1,5 +1,6 @@
 {
-  "name": "five0f-diploma-work",
+  "name": "revived-paintings-exhibition",
+  "description": "Revived paintings exhibition - Omsk regional M.A. Vrubel museum of fine arts",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
