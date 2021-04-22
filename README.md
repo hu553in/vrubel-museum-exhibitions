@@ -3,7 +3,7 @@
 ## Description
 
 This project is a website of Revived paintings exhibition
-in Omsk regional M.A. Vrubel museum of fine arts.\
+in [Omsk regional M.A. Vrubel museum of fine arts](https://vrubel.ru/).\
 In fact, this project is just a part of paired diploma work.\
 Currently, it is available in Russian language only.
 
