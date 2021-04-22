@@ -75,7 +75,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
       loop={loop}
     >
       {sourceElements}
-      Browser is not supported.
+      Невозможно воспроизвести видео :(
     </video>
   );
 });

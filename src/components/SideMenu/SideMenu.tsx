@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { RemoveScroll } from 'react-remove-scroll';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
 
@@ -30,22 +31,11 @@ const SideMenu: React.FC<Props> = props => {
           stateRef.style.position = 'absolute';
         }
       }, 250);
-
-      document.documentElement.style.overflowY = 'hidden';
-      parentElement.style.overflowY = 'hidden';
     } else {
       if (stateRef) {
         stateRef.style.removeProperty('position');
       }
-
-      document.documentElement.style.removeProperty('overflow-y');
-      parentElement.style.removeProperty('overflow-y');
     }
-
-    return () => {
-      document.documentElement.style.removeProperty('overflow-y');
-      parentElement.style.removeProperty('overflow-y');
-    };
   }, [open, parentElement.style, stateRef]);
 
   const linkElements = useMemo(
@@ -84,14 +74,16 @@ const SideMenu: React.FC<Props> = props => {
 
   return ReactDOM.createPortal(
     <>
-      <aside className={classNameToUse} ref={callbackRef}>
-        {linkElements}
-        <button
-          aria-label='Закрыть меню'
-          className='side-menu__close-button'
-          onClick={onClose}
-        />
-      </aside>
+      <RemoveScroll enabled={open} removeScrollBar>
+        <aside className={classNameToUse} ref={callbackRef}>
+          {linkElements}
+          <button
+            aria-label='Закрыть меню'
+            className='side-menu__close-button'
+            onClick={onClose}
+          />
+        </aside>
+      </RemoveScroll>
       {open && <div className='side-menu-overlay' onClick={onClose} />}
     </>,
     parentElement

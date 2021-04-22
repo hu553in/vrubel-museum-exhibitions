@@ -1,5 +1,7 @@
+import cn from 'classnames';
 import React, { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { animated, SpringValue } from 'react-spring';
 import { ROUTES } from '../../constants';
 import SideMenu from '../SideMenu/SideMenu';
 import logo from './images/logo.svg';
@@ -12,16 +14,32 @@ const sideMenuLinks = [
   { dest: ROUTES.ABOUT, label: 'О проекте' },
 ];
 
-const Header: React.FC = () => {
+interface Props {
+  className?: string;
+  style?:
+    | React.CSSProperties
+    | (Omit<React.CSSProperties, 'opacity'> & {
+        opacity?: SpringValue<number>;
+      });
+}
+
+const Header: React.FC<Props> = props => {
+  const { className = '', style } = props;
   const [menuOpen, setMenuOpen] = useState(false);
-  const openMenu = useCallback(() => setMenuOpen(true), [setMenuOpen]);
-  const closeMenu = useCallback(() => setMenuOpen(false), [setMenuOpen]);
+  const openMenu = useCallback(() => setMenuOpen(true), []);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   const rootElement = document.getElementById('root');
-  if (!rootElement) return null;
+  if (!rootElement) {
+    return null;
+  }
+
+  const classNameToUse = cn('header', {
+    [className]: className.length > 0,
+  });
 
   return (
-    <header className='header'>
+    <animated.header style={style} className={classNameToUse}>
       <NavLink to={ROUTES.DEFAULT} className='header__homepage-link'>
         <img className='header__logo' src={logo} alt='Логотип музея' />
       </NavLink>
@@ -36,7 +54,7 @@ const Header: React.FC = () => {
         links={sideMenuLinks}
         parentElement={rootElement}
       />
-    </header>
+    </animated.header>
   );
 };
 

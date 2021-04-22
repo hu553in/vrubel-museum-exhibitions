@@ -5,9 +5,15 @@ import middle from './images/middle.webp';
 import right from './images/right.webp';
 import './style.scss';
 
-const Triptih: React.FC = () => {
+interface Props {
+  open: boolean;
+}
+
+const Triptih: React.FC<Props> = props => {
+  const { open } = props;
+
   const style = useSpring({
-    opacity: 1,
+    opacity: open ? 1 : 0,
     from: { opacity: 0 },
     delay: 750,
     config: {

@@ -7,6 +7,7 @@ import About from './pages/About/About';
 import Catalogue from './pages/Catalogue/Catalogue';
 import Contacts from './pages/Contacts/Contacts';
 import Gallery from './pages/Gallery/Gallery';
+import Main from './pages/Main/Main';
 import Picture from './pages/Picture/Picture';
 import './style.scss';
 
@@ -14,7 +15,7 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route exact path={ROUTES.DEFAULT}>
-        <Redirect to={ROUTES.GALLERY} />
+        <Main />
       </Route>
       <Route path={ROUTES.GALLERY}>
         <Gallery />

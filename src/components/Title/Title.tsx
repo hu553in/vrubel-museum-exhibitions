@@ -2,9 +2,15 @@ import React from 'react';
 import { animated, useSpring } from 'react-spring';
 import './style.scss';
 
-const Title: React.FC = () => {
+interface Props {
+  open: boolean;
+}
+
+const Title: React.FC<Props> = props => {
+  const { open } = props;
+
   const style = useSpring({
-    opacity: 1,
+    opacity: open ? 1 : 0,
     from: { opacity: 0 },
     delay: 750,
     config: {

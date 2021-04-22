@@ -41,13 +41,11 @@ const bodyParagraphElements = [
   </p>
 ));
 
-const About: React.FC = () => {
-  return (
-    <main className='about'>
-      <p className='about__title'>О проекте</p>
-      <section className='about__body'>{bodyParagraphElements}</section>
-    </main>
-  );
-};
+const About: React.FC = () => (
+  <main className='about'>
+    <p className='about__title'>О проекте</p>
+    <section className='about__body'>{bodyParagraphElements}</section>
+  </main>
+);
 
 export default About;

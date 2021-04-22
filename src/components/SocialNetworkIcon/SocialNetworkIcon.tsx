@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './style.scss';
 
 export enum SocialNetwork {
@@ -101,9 +101,14 @@ export type Props = {
 const SocialNetworkIcon: React.FC<Props> = props => {
   const { className = '', socialNetwork } = props;
 
-  return React.cloneElement(socialNetworkIcons[socialNetwork], {
-    ...(className.length > 0 && { className }),
-  });
+  const propsToUse = useMemo(
+    () => ({
+      ...(className.length > 0 && { className }),
+    }),
+    [className]
+  );
+
+  return React.cloneElement(socialNetworkIcons[socialNetwork], propsToUse);
 };
 
 export default SocialNetworkIcon;

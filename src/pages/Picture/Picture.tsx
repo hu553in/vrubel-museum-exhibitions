@@ -58,14 +58,8 @@ const Picture: React.FC = () => {
   }, [history, openedFrom]);
 
   const [infoPanelOpen, setInfoPanelOpen] = useState(false);
-
-  const openInfoPanel = useCallback(() => setInfoPanelOpen(true), [
-    setInfoPanelOpen,
-  ]);
-
-  const closeInfoPanel = useCallback(() => setInfoPanelOpen(false), [
-    setInfoPanelOpen,
-  ]);
+  const openInfoPanel = useCallback(() => setInfoPanelOpen(true), []);
+  const closeInfoPanel = useCallback(() => setInfoPanelOpen(false), []);
 
   const rootElement = document.getElementById('root');
   if (!rootElement) return null;

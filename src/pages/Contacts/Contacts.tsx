@@ -45,24 +45,22 @@ const mapSrc =
   '%3A021a8201199b18188b6d329f8499960f6e90190e155c7c0b3fb9e1ddf5f4598a' +
   '&amp;source=constructor';
 
-const Contacts: React.FC = () => {
-  return (
-    <main className='contacts'>
-      <p className='contacts__title'>Музей</p>
-      <section className='contacts__buildings'>
-        <Building className='contacts__building_first' {...buildings[0]!} />
-        <Building className='contacts__building_second' {...buildings[1]!} />
-        <Building className='contacts__building_third' {...buildings[2]!} />
-      </section>
-      <section className='contacts__schedule'>
-        <p className='contacts__schedule-title'>Режим работы музея:</p>
-        <p className='contacts__schedule-text'>
-          10:00-19:00 (касса до 18:00), пн — выходной
-        </p>
-      </section>
-      <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
-    </main>
-  );
-};
+const Contacts: React.FC = () => (
+  <main className='contacts'>
+    <p className='contacts__title'>Музей</p>
+    <section className='contacts__buildings'>
+      <Building className='contacts__building_first' {...buildings[0]!} />
+      <Building className='contacts__building_second' {...buildings[1]!} />
+      <Building className='contacts__building_third' {...buildings[2]!} />
+    </section>
+    <section className='contacts__schedule'>
+      <p className='contacts__schedule-title'>Режим работы музея:</p>
+      <p className='contacts__schedule-text'>
+        10:00-19:00 (касса до 18:00), пн — выходной
+      </p>
+    </section>
+    <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
+  </main>
+);
 
 export default Contacts;

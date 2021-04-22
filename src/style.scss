@@ -1,11 +1,14 @@
 @import './fonts/style.scss';
 
+html {
+  height: 100%;
+}
+
 body {
-  margin: 0;
+  height: 100%;
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
   background-color: #000;
 }
 

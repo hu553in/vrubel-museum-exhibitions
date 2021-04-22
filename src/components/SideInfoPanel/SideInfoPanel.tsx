@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { RemoveScroll } from 'react-remove-scroll';
 import './style.scss';
 
 interface Props {
@@ -27,17 +28,12 @@ const SideInfoPanel: React.FC<Props> = props => {
 
         setCollapseButtonShown(true);
       }, 250);
-
-      document.documentElement.style.overflowY = 'hidden';
-      parentElement.style.overflowY = 'hidden';
     } else {
       if (stateRef) {
         stateRef.style.removeProperty('position');
       }
 
       setCollapseButtonShown(false);
-      document.documentElement.style.removeProperty('overflow-y');
-      parentElement.style.overflowY = 'hidden';
     }
 
     return () => {
@@ -46,8 +42,6 @@ const SideInfoPanel: React.FC<Props> = props => {
       }
 
       setCollapseButtonShown(false);
-      document.documentElement.style.removeProperty('overflow-y');
-      parentElement.style.overflowY = 'hidden';
     };
   }, [open, parentElement.style, stateRef]);
 
@@ -71,11 +65,13 @@ const SideInfoPanel: React.FC<Props> = props => {
 
   return ReactDOM.createPortal(
     <>
-      <aside className={classNameToUse} ref={callbackRef}>
-        <p className='side-info-panel__header'>{header}</p>
-        <p className='side-info-panel__subheader'>{subheader}</p>
-        {paragraphElements}
-      </aside>
+      <RemoveScroll enabled={open} removeScrollBar>
+        <aside className={classNameToUse} ref={callbackRef}>
+          <p className='side-info-panel__header'>{header}</p>
+          <p className='side-info-panel__subheader'>{subheader}</p>
+          {paragraphElements}
+        </aside>
+      </RemoveScroll>
       {open && (
         <>
           {collapseButtonShown && (
