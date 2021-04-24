@@ -31,11 +31,18 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     oneHundredPercentHeight = true,
   } = props;
 
-  const [loading, setLoading] = useState(false);
-  const handleCanPlayThrough = useCallback(() => setLoading(false), []);
+  const [loading, setLoading] = useState(true);
+  const stopLoading = useCallback(() => setLoading(false), []);
+  const [error, setError] = useState(false);
+
+  const handleError = useCallback(() => {
+    setLoading(false);
+    setError(true);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
+    setError(false);
   }, []);
 
   const sourceElements = useMemo(
@@ -66,7 +73,11 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     return null;
   }
 
-  return (
+  return error ? (
+    <p className='full-size-video__error-message'>
+      Невозможно воспроизвести видео :(
+    </p>
+  ) : (
     <>
       {loading && <div className='full-size-video__full-screen-loading' />}
       <video
@@ -78,14 +89,15 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
         disablePictureInPicture
         controlsList='nodownload nofullscreen'
         preload='metadata'
-        onCanPlayThrough={handleCanPlayThrough}
+        onCanPlayThrough={stopLoading}
+        onError={handleError}
+        onPlay={stopLoading}
         style={style}
         playsInline
         ref={ref}
         loop={loop}
       >
         {sourceElements}
-        Невозможно воспроизвести видео :(
       </video>
     </>
   );
