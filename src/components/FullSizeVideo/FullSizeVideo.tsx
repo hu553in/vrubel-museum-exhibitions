@@ -4,6 +4,7 @@ import './style.scss';
 interface Source {
   src: string;
   mimeType: string;
+  mimeTypeUserReadable: string;
 }
 
 type FitMode = 'cover' | 'contain';
@@ -57,6 +58,23 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [sources]
   );
 
+  const sourceLinks = useMemo(
+    () =>
+      sources.map((source, index) => (
+        <>
+          <br key={`source-link-${index}-pre-new-line`} />
+          <a
+            key={`source-link-${index}`}
+            href={source.src}
+            className='full-size-video__video-link'
+          >
+            {source.mimeTypeUserReadable}
+          </a>
+        </>
+      )),
+    [sources]
+  );
+
   const { clientHeight: rootElementHeight } =
     document.getElementById('root') ?? {};
 
@@ -75,7 +93,8 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
 
   return error ? (
     <p className='full-size-video__error-message'>
-      Невозможно воспроизвести видео :(
+      Невозможно воспроизвести видео, но вы можете попробовать его скачать:
+      {sourceLinks}
     </p>
   ) : (
     <>

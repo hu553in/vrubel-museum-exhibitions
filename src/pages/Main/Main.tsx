@@ -10,12 +10,14 @@ import triptihWebm from './videos/triptih.webm';
 
 const triptihVideoSources = [
   {
-    src: triptihWebm,
-    mimeType: 'video/webm',
-  },
-  {
     src: triptihMp4,
     mimeType: 'video/mp4',
+    mimeTypeUserReadable: 'MP4',
+  },
+  {
+    src: triptihWebm,
+    mimeType: 'video/webm',
+    mimeTypeUserReadable: 'WebM',
   },
 ];
 
@@ -32,7 +34,7 @@ const Gallery: React.FC = () => {
     setShouldShowTriptihVideo(false);
   }, []);
 
-  const handleVideoEnd = useCallback(() => {
+  const handleVideoEnded = useCallback(() => {
     hideTriptihVideo();
     setTimeout(() => setShouldNotFadeOutTriptihAndTitle(false), 2750);
     setTimeout(() => setShouldRedirectToGallery(true), 5000);
@@ -51,7 +53,10 @@ const Gallery: React.FC = () => {
   return (
     <main className='main'>
       {shouldShowTriptihVideo ? (
-        <FullSizeVideo sources={triptihVideoSources} onEnded={handleVideoEnd} />
+        <FullSizeVideo
+          sources={triptihVideoSources}
+          onEnded={handleVideoEnded}
+        />
       ) : (
         <>
           <Triptih open={shouldNotFadeOutTriptihAndTitle} />

@@ -30,19 +30,21 @@ const Picture: React.FC = () => {
 
   const animatedSources = useMemo(() => {
     let result = [];
-    const { animatedWebm, animatedMp4 } = picture ?? {};
-
-    if (animatedWebm) {
-      result.push({
-        src: animatedWebm,
-        mimeType: 'video/webm',
-      });
-    }
+    const { animatedMp4, animatedWebm } = picture ?? {};
 
     if (animatedMp4) {
       result.push({
         src: animatedMp4,
         mimeType: 'video/mp4',
+        mimeTypeUserReadable: 'MP4',
+      });
+    }
+
+    if (animatedWebm) {
+      result.push({
+        src: animatedWebm,
+        mimeType: 'video/webm',
+        mimeTypeUserReadable: 'WebM',
       });
     }
 
