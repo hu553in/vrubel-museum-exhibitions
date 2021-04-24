@@ -1,6 +1,13 @@
 .full-size-video {
   width: 100%;
-  background-color: transparent;
+}
+
+.full-size-video__full-screen-loading {
+  position: fixed;
+  background-color: #000;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000;
   background-image: url('../../shared/images/spinner.gif');
   background-position: center;
   background-repeat: no-repeat;

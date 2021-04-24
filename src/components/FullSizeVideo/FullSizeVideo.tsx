@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import './style.scss';
 
 interface Source {
@@ -31,6 +31,13 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     oneHundredPercentHeight = true,
   } = props;
 
+  const [loading, setLoading] = useState(false);
+  const handleCanPlayThrough = useCallback(() => setLoading(false), []);
+
+  useEffect(() => {
+    setLoading(true);
+  }, []);
+
   const sourceElements = useMemo(
     () =>
       sources.map((source, index) => (
@@ -60,23 +67,27 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   }
 
   return (
-    <video
-      className='full-size-video'
-      autoPlay={autoPlay}
-      muted={autoPlay || muted}
-      onEnded={onEnded}
-      controls={controls}
-      disablePictureInPicture
-      controlsList='nodownload nofullscreen'
-      preload='metadata'
-      style={style}
-      playsInline
-      ref={ref}
-      loop={loop}
-    >
-      {sourceElements}
-      Невозможно воспроизвести видео :(
-    </video>
+    <>
+      {loading && <div className='full-size-video__full-screen-loading' />}
+      <video
+        className='full-size-video'
+        autoPlay={autoPlay}
+        muted={autoPlay || muted}
+        onEnded={onEnded}
+        controls={controls}
+        disablePictureInPicture
+        controlsList='nodownload nofullscreen'
+        preload='metadata'
+        onCanPlayThrough={handleCanPlayThrough}
+        style={style}
+        playsInline
+        ref={ref}
+        loop={loop}
+      >
+        {sourceElements}
+        Невозможно воспроизвести видео :(
+      </video>
+    </>
   );
 });
 
