@@ -1,4 +1,5 @@
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import { RemoveScroll } from 'react-remove-scroll';
 import './style.scss';
 
 interface Source {
@@ -87,6 +88,11 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [objectFit, oneHundredPercentHeight, rootElementHeight]
   );
 
+  const handleLoadedMetadataDataCanPlayEvents = useMemo(
+    () => (autoPlay ? undefined : stopLoading),
+    [autoPlay, stopLoading]
+  );
+
   if (sourceElements.length === 0) {
     return null;
   }
@@ -98,7 +104,13 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     </p>
   ) : (
     <>
-      {loading && <div className='full-size-video__full-screen-loading' />}
+      {loading && (
+        <RemoveScroll
+          className='full-size-video__full-screen-loading'
+          removeScrollBar
+          children={null}
+        />
+      )}
       <video
         className='full-size-video'
         autoPlay={autoPlay}
@@ -108,6 +120,9 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
         disablePictureInPicture
         controlsList='nodownload nofullscreen'
         preload='metadata'
+        onLoadedMetadata={handleLoadedMetadataDataCanPlayEvents}
+        onLoadedData={handleLoadedMetadataDataCanPlayEvents}
+        onCanPlay={handleLoadedMetadataDataCanPlayEvents}
         onCanPlayThrough={stopLoading}
         onError={handleError}
         onPlay={stopLoading}

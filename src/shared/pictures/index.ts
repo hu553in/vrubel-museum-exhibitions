@@ -1,5 +1,5 @@
-import triptihMp4 from '../../pages/Main/videos/triptih.mp4';
-import triptihWebm from '../../pages/Main/videos/triptih.webm';
+import burjaNaChernomMoreAnimatedMp4 from './burja-na-chernom-more/animated.mp4';
+import burjaNaChernomMoreAnimatedWebm from './burja-na-chernom-more/animated.webm';
 import burjaNaChernomMorePreview from './burja-na-chernom-more/preview.webp';
 import danajaPreview from './danaja/preview.webp';
 import elochnyjTorgPreview from './elochnyj-torg/preview.webp';
@@ -48,8 +48,8 @@ const pictures = [
       asperiores repellat.`,
     ],
     preview: burjaNaChernomMorePreview,
-    animatedMp4: triptihMp4,
-    animatedWebm: triptihWebm,
+    animatedMp4: burjaNaChernomMoreAnimatedMp4,
+    animatedWebm: burjaNaChernomMoreAnimatedWebm,
   },
   {
     id: 'danaja',
@@ -92,8 +92,8 @@ const pictures = [
       asperiores repellat.`,
     ],
     preview: danajaPreview,
-    animatedMp4: triptihMp4,
-    animatedWebm: triptihWebm,
+    animatedMp4: burjaNaChernomMoreAnimatedMp4,
+    animatedWebm: burjaNaChernomMoreAnimatedWebm,
   },
   {
     id: 'elochnyj-torg',
@@ -135,8 +135,8 @@ const pictures = [
       asperiores repellat.`,
     ],
     preview: elochnyjTorgPreview,
-    animatedMp4: triptihMp4,
-    animatedWebm: triptihWebm,
+    animatedMp4: burjaNaChernomMoreAnimatedMp4,
+    animatedWebm: burjaNaChernomMoreAnimatedWebm,
   },
   {
     id: 'trojka-zimoj',
@@ -178,8 +178,8 @@ const pictures = [
       asperiores repellat.`,
     ],
     preview: trojkaZimojPreview,
-    animatedMp4: triptihMp4,
-    animatedWebm: triptihWebm,
+    animatedMp4: burjaNaChernomMoreAnimatedMp4,
+    animatedWebm: burjaNaChernomMoreAnimatedWebm,
   },
   {
     id: 'vozvrashhenie-s-lovli-mulej',
@@ -221,8 +221,8 @@ const pictures = [
       asperiores repellat.`,
     ],
     preview: vozvrashhenieSLovliMulejPreview,
-    animatedMp4: triptihMp4,
-    animatedWebm: triptihWebm,
+    animatedMp4: burjaNaChernomMoreAnimatedMp4,
+    animatedWebm: burjaNaChernomMoreAnimatedWebm,
   },
   {
     id: 'zheny-izdali-smotrjashhie-na-golgofu',
@@ -264,8 +264,8 @@ const pictures = [
       asperiores repellat.`,
     ],
     preview: zhenyIzdaliSmotrjashhieNaGolgofuPreview,
-    animatedMp4: triptihMp4,
-    animatedWebm: triptihWebm,
+    animatedMp4: burjaNaChernomMoreAnimatedMp4,
+    animatedWebm: burjaNaChernomMoreAnimatedWebm,
   },
 ];
 
