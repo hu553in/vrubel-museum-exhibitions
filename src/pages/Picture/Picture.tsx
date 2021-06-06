@@ -1,12 +1,26 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import Magnifier from 'react-magnifier';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
+import Sound from 'react-sound';
 import FullSizeVideo from '../../components/FullSizeVideo/FullSizeVideo';
 import logo from '../../components/Header/images/logo.svg';
 import SideInfoPanel from '../../components/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '../../constants';
+import useForceUpdate from '../../hooks/useForceUpdate';
+import useUpdateOnResize from '../../hooks/useUpdateOnResize';
 import pictures from '../../shared/pictures';
+import calculateImageSizeByContainerAndNaturalSizes from '../../utils/calculateImageSizeByContainerAndNaturalSizes';
 import './style.scss';
+
+const pause =
+  `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' ` +
+  `xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; ` +
+  `stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; ` +
+  `stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M17.991 40.976a6.631 ` +
+  `6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0zm24.886 0a6.631 6.631 0 0 ` +
+  `1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0z' style='fill: %23fff;' transform='matrix` +
+  `(.7772 0 0 .7772 21.5 21.5)'/%3E%3C/svg%3E%0A"`;
 
 const videoCallbackRef = (node: HTMLVideoElement) => node && node.focus();
 
@@ -18,6 +32,8 @@ const Picture: React.FC = () => {
   const { id } = useParams<Params>();
   const history = useHistory();
   const location = useLocation();
+  useUpdateOnResize();
+  const forceUpdate = useForceUpdate();
 
   const openedFrom = useMemo(
     () => new URLSearchParams(location.search).get('from'),
@@ -51,6 +67,60 @@ const Picture: React.FC = () => {
     return result;
   }, [picture]);
 
+  const [playingSoundIndex, setPlayingSoundIndex] = useState(-1);
+
+  const soundElements = useMemo(() => {
+    let result: React.ReactNode[] = [];
+    const pictureSounds = picture?.sounds ?? [];
+
+    if (pictureSounds.length === 0) {
+      return null;
+    }
+
+    pictureSounds.forEach((item, index) =>
+      result.push(
+        <Sound
+          key={`sound-${index}`}
+          url={item.mp3}
+          playStatus={playingSoundIndex === index ? 'PLAYING' : 'STOPPED'}
+          volume={100}
+          loop
+        />
+      )
+    );
+
+    return result;
+  }, [playingSoundIndex, picture?.sounds]);
+
+  const soundButtonsElement = useMemo(() => {
+    let result: React.ReactNode[] = [];
+    const pictureSounds = picture?.sounds ?? [];
+
+    if (pictureSounds.length === 0) {
+      return null;
+    }
+
+    pictureSounds.forEach((item, index) => {
+      const playingSound = playingSoundIndex === index;
+
+      result.push(
+        <button
+          key={`sound-button-${index}`}
+          aria-label={item.name}
+          className='picture__sound-button'
+          style={{
+            backgroundImage: `url(${playingSound ? pause : item.icon})`,
+          }}
+          onClick={() =>
+            setPlayingSoundIndex(playingSoundIndex === index ? -1 : index)
+          }
+        />
+      );
+    });
+
+    return <section className='picture__sound-buttons'>{result}</section>;
+  }, [playingSoundIndex, picture?.sounds]);
+
   const handleReturnClick = useCallback(() => {
     if (openedFrom) {
       history.push(openedFrom);
@@ -63,41 +133,132 @@ const Picture: React.FC = () => {
   const openInfoPanel = useCallback(() => setInfoPanelOpen(true), []);
   const closeInfoPanel = useCallback(() => setInfoPanelOpen(false), []);
 
+  const [pictureStateRef, setPictureStateRef] = useState<HTMLElement | null>(
+    null
+  );
+
+  const [magnifierStateRef, setMagnifierStateRef] = useState<
+    | (HTMLElement & {
+        img: HTMLImageElement;
+      })
+    | null
+  >(null);
+
+  const magnifierCallbackRef = useCallback(
+    node => setMagnifierStateRef(node),
+    []
+  );
+
+  const pictureCallbackRef = useCallback(node => setPictureStateRef(node), []);
+
+  const { clientWidth, clientHeight } = pictureStateRef ?? {
+    clientWidth: 0,
+    clientHeight: 0,
+  };
+
+  const {
+    naturalWidth: magnifierNaturalWidth,
+    naturalHeight: magnifierNaturalHeight,
+  } = magnifierStateRef?.img ?? {
+    naturalWidth: 0,
+    naturalHeight: 0,
+  };
+
+  const { width: magnifierWidth, height: magnifierHeight } = useMemo(
+    () =>
+      !clientWidth ||
+      !clientHeight ||
+      !magnifierNaturalWidth ||
+      !magnifierNaturalHeight
+        ? { width: 0, height: 0 }
+        : calculateImageSizeByContainerAndNaturalSizes(
+            clientWidth,
+            clientHeight,
+            magnifierNaturalWidth,
+            magnifierNaturalHeight
+          ),
+    [clientHeight, clientWidth, magnifierNaturalHeight, magnifierNaturalWidth]
+  );
+
+  useEffect(() => {
+    magnifierStateRef?.img?.addEventListener('load', forceUpdate);
+
+    return () =>
+      magnifierStateRef?.img?.removeEventListener('load', forceUpdate);
+  }, [forceUpdate, magnifierStateRef?.img]);
+
+  const magnifierElement = useMemo(
+    () =>
+      picture?.magnifier ? (
+        <Magnifier
+          className='picture__magnifier'
+          src={picture.magnifier}
+          mgWidth={200}
+          mgHeight={200}
+          mgTouchOffsetX={0}
+          mgTouchOffsetY={0}
+          mgShowOverflow={false}
+          ref={magnifierCallbackRef}
+          width={magnifierWidth}
+          height={magnifierHeight}
+          // @ts-ignore
+          style={{
+            width: `${magnifierWidth}px`,
+            height: `${magnifierHeight}px`,
+          }}
+          // @ts-ignore
+          alt={picture.name}
+        />
+      ) : null,
+    [
+      picture?.magnifier,
+      picture?.name,
+      magnifierCallbackRef,
+      magnifierWidth,
+      magnifierHeight,
+    ]
+  );
+
   const rootElement = document.getElementById('root');
   if (!rootElement) return null;
 
-  if (!picture || animatedSources.length === 0) {
+  if (!picture || (animatedSources.length === 0 && !magnifierElement)) {
     return <Redirect to={ROUTES.DEFAULT} />;
   }
 
   return (
-    <main className='picture'>
+    <main className='picture' ref={pictureCallbackRef}>
       <header className='picture__header'>
         <NavLink to={ROUTES.DEFAULT} className='picture__homepage-link'>
           <img className='picture__logo' src={logo} alt='Логотип музея' />
         </NavLink>
-        <section className='picture__buttons'>
+        {soundButtonsElement}
+        <section className='picture__control-buttons'>
           <button
             aria-label='Вернуться назад'
-            className='picture__return-button'
+            className='picture__control-button picture__control-button_return'
             onClick={handleReturnClick}
           />
           <button
             aria-label='Информация о картине'
-            className='picture__info-button'
+            className='picture__control-button picture__control-button_info'
             onClick={openInfoPanel}
           />
         </section>
       </header>
-      <FullSizeVideo
-        sources={animatedSources}
-        controls
-        autoPlay={false}
-        objectFit='contain'
-        ref={videoCallbackRef}
-        loop
-        oneHundredPercentHeight={false}
-      />
+      {soundElements}
+      {magnifierElement}
+      {animatedSources.length > 0 && (
+        <FullSizeVideo
+          sources={animatedSources}
+          controls
+          autoPlay={false}
+          objectFit='contain'
+          ref={videoCallbackRef}
+          loop
+          oneHundredPercentHeight={false}
+        />
+      )}
       <SideInfoPanel
         open={infoPanelOpen}
         onClose={closeInfoPanel}

@@ -1,7 +1,8 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
+import useForceUpdate from './useForceUpdate';
 
 const useUpdateOnResize = () => {
-  const forceUpdate = useReducer(val => !val, false)[1];
+  const forceUpdate = useForceUpdate();
 
   useEffect(() => {
     window.addEventListener('resize', forceUpdate);

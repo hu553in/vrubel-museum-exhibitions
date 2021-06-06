@@ -1,6 +1,8 @@
 import 'normalize.css';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+// @ts-ignore
+import { soundManager } from 'soundmanager2';
 import { ROUTES } from './constants';
 import HeaderFooterLayout from './layouts/HeaderFooter/HeaderFooterLayout';
 import About from './pages/About/About';
@@ -10,6 +12,8 @@ import Gallery from './pages/Gallery/Gallery';
 import Main from './pages/Main/Main';
 import Picture from './pages/Picture/Picture';
 import './style.scss';
+
+soundManager.setup({ debugMode: false });
 
 ReactDOM.render(
   <BrowserRouter>

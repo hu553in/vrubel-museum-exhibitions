@@ -46,7 +46,7 @@
   }
 }
 
-.picture__buttons {
+.picture__control-buttons {
   margin-right: 45px;
 
   @media (max-width: 1250px) {
@@ -54,8 +54,8 @@
   }
 }
 
-.picture__return-button,
-.picture__info-button {
+.picture__control-button,
+.picture__sound-button {
   cursor: pointer;
   border: 0;
   width: 45px;
@@ -65,6 +65,11 @@
   background-position: center;
   background-repeat: no-repeat;
   opacity: 0.7;
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   @media (hover: hover) {
     &:hover {
@@ -76,18 +81,21 @@
     width: 35px;
     height: 35px;
     background-size: 35px 35px;
-  }
-}
-
-.picture__return-button {
-  background-image: url('./images/return.svg');
-  margin-right: 20px;
-
-  @media (max-width: 1250px) {
     margin-right: 15px;
   }
+
+  @media (max-width: 450px) {
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    margin-right: 10px;
+  }
 }
 
-.picture__info-button {
+.picture__control-button_return {
+  background-image: url('./images/return.svg');
+}
+
+.picture__control-button_info {
   background-image: url('./images/info.svg');
 }
