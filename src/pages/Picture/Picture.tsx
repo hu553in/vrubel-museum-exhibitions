@@ -180,19 +180,31 @@ const Picture: React.FC = () => {
     [clientHeight, clientWidth, magnifierNaturalHeight, magnifierNaturalWidth]
   );
 
-  useEffect(() => {
-    magnifierStateRef?.img?.addEventListener('load', forceUpdate);
+  const magnifierPresent = useMemo(() => !!picture?.magnifier, [
+    picture?.magnifier,
+  ]);
 
-    return () =>
-      magnifierStateRef?.img?.removeEventListener('load', forceUpdate);
+  const [magnifierLoading, setMagnifierLoading] = useState(magnifierPresent);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setMagnifierLoading(magnifierPresent), []);
+
+  useEffect(() => {
+    const handler = () => {
+      forceUpdate();
+      setMagnifierLoading(false);
+    };
+
+    magnifierStateRef?.img?.addEventListener('load', handler);
+    return () => magnifierStateRef?.img?.removeEventListener('load', handler);
   }, [forceUpdate, magnifierStateRef?.img]);
 
   const magnifierElement = useMemo(
     () =>
-      picture?.magnifier ? (
+      magnifierPresent ? (
         <Magnifier
           className='picture__magnifier'
-          src={picture.magnifier}
+          src={picture!.magnifier!}
           mgWidth={200}
           mgHeight={200}
           mgTouchOffsetX={0}
@@ -211,8 +223,8 @@ const Picture: React.FC = () => {
         />
       ) : null,
     [
-      picture?.magnifier,
-      picture?.name,
+      magnifierPresent,
+      picture,
       magnifierCallbackRef,
       magnifierWidth,
       magnifierHeight,
@@ -247,6 +259,7 @@ const Picture: React.FC = () => {
         </section>
       </header>
       {soundElements}
+      {magnifierLoading && <div className='picture__magnifier-loading' />}
       {magnifierElement}
       {animatedSources.length > 0 && (
         <FullSizeVideo

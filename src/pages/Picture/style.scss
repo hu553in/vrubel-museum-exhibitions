@@ -99,3 +99,13 @@
 .picture__control-button_info {
   background-image: url('./images/info.svg');
 }
+
+.picture__magnifier-loading {
+  position: absolute;
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../shared/images/spinner.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+}
