@@ -1,5 +1,12 @@
-import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
+import {
+  CSSProperties,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import ReactDOM from 'react-dom';
 import './style.scss';
 
 interface Source {
@@ -19,6 +26,7 @@ interface Props {
   objectFit?: FitMode;
   loop?: boolean;
   oneHundredPercentHeight?: boolean;
+  style?: CSSProperties;
 }
 
 const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
@@ -31,6 +39,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     objectFit = 'cover',
     loop = false,
     oneHundredPercentHeight = true,
+    style,
   } = props;
 
   const [loading, setLoading] = useState(true);
@@ -79,13 +88,14 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   const { clientHeight: rootElementHeight } =
     document.getElementById('root') ?? {};
 
-  const style = useMemo(
+  const styleToUse = useMemo(
     () => ({
       objectFit,
       maxHeight: rootElementHeight,
       ...(oneHundredPercentHeight && { height: '100%' }),
+      ...style,
     }),
-    [objectFit, oneHundredPercentHeight, rootElementHeight]
+    [objectFit, oneHundredPercentHeight, rootElementHeight, style]
   );
 
   const handleLoadedMetadataDataCanPlayEvents = useMemo(
@@ -97,6 +107,9 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     return null;
   }
 
+  const rootElement = document.getElementById('root');
+  if (!rootElement) return null;
+
   return error ? (
     <p className='full-size-video__error-message'>
       Невозможно воспроизвести видео, но вы можете попробовать его скачать:
@@ -104,13 +117,11 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     </p>
   ) : (
     <>
-      {loading && (
-        <RemoveScroll
-          className='full-size-video__full-screen-loading'
-          removeScrollBar
-          children={null}
-        />
-      )}
+      {loading &&
+        ReactDOM.createPortal(
+          <div className='full-size-video__loading' />,
+          rootElement
+        )}
       <video
         className='full-size-video'
         autoPlay={autoPlay}
@@ -126,7 +137,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
         onCanPlayThrough={stopLoading}
         onError={handleError}
         onPlay={stopLoading}
-        style={style}
+        style={styleToUse}
         playsInline
         ref={ref}
         loop={loop}

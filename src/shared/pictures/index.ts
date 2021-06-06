@@ -21,6 +21,12 @@ import elochnyjTorgMusicMp3 from './elochnyj-torg/sounds/music/music.mp3';
 import trojkaZimojPreview from './trojka-zimoj/preview.webp';
 import vozvrashhenieSLovliMulejPreview from './vozvrashhenie-s-lovli-mulej/preview.webp';
 import zhenyIzdaliSmotrjashhieNaGolgofuPreview from './zheny-izdali-smotrjashhie-na-golgofu/preview.webp';
+import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoSkyMp4 from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/sky/sky.mp4';
+import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoSkyWebm from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/sky/sky.webm';
+import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoMenMp4 from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/men/men.mp4';
+import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoMenWebm from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/men/men.webm';
+import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoWomenMp4 from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/women/women.mp4';
+import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoWomenWebm from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/women/women.webm';
 
 const pictures = [
   {
@@ -196,6 +202,35 @@ const pictures = [
       отца, среди которых находилась картина «Жёны, издали смотрящие на Голгофу».`,
     ],
     preview: zhenyIzdaliSmotrjashhieNaGolgofuPreview,
+    imageHotspots: [
+      {
+        name: 'Небо',
+        positionPercentage: {
+          x: 243 / 814,
+          y: 178 / 582,
+        },
+        mp4: zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoSkyMp4,
+        webm: zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoSkyWebm,
+      },
+      {
+        name: 'Мужчины',
+        positionPercentage: {
+          x: 128 / 814,
+          y: 353 / 582,
+        },
+        mp4: zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoMenMp4,
+        webm: zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoMenWebm,
+      },
+      {
+        name: 'Женщины',
+        positionPercentage: {
+          x: 541 / 814,
+          y: 359 / 582,
+        },
+        mp4: zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoWomenMp4,
+        webm: zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoWomenWebm,
+      },
+    ],
   },
 ];
 

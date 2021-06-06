@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import Magnifier from 'react-magnifier';
+import React, { useCallback, useMemo, useState } from 'react';
+import Modal, { Styles } from 'react-modal';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import Sound from 'react-sound';
 import FullSizeVideo from '../../components/FullSizeVideo/FullSizeVideo';
 import logo from '../../components/Header/images/logo.svg';
+import ImageHotspots from '../../components/ImageHotspots/ImageHotspots';
+import Magnifier from '../../components/Magnifier/Magnifier';
 import SideInfoPanel from '../../components/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '../../constants';
-import useForceUpdate from '../../hooks/useForceUpdate';
 import useUpdateOnResize from '../../hooks/useUpdateOnResize';
 import pictures from '../../shared/pictures';
-import calculateImageSizeByContainerAndNaturalSizes from '../../utils/calculateImageSizeByContainerAndNaturalSizes';
 import './style.scss';
 
 const pause =
@@ -24,8 +24,37 @@ const pause =
 
 const videoCallbackRef = (node: HTMLVideoElement) => node && node.focus();
 
+const imageHotspotVideoStyle = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 2,
+    position: 'absolute',
+  },
+  content: {
+    backgroundColor: '#000',
+    overflow: 'hidden',
+    top: '30px',
+    left: '30px',
+    width: 'calc(100% - 100px)',
+    height: 'calc(100% - 100px)',
+    borderRadius: 0,
+    borderColor: '#d2d2d2',
+    minWidth: '260px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+} as Styles;
+
 interface Params {
   id: string;
+}
+
+interface VideoSource {
+  src: string;
+  mimeType: string;
+  mimeTypeUserReadable: string;
 }
 
 const Picture: React.FC = () => {
@@ -33,7 +62,6 @@ const Picture: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
   useUpdateOnResize();
-  const forceUpdate = useForceUpdate();
 
   const openedFrom = useMemo(
     () => new URLSearchParams(location.search).get('from'),
@@ -44,8 +72,18 @@ const Picture: React.FC = () => {
     id,
   ]);
 
+  const {
+    preview,
+    name,
+    imageHotspots,
+    descriptionParagraphs,
+    authorAndYear,
+    sounds,
+    magnifier,
+  } = picture ?? {};
+
   const animatedSources = useMemo(() => {
-    let result = [];
+    let result: VideoSource[] = [];
     const { animatedMp4, animatedWebm } = picture ?? {};
 
     if (animatedMp4) {
@@ -71,7 +109,7 @@ const Picture: React.FC = () => {
 
   const soundElements = useMemo(() => {
     let result: React.ReactNode[] = [];
-    const pictureSounds = picture?.sounds ?? [];
+    const pictureSounds = sounds ?? [];
 
     if (pictureSounds.length === 0) {
       return null;
@@ -90,11 +128,11 @@ const Picture: React.FC = () => {
     );
 
     return result;
-  }, [playingSoundIndex, picture?.sounds]);
+  }, [playingSoundIndex, sounds]);
 
   const soundButtonsElement = useMemo(() => {
     let result: React.ReactNode[] = [];
-    const pictureSounds = picture?.sounds ?? [];
+    const pictureSounds = sounds ?? [];
 
     if (pictureSounds.length === 0) {
       return null;
@@ -119,7 +157,7 @@ const Picture: React.FC = () => {
     });
 
     return <section className='picture__sound-buttons'>{result}</section>;
-  }, [playingSoundIndex, picture?.sounds]);
+  }, [playingSoundIndex, sounds]);
 
   const handleReturnClick = useCallback(() => {
     if (openedFrom) {
@@ -137,109 +175,105 @@ const Picture: React.FC = () => {
     null
   );
 
-  const [magnifierStateRef, setMagnifierStateRef] = useState<
-    | (HTMLElement & {
-        img: HTMLImageElement;
-      })
-    | null
-  >(null);
-
-  const magnifierCallbackRef = useCallback(
-    node => setMagnifierStateRef(node),
-    []
-  );
-
   const pictureCallbackRef = useCallback(node => setPictureStateRef(node), []);
+  const magnifierPresent = useMemo(() => name && magnifier, [magnifier, name]);
 
-  const { clientWidth, clientHeight } = pictureStateRef ?? {
-    clientWidth: 0,
-    clientHeight: 0,
-  };
-
-  const {
-    naturalWidth: magnifierNaturalWidth,
-    naturalHeight: magnifierNaturalHeight,
-  } = magnifierStateRef?.img ?? {
-    naturalWidth: 0,
-    naturalHeight: 0,
-  };
-
-  const { width: magnifierWidth, height: magnifierHeight } = useMemo(
-    () =>
-      !clientWidth ||
-      !clientHeight ||
-      !magnifierNaturalWidth ||
-      !magnifierNaturalHeight
-        ? { width: 0, height: 0 }
-        : calculateImageSizeByContainerAndNaturalSizes(
-            clientWidth,
-            clientHeight,
-            magnifierNaturalWidth,
-            magnifierNaturalHeight
-          ),
-    [clientHeight, clientWidth, magnifierNaturalHeight, magnifierNaturalWidth]
-  );
-
-  const magnifierPresent = useMemo(() => !!picture?.magnifier, [
-    picture?.magnifier,
+  const animatedVideosPresent = useMemo(() => animatedSources.length > 0, [
+    animatedSources.length,
   ]);
 
-  const [magnifierLoading, setMagnifierLoading] = useState(magnifierPresent);
+  const imageHotspotsPresent = useMemo(
+    () => preview && name && imageHotspots && imageHotspots.length > 0,
+    [imageHotspots, name, preview]
+  );
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setMagnifierLoading(magnifierPresent), []);
+  const openImageHotspotVideo = useCallback(imageHotspot => {
+    let result = [];
+    const { mp4, webm } = imageHotspot ?? {};
 
-  useEffect(() => {
-    const handler = () => {
-      forceUpdate();
-      setMagnifierLoading(false);
-    };
+    if (mp4) {
+      result.push({
+        src: mp4,
+        mimeType: 'video/mp4',
+        mimeTypeUserReadable: 'MP4',
+      });
+    }
 
-    magnifierStateRef?.img?.addEventListener('load', handler);
-    return () => magnifierStateRef?.img?.removeEventListener('load', handler);
-  }, [forceUpdate, magnifierStateRef?.img]);
+    if (webm) {
+      result.push({
+        src: webm,
+        mimeType: 'video/webm',
+        mimeTypeUserReadable: 'WebM',
+      });
+    }
 
-  const magnifierElement = useMemo(
+    setPlayingImageHotspotVideoSources(result);
+  }, []);
+
+  const closeImageHotspotVideo = useCallback(() => {
+    setPlayingImageHotspotVideoSources(undefined);
+  }, []);
+
+  const [
+    playingImageHotspotVideoSources,
+    setPlayingImageHotspotVideoSources,
+  ] = useState<VideoSource[] | undefined>();
+
+  const playingImageHotspotVideoPresent = useMemo(
     () =>
-      magnifierPresent ? (
-        <Magnifier
-          className='picture__magnifier'
-          src={picture!.magnifier!}
-          mgWidth={200}
-          mgHeight={200}
-          mgTouchOffsetX={0}
-          mgTouchOffsetY={0}
-          mgShowOverflow={false}
-          ref={magnifierCallbackRef}
-          width={magnifierWidth}
-          height={magnifierHeight}
-          // @ts-ignore
-          style={{
-            width: `${magnifierWidth}px`,
-            height: `${magnifierHeight}px`,
-          }}
-          // @ts-ignore
-          alt={picture.name}
-        />
-      ) : null,
+      playingImageHotspotVideoSources &&
+      playingImageHotspotVideoSources.length > 0,
+    [playingImageHotspotVideoSources]
+  );
+
+  const modifiedImageHotspots = useMemo(
+    () =>
+      imageHotspotsPresent
+        ? imageHotspots!.map(imageHotspot => ({
+            x: imageHotspot.positionPercentage.x * 100,
+            y: imageHotspot.positionPercentage.y * 100,
+            content: (
+              <button
+                aria-label={imageHotspot.name}
+                className='picture__image-hotspot-button'
+                onClick={() => openImageHotspotVideo(imageHotspot)}
+              />
+            ),
+          }))
+        : null,
+    [imageHotspots, imageHotspotsPresent, openImageHotspotVideo]
+  );
+
+  const picturePresent = useMemo(
+    () =>
+      picture &&
+      preview &&
+      name &&
+      authorAndYear &&
+      descriptionParagraphs &&
+      (animatedVideosPresent || magnifierPresent || imageHotspotsPresent),
     [
+      animatedVideosPresent,
+      authorAndYear,
+      descriptionParagraphs,
+      imageHotspotsPresent,
       magnifierPresent,
+      name,
       picture,
-      magnifierCallbackRef,
-      magnifierWidth,
-      magnifierHeight,
+      preview,
     ]
   );
 
   const rootElement = document.getElementById('root');
   if (!rootElement) return null;
 
-  if (!picture || (animatedSources.length === 0 && !magnifierElement)) {
+  if (!picturePresent) {
     return <Redirect to={ROUTES.DEFAULT} />;
   }
 
   return (
     <main className='picture' ref={pictureCallbackRef}>
+      {soundElements}
       <header className='picture__header'>
         <NavLink to={ROUTES.DEFAULT} className='picture__homepage-link'>
           <img className='picture__logo' src={logo} alt='Логотип музея' />
@@ -258,26 +292,54 @@ const Picture: React.FC = () => {
           />
         </section>
       </header>
-      {soundElements}
-      {magnifierLoading && <div className='picture__magnifier-loading' />}
-      {magnifierElement}
-      {animatedSources.length > 0 && (
+      {animatedVideosPresent && (
         <FullSizeVideo
           sources={animatedSources}
-          controls
-          autoPlay={false}
           objectFit='contain'
           ref={videoCallbackRef}
           loop
-          oneHundredPercentHeight={false}
         />
+      )}
+      {magnifierPresent && (
+        <Magnifier
+          parentElement={pictureStateRef}
+          name={name!}
+          magnifier={magnifier!}
+        />
+      )}
+      {imageHotspotsPresent && (
+        <ImageHotspots
+          parentElement={pictureStateRef}
+          src={preview!}
+          alt={name!}
+          imageHotspots={modifiedImageHotspots!}
+        />
+      )}
+      {playingImageHotspotVideoPresent && (
+        <Modal
+          isOpen={true}
+          onRequestClose={closeImageHotspotVideo}
+          style={imageHotspotVideoStyle}
+          appElement={rootElement}
+        >
+          <button
+            aria-label='Закрыть видео'
+            className='picture__image-hotspot-video-close-button'
+            onClick={closeImageHotspotVideo}
+          />
+          <FullSizeVideo
+            sources={playingImageHotspotVideoSources}
+            objectFit='contain'
+            loop
+          />
+        </Modal>
       )}
       <SideInfoPanel
         open={infoPanelOpen}
         onClose={closeInfoPanel}
-        header={picture.name}
-        subheader={picture.authorAndYear}
-        paragraphs={picture.descriptionParagraphs}
+        header={name!}
+        subheader={authorAndYear!}
+        paragraphs={descriptionParagraphs!}
         parentElement={rootElement}
       />
     </main>

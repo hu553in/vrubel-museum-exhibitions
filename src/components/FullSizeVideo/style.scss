@@ -2,11 +2,11 @@
   width: 100%;
 }
 
-.full-size-video__full-screen-loading {
+.full-size-video__loading {
   position: absolute;
   background-color: #000;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: 100000;
   background-image: url('../../shared/images/spinner.gif');
   background-position: center;
@@ -14,7 +14,9 @@
 }
 
 .full-size-video__error-message {
-  width: 330px;
+  width: 100%;
+  max-width: 330px;
+  min-width: 200px;
   text-align: center;
   color: #fff;
   line-height: 24px;
