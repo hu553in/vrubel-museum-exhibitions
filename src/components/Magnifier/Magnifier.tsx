@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import ReactDOM from 'react-dom';
 import ExternalMagnifier from 'react-magnifier';
 import useForceUpdate from '../../hooks/useForceUpdate';
 import calculateImageSizeByContainerAndNaturalSizes from '../../utils/calculateImageSizeByContainerAndNaturalSizes';
-import './style.scss';
+import Loading from '../Loading/Loading';
 
 interface Props {
   parentElement: HTMLElement | null;
@@ -18,16 +17,8 @@ type MagnifierStateRef = HTMLElement & {
 const Magnifier: React.FC<Props> = props => {
   const { name, magnifier, parentElement } = props;
   const forceUpdate = useForceUpdate();
-
-  const [
-    magnifierStateRef,
-    setMagnifierStateRef,
-  ] = useState<MagnifierStateRef | null>(null);
-
-  const magnifierCallbackRef = useCallback(
-    node => setMagnifierStateRef(node),
-    []
-  );
+  const [stateRef, setStateRef] = useState<MagnifierStateRef | null>(null);
+  const callbackRef = useCallback(node => setStateRef(node), []);
 
   const {
     clientWidth: parentWidth,
@@ -37,51 +28,50 @@ const Magnifier: React.FC<Props> = props => {
     clientHeight: 0,
   };
 
-  const {
-    naturalWidth: magnifierNaturalWidth,
-    naturalHeight: magnifierNaturalHeight,
-  } = magnifierStateRef?.img ?? {
+  const { naturalWidth, naturalHeight } = stateRef?.img ?? {
     naturalWidth: 0,
     naturalHeight: 0,
   };
 
-  const magnifierSize = useMemo(
+  const size = useMemo(
     () =>
-      !parentWidth ||
-      !parentHeight ||
-      !magnifierNaturalWidth ||
-      !magnifierNaturalHeight
+      !parentWidth || !parentHeight || !naturalWidth || !naturalHeight
         ? { width: 0, height: 0 }
         : calculateImageSizeByContainerAndNaturalSizes(
             parentWidth,
             parentHeight,
-            magnifierNaturalWidth,
-            magnifierNaturalHeight
+            naturalWidth,
+            naturalHeight
           ),
-    [parentHeight, parentWidth, magnifierNaturalHeight, magnifierNaturalWidth]
+    [parentHeight, parentWidth, naturalHeight, naturalWidth]
   );
 
   const magnifierPresent = useMemo(() => !!magnifier, [magnifier]);
-  const [magnifierLoading, setMagnifierLoading] = useState(magnifierPresent);
+  const [loading, setLoading] = useState(magnifierPresent);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setMagnifierLoading(magnifierPresent), []);
+  useEffect(() => setLoading(magnifierPresent), []);
 
   useEffect(() => {
     const onImageLoad = () => {
       forceUpdate();
-      setMagnifierLoading(false);
+      setLoading(false);
     };
 
-    magnifierStateRef?.img?.addEventListener('load', onImageLoad);
+    stateRef?.img?.addEventListener('load', onImageLoad);
+    return () => stateRef?.img?.removeEventListener('load', onImageLoad);
+  }, [forceUpdate, stateRef?.img]);
 
-    return () =>
-      magnifierStateRef?.img?.removeEventListener('load', onImageLoad);
-  }, [forceUpdate, magnifierStateRef?.img]);
+  const rootElement = document.getElementById('root');
 
-  const magnifierElement = useMemo(
-    () =>
-      magnifierPresent ? (
+  if (!rootElement) {
+    return null;
+  }
+
+  return (
+    <>
+      {loading && <Loading />}
+      {magnifierPresent && (
         <ExternalMagnifier
           src={magnifier!}
           mgWidth={200}
@@ -89,28 +79,14 @@ const Magnifier: React.FC<Props> = props => {
           mgTouchOffsetX={0}
           mgTouchOffsetY={0}
           mgShowOverflow={false}
-          ref={magnifierCallbackRef}
-          {...magnifierSize}
+          ref={callbackRef}
+          {...size}
           // @ts-ignore
-          style={magnifierSize}
+          style={size}
           // @ts-ignore
           alt={name}
         />
-      ) : null,
-    [magnifierPresent, magnifier, magnifierCallbackRef, magnifierSize, name]
-  );
-
-  const rootElement = document.getElementById('root');
-  if (!rootElement) return null;
-
-  return (
-    <>
-      {magnifierLoading &&
-        ReactDOM.createPortal(
-          <div className='magnifier__loading' />,
-          rootElement
-        )}
-      {magnifierElement}
+      )}
     </>
   );
 };

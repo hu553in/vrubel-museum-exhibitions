@@ -4,6 +4,7 @@ import './style.scss';
 
 interface Props {
   logo: string;
+  onLogoLoad: () => unknown;
   name: string;
   address: string;
   busStops: string[];
@@ -12,7 +13,15 @@ interface Props {
 }
 
 const Building: React.FC<Props> = props => {
-  const { logo, name, address, busStops, contacts, className = '' } = props;
+  const {
+    logo,
+    onLogoLoad,
+    name,
+    address,
+    busStops,
+    contacts,
+    className = '',
+  } = props;
 
   const busStopElements = useMemo(
     () =>
@@ -44,7 +53,12 @@ const Building: React.FC<Props> = props => {
 
   return (
     <div className={classNameToUse}>
-      <img className='building__logo' src={logo} alt='Логотип строения' />
+      <img
+        className='building__logo'
+        src={logo}
+        alt='Логотип строения'
+        onLoad={onLogoLoad}
+      />
       <p className='building__name'>{name}</p>
       <div>
         <p className='building__address-label'>Адрес:</p>

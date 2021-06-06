@@ -61,6 +61,7 @@
 
 .picture__control-button,
 .picture__sound-button,
+.picture__animated-variation-button,
 .picture__image-hotspot-button,
 .picture__image-hotspot-video-close-button {
   cursor: pointer;
@@ -79,6 +80,7 @@
 
 .picture__control-button,
 .picture__sound-button,
+.picture__animated-variation-button,
 .picture__image-hotspot-button {
   width: 45px;
   height: 45px;
@@ -98,20 +100,34 @@
 }
 
 .picture__control-button,
-.picture__sound-button {
+.picture__sound-button,
+.picture__animated-variation-button {
   background-color: transparent;
   margin-right: 20px;
-
-  &:last-child {
-    margin-right: 0;
-  }
 
   @media (max-width: 1250px) {
     margin-right: 15px;
   }
+}
+
+.picture__control-button {
+  &:last-child {
+    margin-right: 0;
+  }
 
   @media (max-width: 450px) {
     margin-right: 10px;
+  }
+}
+
+.picture__sound-button,
+.picture__animated-variation-button {
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @media (max-width: 450px) {
+    margin-right: 0;
   }
 }
 
@@ -133,4 +149,18 @@
   background-image: url('./images/close.svg');
   background-color: gray;
   background-size: 40px 40px;
+}
+
+.picture__dynamic-buttons {
+  @media (max-width: 450px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    gap: 10px;
+  }
+}
+
+.picture__animated-variation-button_active {
+  opacity: 1;
+  cursor: default;
 }

@@ -6,7 +6,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import ReactDOM from 'react-dom';
+import Loading from '../Loading/Loading';
 import './style.scss';
 
 interface Source {
@@ -108,7 +108,10 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   }
 
   const rootElement = document.getElementById('root');
-  if (!rootElement) return null;
+
+  if (!rootElement) {
+    return null;
+  }
 
   return error ? (
     <p className='full-size-video__error-message'>
@@ -117,11 +120,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     </p>
   ) : (
     <>
-      {loading &&
-        ReactDOM.createPortal(
-          <div className='full-size-video__loading' />,
-          rootElement
-        )}
+      {loading && <Loading />}
       <video
         className='full-size-video'
         autoPlay={autoPlay}

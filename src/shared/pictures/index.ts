@@ -1,24 +1,25 @@
 import burjaNaChernomMoreAnimatedMp4 from './burja-na-chernom-more/animated/animated.mp4';
 import burjaNaChernomMoreAnimatedWebm from './burja-na-chernom-more/animated/animated.webm';
 import burjaNaChernomMorePreview from './burja-na-chernom-more/preview.webp';
-import burjaNaChernomMoreSpeechIcon from './burja-na-chernom-more/sounds/speech/speech.svg';
-import burjaNaChernomMoreSpeechMp3 from './burja-na-chernom-more/sounds/speech/speech.mp3';
-import burjaNaChernomMoreMusicIcon from './burja-na-chernom-more/sounds/music/music.svg';
-import burjaNaChernomMoreMusicMp3 from './burja-na-chernom-more/sounds/music/music.mp3';
-import burjaNaChernomMoreSeaIcon from './burja-na-chernom-more/sounds/sea/sea.svg';
-import burjaNaChernomMoreSeaMp3 from './burja-na-chernom-more/sounds/sea/sea.mp3';
+import burjaNaChernomMoreSpeechMp3 from './burja-na-chernom-more/sounds/speech.mp3';
+import burjaNaChernomMoreMusicMp3 from './burja-na-chernom-more/sounds/music.mp3';
+import burjaNaChernomMoreSeaMp3 from './burja-na-chernom-more/sounds/sea.mp3';
 import danajaAnimatedMp4 from './danaja/animated/animated.mp4';
 import danajaAnimatedWebm from './danaja/animated/animated.webm';
 import danajaPreview from './danaja/preview.webp';
-import danajaSpeechIcon from './danaja/sounds/speech/speech.svg';
-import danajaSpeechMp3 from './danaja/sounds/speech/speech.mp3';
-import danajaMusicIcon from './danaja/sounds/music/music.svg';
-import danajaMusicMp3 from './danaja/sounds/music/music.mp3';
+import danajaSpeechMp3 from './danaja/sounds/speech.mp3';
+import danajaMusicMp3 from './danaja/sounds/music.mp3';
 import elochnyjTorgPreview from './elochnyj-torg/preview.webp';
 import elochnyjTorgMagnifier from './elochnyj-torg/magnifier.gif';
-import elochnyjTorgMusicIcon from './elochnyj-torg/sounds/music/music.svg';
-import elochnyjTorgMusicMp3 from './elochnyj-torg/sounds/music/music.mp3';
+import elochnyjTorgMusicMp3 from './elochnyj-torg/sounds/music.mp3';
 import trojkaZimojPreview from './trojka-zimoj/preview.webp';
+import trojkaZimojSnowstormMp3 from './trojka-zimoj/sounds/snowstorm.mp3';
+import trojkaZimojAnimatedVariationFrontMp4 from './trojka-zimoj/animated-variations/front/front.mp4';
+import trojkaZimojAnimatedVariationFrontWebm from './trojka-zimoj/animated-variations/front/front.webm';
+import trojkaZimojAnimatedVariationLeftMp4 from './trojka-zimoj/animated-variations/left/left.mp4';
+import trojkaZimojAnimatedVariationLeftWebm from './trojka-zimoj/animated-variations/left/left.webm';
+import trojkaZimojAnimatedVariationRightMp4 from './trojka-zimoj/animated-variations/right/right.mp4';
+import trojkaZimojAnimatedVariationRightWebm from './trojka-zimoj/animated-variations/right/right.webm';
 import vozvrashhenieSLovliMulejPreview from './vozvrashhenie-s-lovli-mulej/preview.webp';
 import zhenyIzdaliSmotrjashhieNaGolgofuPreview from './zheny-izdali-smotrjashhie-na-golgofu/preview.webp';
 import zhenyIzdaliSmotrjashhieNaGolgofuImageHotspotVideoSkyMp4 from './zheny-izdali-smotrjashhie-na-golgofu/image-hotspot-videos/sky/sky.mp4';
@@ -48,22 +49,24 @@ const pictures = [
       перенесенный когда-то самим художником.`,
     ],
     preview: burjaNaChernomMorePreview,
-    animatedMp4: burjaNaChernomMoreAnimatedMp4,
-    animatedWebm: burjaNaChernomMoreAnimatedWebm,
+    animated: {
+      mp4: burjaNaChernomMoreAnimatedMp4,
+      webm: burjaNaChernomMoreAnimatedWebm,
+    },
     sounds: [
       {
         name: 'Озвучка',
-        icon: burjaNaChernomMoreSpeechIcon,
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cg style='fill: %23fff;'%3E%3Cpath d='M481.251 280.748c-5.859-5.857-15.357-5.854-21.213.006-5.856 5.859-5.854 15.357.006 21.213C474.202 316.117 482 334.948 482 354.99c0 20.044-7.807 38.881-21.982 53.04-5.861 5.854-5.866 15.352-.012 21.213a14.952 14.952 0 0 0 10.612 4.399c3.836 0 7.673-1.463 10.601-4.388C501.068 409.429 512 383.054 512 354.99c0-28.058-10.92-54.425-30.749-74.242z' style='fill: %23fff;' transform='matrix(.08537 0 0 .08537 18.146 18.146)'/%3E%3Cpath d='M417.606 323.171c-5.858 5.857-5.858 15.355 0 21.213A14.902 14.902 0 0 1 422 354.99c0 4.006-1.561 7.773-4.394 10.606-5.858 5.857-5.858 15.355 0 21.213a14.954 14.954 0 0 0 10.606 4.394c3.838 0 7.678-1.465 10.606-4.394 17.546-17.545 17.546-46.094 0-63.639-5.856-5.857-15.354-5.857-21.212.001zM370 210.458V195c0-102.01-82.99-185-185-185S0 92.99 0 195v23.977c0 56.079 26.024 109.157 70 143.534V487c0 8.284 6.716 15 15 15h180c8.284 0 15-6.716 15-15v-47h45c24.813 0 45-20.187 45-45v-20a15 15 0 0 0-7.05-12.72L343.302 350l19.648-12.28A15 15 0 0 0 370 325v-28.288l28.638-7.16a14.998 14.998 0 0 0 8.843-22.872zm-18.638 59.99A15 15 0 0 0 340 285v31.687l-32.95 20.594a15 15 0 0 0 0 25.44L340 383.313V395c0 8.271-6.729 15-15 15h-60c-8.284 0-15 6.716-15 15v47H100V355c0-4.844-2.34-9.391-6.281-12.206C53.82 314.295 30 268.008 30 218.977V195c0-85.468 69.532-155 155-155s155 69.532 155 155v20c0 2.961.877 5.856 2.52 8.32l28.192 42.29z' style='fill: %23fff;' transform='matrix(.08537 0 0 .08537 18.146 18.146)'/%3E%3Cpath d='M175.403 279.73c-6.864-4.641-16.188-2.84-20.829 4.022-2.866 4.238-6.323 6.645-10.275 7.151-4.974.634-10.837-1.757-16.51-6.742-16.69-14.667-24.775-44.84-17.655-65.888 2.421-7.154 6.302-12.16 10.928-14.095 3.677-1.535 7.874-1.181 12.474 1.057 7.452 3.62 16.427.519 20.05-6.931 3.622-7.45.52-16.427-6.931-20.05-12.331-5.996-25.53-6.619-37.164-1.754-12.689 5.305-22.553 16.726-27.774 32.159-10.959 32.397.58 75.46 26.269 98.036 10.628 9.339 22.773 14.308 34.721 14.308 1.811 0 3.616-.114 5.411-.345 12.509-1.604 23.628-8.743 31.31-20.101 4.638-6.86 2.838-16.185-4.025-20.827z' style='fill: %23fff;' transform='matrix(.08537 0 0 .08537 18.146 18.146)'/%3E%3C/g%3E%3C/svg%3E%0A"`,
         mp3: burjaNaChernomMoreSpeechMp3,
       },
       {
         name: 'Музыка',
-        icon: burjaNaChernomMoreMusicIcon,
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M52.19 45.71c1.306-2.184 2.172-4.946 2.34-7.68.106-1.754-.285-3.596-1.131-5.328-1.328-2.72-3.61-4.248-5.813-5.725-1.645-1.102-3.199-2.142-4.297-3.628l-.197-.265c-.65-.873-1.383-1.862-1.5-2.692-.116-.84-.878-1.438-1.712-1.39a1.611 1.611 0 0 0-1.503 1.61V49.4c-1.353-.821-3.02-1.325-4.846-1.325-4.452 0-8.078 2.898-8.078 6.462 0 3.564 3.626 6.462 8.078 6.462s8.078-2.898 8.078-6.462v-18.83c2.426.927 6.397 3.289 7.49 8.804-.204.3-.398.624-.624.882a1.61 1.61 0 0 0 .145 2.278 1.61 1.61 0 0 0 2.278-.145c.433-.492.817-1.067 1.186-1.668.038-.045.074-.093.106-.148z' style='fill: %23fff; stroke-width: 0.10097;'/%3E%3C/svg%3E%0A"`,
         mp3: burjaNaChernomMoreMusicMp3,
       },
       {
         name: 'Звуки моря',
-        icon: burjaNaChernomMoreSeaIcon,
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cg style='fill: %23fff;'%3E%3Cpath d='M423.773 343.871a74.18 74.18 0 0 1-17.241-16.718c-11.494-13.061-26.122-29.257-53.29-29.257-27.167 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465-10.971-12.539-25.6-29.78-53.29-29.78-27.69 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465a88.814 88.814 0 0 0-27.69-24.033c-5.194-2.597-11.509-.492-14.106 4.702-2.597 5.194-.492 11.509 4.702 14.106a80.437 80.437 0 0 1 21.42 18.808c12.016 14.106 26.122 29.78 53.29 29.78s41.273-15.673 53.29-29.78c12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465 10.971 12.539 25.6 29.78 53.29 29.78 27.69 0 41.273-15.673 53.29-29.78 12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465a99.769 99.769 0 0 0 21.42 20.375c4.905 3.174 11.455 1.771 14.629-3.135 3.175-4.905 1.772-11.454-3.134-14.628zM423.773 265.503a74.18 74.18 0 0 1-17.241-16.718c-11.494-13.061-26.122-29.257-53.29-29.257-27.167 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465-10.971-12.539-25.6-29.78-53.29-29.78-27.69 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465a88.814 88.814 0 0 0-27.69-24.033c-5.194-2.597-11.509-.492-14.106 4.702-2.597 5.194-.492 11.509 4.702 14.106a80.437 80.437 0 0 1 21.42 18.808c12.016 14.106 26.122 29.78 53.29 29.78s41.273-15.673 53.29-29.78c12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465 10.971 12.539 25.6 29.78 53.29 29.78 27.69 0 41.273-15.673 53.29-29.78 12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465a99.769 99.769 0 0 0 21.42 20.375c4.905 3.174 11.455 1.771 14.629-3.135 3.175-4.904 1.772-11.454-3.134-14.628zM423.773 181.911a74.18 74.18 0 0 1-17.241-16.718c-11.494-13.061-26.122-29.257-53.29-29.257-27.167 0-41.273 15.673-53.29 29.78-12.017 14.107-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465s-25.6-29.78-53.29-29.78c-27.69 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465a88.814 88.814 0 0 0-27.69-24.033c-5.194-2.597-11.509-.492-14.106 4.702-2.597 5.194-.492 11.509 4.702 14.106a80.437 80.437 0 0 1 21.42 18.808c12.016 14.106 26.122 29.78 53.29 29.78s41.273-15.673 53.29-29.78c12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465s25.6 29.78 53.29 29.78c27.69 0 41.273-15.673 53.29-29.78 12.017-14.107 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465a99.769 99.769 0 0 0 21.42 20.375c4.905 3.174 11.455 1.771 14.629-3.135 3.175-4.904 1.772-11.454-3.134-14.628zM5.814 82.124a80.437 80.437 0 0 1 21.42 18.808c12.016 14.106 26.122 29.78 53.29 29.78s41.273-15.673 53.29-29.78c12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465 10.971 12.539 25.6 29.78 53.29 29.78 27.69 0 41.273-15.673 53.29-29.78 12.016-14.106 19.853-22.465 37.616-22.465 17.763 0 26.645 9.927 37.616 22.465a99.798 99.798 0 0 0 21.42 20.376c4.905 3.174 11.455 1.77 14.629-3.135 3.174-4.905 1.771-11.455-3.135-14.629a74.18 74.18 0 0 1-17.241-16.718c-11.494-13.061-26.122-29.257-53.29-29.257-27.167 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.645-9.927-37.616-22.465-10.971-12.539-25.6-29.78-53.29-29.78-27.69 0-41.273 15.673-53.29 29.78-12.016 14.106-19.853 22.465-37.616 22.465-17.763 0-26.643-9.927-37.615-22.466a88.814 88.814 0 0 0-27.69-24.033c-5.194-2.597-11.509-.492-14.106 4.702-2.597 5.194-.491 11.51 4.702 14.107z' style='fill: %23fff;' transform='matrix(.098 0 0 .098 19 19)'/%3E%3C/g%3E%3C/svg%3E%0A"`,
         mp3: burjaNaChernomMoreSeaMp3,
       },
     ],
@@ -91,17 +94,19 @@ const pictures = [
       тайного союза родился Персей, который смертельно ранил своего деда.`,
     ],
     preview: danajaPreview,
-    animatedMp4: danajaAnimatedMp4,
-    animatedWebm: danajaAnimatedWebm,
+    animated: {
+      mp4: danajaAnimatedMp4,
+      webm: danajaAnimatedWebm,
+    },
     sounds: [
       {
         name: 'Озвучка',
-        icon: danajaSpeechIcon,
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cg style='fill: %23fff;'%3E%3Cpath d='M481.251 280.748c-5.859-5.857-15.357-5.854-21.213.006-5.856 5.859-5.854 15.357.006 21.213C474.202 316.117 482 334.948 482 354.99c0 20.044-7.807 38.881-21.982 53.04-5.861 5.854-5.866 15.352-.012 21.213a14.952 14.952 0 0 0 10.612 4.399c3.836 0 7.673-1.463 10.601-4.388C501.068 409.429 512 383.054 512 354.99c0-28.058-10.92-54.425-30.749-74.242z' style='fill: %23fff;' transform='matrix(.08537 0 0 .08537 18.146 18.146)'/%3E%3Cpath d='M417.606 323.171c-5.858 5.857-5.858 15.355 0 21.213A14.902 14.902 0 0 1 422 354.99c0 4.006-1.561 7.773-4.394 10.606-5.858 5.857-5.858 15.355 0 21.213a14.954 14.954 0 0 0 10.606 4.394c3.838 0 7.678-1.465 10.606-4.394 17.546-17.545 17.546-46.094 0-63.639-5.856-5.857-15.354-5.857-21.212.001zM370 210.458V195c0-102.01-82.99-185-185-185S0 92.99 0 195v23.977c0 56.079 26.024 109.157 70 143.534V487c0 8.284 6.716 15 15 15h180c8.284 0 15-6.716 15-15v-47h45c24.813 0 45-20.187 45-45v-20a15 15 0 0 0-7.05-12.72L343.302 350l19.648-12.28A15 15 0 0 0 370 325v-28.288l28.638-7.16a14.998 14.998 0 0 0 8.843-22.872zm-18.638 59.99A15 15 0 0 0 340 285v31.687l-32.95 20.594a15 15 0 0 0 0 25.44L340 383.313V395c0 8.271-6.729 15-15 15h-60c-8.284 0-15 6.716-15 15v47H100V355c0-4.844-2.34-9.391-6.281-12.206C53.82 314.295 30 268.008 30 218.977V195c0-85.468 69.532-155 155-155s155 69.532 155 155v20c0 2.961.877 5.856 2.52 8.32l28.192 42.29z' style='fill: %23fff;' transform='matrix(.08537 0 0 .08537 18.146 18.146)'/%3E%3Cpath d='M175.403 279.73c-6.864-4.641-16.188-2.84-20.829 4.022-2.866 4.238-6.323 6.645-10.275 7.151-4.974.634-10.837-1.757-16.51-6.742-16.69-14.667-24.775-44.84-17.655-65.888 2.421-7.154 6.302-12.16 10.928-14.095 3.677-1.535 7.874-1.181 12.474 1.057 7.452 3.62 16.427.519 20.05-6.931 3.622-7.45.52-16.427-6.931-20.05-12.331-5.996-25.53-6.619-37.164-1.754-12.689 5.305-22.553 16.726-27.774 32.159-10.959 32.397.58 75.46 26.269 98.036 10.628 9.339 22.773 14.308 34.721 14.308 1.811 0 3.616-.114 5.411-.345 12.509-1.604 23.628-8.743 31.31-20.101 4.638-6.86 2.838-16.185-4.025-20.827z' style='fill: %23fff;' transform='matrix(.08537 0 0 .08537 18.146 18.146)'/%3E%3C/g%3E%3C/svg%3E%0A"`,
         mp3: danajaSpeechMp3,
       },
       {
         name: 'Музыка',
-        icon: danajaMusicIcon,
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M52.19 45.71c1.306-2.184 2.172-4.946 2.34-7.68.106-1.754-.285-3.596-1.131-5.328-1.328-2.72-3.61-4.248-5.813-5.725-1.645-1.102-3.199-2.142-4.297-3.628l-.197-.265c-.65-.873-1.383-1.862-1.5-2.692-.116-.84-.878-1.438-1.712-1.39a1.611 1.611 0 0 0-1.503 1.61V49.4c-1.353-.821-3.02-1.325-4.846-1.325-4.452 0-8.078 2.898-8.078 6.462 0 3.564 3.626 6.462 8.078 6.462s8.078-2.898 8.078-6.462v-18.83c2.426.927 6.397 3.289 7.49 8.804-.204.3-.398.624-.624.882a1.61 1.61 0 0 0 .145 2.278 1.61 1.61 0 0 0 2.278-.145c.433-.492.817-1.067 1.186-1.668.038-.045.074-.093.106-.148z' style='fill: %23fff; stroke-width: 0.10097;'/%3E%3C/svg%3E%0A"`,
         mp3: danajaMusicMp3,
       },
     ],
@@ -138,7 +143,7 @@ const pictures = [
     sounds: [
       {
         name: 'Музыка',
-        icon: elochnyjTorgMusicIcon,
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M52.19 45.71c1.306-2.184 2.172-4.946 2.34-7.68.106-1.754-.285-3.596-1.131-5.328-1.328-2.72-3.61-4.248-5.813-5.725-1.645-1.102-3.199-2.142-4.297-3.628l-.197-.265c-.65-.873-1.383-1.862-1.5-2.692-.116-.84-.878-1.438-1.712-1.39a1.611 1.611 0 0 0-1.503 1.61V49.4c-1.353-.821-3.02-1.325-4.846-1.325-4.452 0-8.078 2.898-8.078 6.462 0 3.564 3.626 6.462 8.078 6.462s8.078-2.898 8.078-6.462v-18.83c2.426.927 6.397 3.289 7.49 8.804-.204.3-.398.624-.624.882a1.61 1.61 0 0 0 .145 2.278 1.61 1.61 0 0 0 2.278-.145c.433-.492.817-1.067 1.186-1.668.038-.045.074-.093.106-.148z' style='fill: %23fff; stroke-width: 0.10097;'/%3E%3C/svg%3E%0A"`,
         mp3: elochnyjTorgMusicMp3,
       },
     ],
@@ -160,6 +165,33 @@ const pictures = [
       должности он создал целую галерею, представляющую породистых лошадей.`,
     ],
     preview: trojkaZimojPreview,
+    sounds: [
+      {
+        name: 'Звуки метели',
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M30.75 43.79h18.328c4.931 0 8.943-4.012 8.943-8.943 0-5.452-4.87-9.674-10.308-8.84A8.943 8.943 0 0 0 39.263 20c-5.361 0-9.347 4.7-8.916 9.484-3.76.21-6.755 3.335-6.755 7.147 0 3.948 3.211 7.16 7.159 7.16zm.856-11.658c.89.168 1.671-.61 1.509-1.5-.09-.49-.216-1.338-.216-1.688a6.37 6.37 0 0 1 6.363-6.363c3.068 0 5.7 2.185 6.256 5.196a1.29 1.29 0 0 0 1.655.996c4.098-1.282 8.268 1.792 8.268 6.074a6.37 6.37 0 0 1-6.363 6.363H30.75a4.584 4.584 0 0 1-4.579-4.579c0-2.852 2.6-5.034 5.434-4.499zm-8.38 18.33c0-.712.578-1.29 1.29-1.29h3.416a.958.958 0 0 0 0-1.914 1.29 1.29 0 0 1 0-2.58 3.542 3.542 0 0 1 3.538 3.537 3.542 3.542 0 0 1-3.538 3.538h-3.416a1.29 1.29 0 0 1-1.29-1.29zm14.256 1.291h-3.473a1.29 1.29 0 0 1 0-2.58h3.473a.958.958 0 0 0 0-1.915 1.29 1.29 0 0 1 0-2.58 3.542 3.542 0 0 1 3.538 3.537 3.542 3.542 0 0 1-3.538 3.538zm-.768 4.71A3.542 3.542 0 0 1 33.176 60a1.29 1.29 0 0 1 0-2.58.958.958 0 0 0 0-1.915H22.903a1.29 1.29 0 0 1 0-2.58h10.273a3.542 3.542 0 0 1 3.538 3.537zm5.463-2.43a2.26 2.26 0 0 0-2.258 2.257 2.26 2.26 0 0 0 2.258 2.258 2.26 2.26 0 0 0 2.258-2.258 2.26 2.26 0 0 0-2.258-2.258zm4.84-6.452a2.26 2.26 0 0 0-2.259 2.258 2.26 2.26 0 0 0 2.258 2.258 2.26 2.26 0 0 0 2.258-2.258 2.26 2.26 0 0 0-2.258-2.258zm4.596 5.645a2.26 2.26 0 0 0-2.258 2.258 2.26 2.26 0 0 0 2.258 2.258 2.26 2.26 0 0 0 2.258-2.258 2.26 2.26 0 0 0-2.258-2.258zm4.516-6.452a2.26 2.26 0 0 0-2.258 2.258 2.26 2.26 0 0 0 2.258 2.258 2.26 2.26 0 0 0 2.258-2.258 2.26 2.26 0 0 0-2.258-2.258z' style='fill: %23fff; stroke-width: 0.0806455;'/%3E%3C/svg%3E%0A"`,
+        mp3: trojkaZimojSnowstormMp3,
+      },
+    ],
+    animatedVariations: [
+      {
+        name: 'Вид спереди',
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M442.627 185.388 265.083 7.844C260.019 2.78 253.263 0 245.915 0c-7.204 0-13.956 2.78-19.02 7.844L49.347 185.388c-10.488 10.492-10.488 27.568 0 38.052l16.12 16.128c5.064 5.06 11.82 7.844 19.028 7.844 7.204 0 14.192-2.784 19.252-7.844l103.808-103.584v329.084c0 14.832 11.616 26.932 26.448 26.932h22.8c14.832 0 27.624-12.1 27.624-26.932V134.816l104.396 104.752c5.06 5.06 11.636 7.844 18.844 7.844 7.208 0 13.864-2.784 18.932-7.844l16.072-16.128c10.492-10.488 10.452-27.56-.044-38.052z' style='fill: %23fff;' transform='matrix(.0752 0 0 .0752 21.5 21.5)'/%3E%3C/svg%3E%0A"`,
+        mp4: trojkaZimojAnimatedVariationFrontMp4,
+        webm: trojkaZimojAnimatedVariationFrontWebm,
+      },
+      {
+        name: 'Вид слева',
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M442.627 185.388 265.083 7.844C260.019 2.78 253.263 0 245.915 0c-7.204 0-13.956 2.78-19.02 7.844L49.347 185.388c-10.488 10.492-10.488 27.568 0 38.052l16.12 16.128c5.064 5.06 11.82 7.844 19.028 7.844 7.204 0 14.192-2.784 19.252-7.844l103.808-103.584v329.084c0 14.832 11.616 26.932 26.448 26.932h22.8c14.832 0 27.624-12.1 27.624-26.932V134.816l104.396 104.752c5.06 5.06 11.636 7.844 18.844 7.844 7.208 0 13.864-2.784 18.932-7.844l16.072-16.128c10.492-10.488 10.452-27.56-.044-38.052z' style='fill: %23fff;' transform='matrix(0 .0752 .0752 0 21.5 21.5)'/%3E%3C/svg%3E%0A"`,
+        mp4: trojkaZimojAnimatedVariationLeftMp4,
+        webm: trojkaZimojAnimatedVariationLeftWebm,
+      },
+      {
+        name: 'Вид справа',
+        icon: `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M442.627 185.388 265.083 7.844C260.019 2.78 253.263 0 245.915 0c-7.204 0-13.956 2.78-19.02 7.844L49.347 185.388c-10.488 10.492-10.488 27.568 0 38.052l16.12 16.128c5.064 5.06 11.82 7.844 19.028 7.844 7.204 0 14.192-2.784 19.252-7.844l103.808-103.584v329.084c0 14.832 11.616 26.932 26.448 26.932h22.8c14.832 0 27.624-12.1 27.624-26.932V134.816l104.396 104.752c5.06 5.06 11.636 7.844 18.844 7.844 7.208 0 13.864-2.784 18.932-7.844l16.072-16.128c10.492-10.488 10.452-27.56-.044-38.052z' style='fill: %23fff;' transform='matrix(0 .0752 -.0752 0 58.5 21.5)'/%3E%3C/svg%3E%0A"`,
+        mp4: trojkaZimojAnimatedVariationRightMp4,
+        webm: trojkaZimojAnimatedVariationRightWebm,
+      },
+    ],
   },
   {
     id: 'vozvrashhenie-s-lovli-mulej',

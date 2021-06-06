@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import React, { useCallback, useMemo, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router';
@@ -13,14 +14,7 @@ import useUpdateOnResize from '../../hooks/useUpdateOnResize';
 import pictures from '../../shared/pictures';
 import './style.scss';
 
-const pause =
-  `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' ` +
-  `xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; ` +
-  `stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; ` +
-  `stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M17.991 40.976a6.631 ` +
-  `6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0zm24.886 0a6.631 6.631 0 0 ` +
-  `1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0z' style='fill: %23fff;' transform='matrix` +
-  `(.7772 0 0 .7772 21.5 21.5)'/%3E%3C/svg%3E%0A"`;
+const pause = `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M17.991 40.976a6.631 6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0zm24.886 0a6.631 6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0z' style='fill: %23fff;' transform='matrix(.7772 0 0 .7772 21.5 21.5)'/%3E%3C/svg%3E%0A"`;
 
 const videoCallbackRef = (node: HTMLVideoElement) => node && node.focus();
 
@@ -75,73 +69,65 @@ const Picture: React.FC = () => {
   const {
     preview,
     name,
+    animated,
     imageHotspots,
     descriptionParagraphs,
     authorAndYear,
     sounds,
     magnifier,
+    animatedVariations,
   } = picture ?? {};
 
   const animatedSources = useMemo(() => {
     let result: VideoSource[] = [];
-    const { animatedMp4, animatedWebm } = picture ?? {};
+    const { mp4, webm } = animated ?? {};
 
-    if (animatedMp4) {
+    if (mp4) {
       result.push({
-        src: animatedMp4,
+        src: mp4,
         mimeType: 'video/mp4',
         mimeTypeUserReadable: 'MP4',
       });
     }
 
-    if (animatedWebm) {
+    if (webm) {
       result.push({
-        src: animatedWebm,
+        src: webm,
         mimeType: 'video/webm',
         mimeTypeUserReadable: 'WebM',
       });
     }
 
     return result;
-  }, [picture]);
+  }, [animated]);
 
   const [playingSoundIndex, setPlayingSoundIndex] = useState(-1);
 
   const soundElements = useMemo(() => {
-    let result: React.ReactNode[] = [];
-    const pictureSounds = sounds ?? [];
-
-    if (pictureSounds.length === 0) {
+    if (!sounds) {
       return null;
     }
 
-    pictureSounds.forEach((item, index) =>
-      result.push(
-        <Sound
-          key={`sound-${index}`}
-          url={item.mp3}
-          playStatus={playingSoundIndex === index ? 'PLAYING' : 'STOPPED'}
-          volume={100}
-          loop
-        />
-      )
-    );
-
-    return result;
+    return sounds.map((item, index) => (
+      <Sound
+        key={`sound-${index}`}
+        url={item.mp3}
+        playStatus={playingSoundIndex === index ? 'PLAYING' : 'STOPPED'}
+        volume={100}
+        loop
+      />
+    ));
   }, [playingSoundIndex, sounds]);
 
-  const soundButtonsElement = useMemo(() => {
-    let result: React.ReactNode[] = [];
-    const pictureSounds = sounds ?? [];
-
-    if (pictureSounds.length === 0) {
+  const soundButtonElements = useMemo(() => {
+    if (!sounds) {
       return null;
     }
 
-    pictureSounds.forEach((item, index) => {
+    return sounds.map((item, index) => {
       const playingSound = playingSoundIndex === index;
 
-      result.push(
+      return (
         <button
           key={`sound-button-${index}`}
           aria-label={item.name}
@@ -149,15 +135,104 @@ const Picture: React.FC = () => {
           style={{
             backgroundImage: `url(${playingSound ? pause : item.icon})`,
           }}
-          onClick={() =>
-            setPlayingSoundIndex(playingSoundIndex === index ? -1 : index)
-          }
+          onClick={() => setPlayingSoundIndex(playingSound ? -1 : index)}
         />
       );
     });
-
-    return <section className='picture__sound-buttons'>{result}</section>;
   }, [playingSoundIndex, sounds]);
+
+  const animatedVariationsPresent = useMemo(
+    () => animatedVariations && animatedVariations.length > 0,
+    [animatedVariations]
+  );
+
+  const [
+    playingAnimatedVariationIndex,
+    setPlayingAnimatedVariationIndex,
+  ] = useState(animatedVariationsPresent ? 0 : undefined);
+
+  const animatedVariationVideoElement = useMemo(() => {
+    if (!animatedVariationsPresent) {
+      return null;
+    }
+
+    const { mp4, webm, name } =
+      animatedVariations![playingAnimatedVariationIndex!] ?? {};
+
+    if (!name) {
+      return null;
+    }
+
+    let sources: VideoSource[] = [];
+
+    if (mp4) {
+      sources.push({
+        src: mp4,
+        mimeType: 'video/mp4',
+        mimeTypeUserReadable: 'MP4',
+      });
+    }
+
+    if (webm) {
+      sources.push({
+        src: webm,
+        mimeType: 'video/webm',
+        mimeTypeUserReadable: 'WebM',
+      });
+    }
+
+    if (sources.length === 0) {
+      return null;
+    }
+
+    return (
+      <FullSizeVideo
+        key={`animated-variation-video-${name}`}
+        sources={sources}
+        objectFit='contain'
+        ref={videoCallbackRef}
+        loop
+      />
+    );
+  }, [
+    animatedVariations,
+    animatedVariationsPresent,
+    playingAnimatedVariationIndex,
+  ]);
+
+  const animatedVariationButtonElements = useMemo(() => {
+    if (!animatedVariationsPresent) {
+      return null;
+    }
+
+    return animatedVariations!.map((item, index) => {
+      const playingAnimatedVariation = playingAnimatedVariationIndex === index;
+
+      const classNameToUse = cn('picture__animated-variation-button', {
+        'picture__animated-variation-button_active': playingAnimatedVariation,
+      });
+
+      return (
+        <button
+          key={`animated-variation-button-${index}`}
+          aria-label={item.name}
+          className={classNameToUse}
+          style={{
+            backgroundImage: `url(${item.icon})`,
+          }}
+          onClick={() => {
+            if (!playingAnimatedVariation) {
+              setPlayingAnimatedVariationIndex(index);
+            }
+          }}
+        />
+      );
+    });
+  }, [
+    animatedVariations,
+    animatedVariationsPresent,
+    playingAnimatedVariationIndex,
+  ]);
 
   const handleReturnClick = useCallback(() => {
     if (openedFrom) {
@@ -251,8 +326,12 @@ const Picture: React.FC = () => {
       name &&
       authorAndYear &&
       descriptionParagraphs &&
-      (animatedVideosPresent || magnifierPresent || imageHotspotsPresent),
+      (animatedVideosPresent ||
+        magnifierPresent ||
+        imageHotspotsPresent ||
+        animatedVariationsPresent),
     [
+      animatedVariationsPresent,
       animatedVideosPresent,
       authorAndYear,
       descriptionParagraphs,
@@ -264,8 +343,19 @@ const Picture: React.FC = () => {
     ]
   );
 
+  const dynamicButtonsPresent = useMemo(
+    () =>
+      (animatedVariationButtonElements &&
+        animatedVariationButtonElements.length > 0) ||
+      (soundButtonElements && soundButtonElements.length > 0),
+    [animatedVariationButtonElements, soundButtonElements]
+  );
+
   const rootElement = document.getElementById('root');
-  if (!rootElement) return null;
+
+  if (!rootElement) {
+    return null;
+  }
 
   if (!picturePresent) {
     return <Redirect to={ROUTES.DEFAULT} />;
@@ -278,7 +368,12 @@ const Picture: React.FC = () => {
         <NavLink to={ROUTES.DEFAULT} className='picture__homepage-link'>
           <img className='picture__logo' src={logo} alt='Логотип музея' />
         </NavLink>
-        {soundButtonsElement}
+        {dynamicButtonsPresent && (
+          <section className='picture__dynamic-buttons'>
+            {animatedVariationButtonElements}
+            {soundButtonElements}
+          </section>
+        )}
         <section className='picture__control-buttons'>
           <button
             aria-label='Вернуться назад'
@@ -330,10 +425,12 @@ const Picture: React.FC = () => {
           <FullSizeVideo
             sources={playingImageHotspotVideoSources}
             objectFit='contain'
+            ref={videoCallbackRef}
             loop
           />
         </Modal>
       )}
+      {animatedVariationsPresent && animatedVariationVideoElement}
       <SideInfoPanel
         open={infoPanelOpen}
         onClose={closeInfoPanel}

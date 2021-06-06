@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
 import Header from '../../components/Header/Header';
+import Loading from '../../components/Loading/Loading';
 import { ROUTES } from '../../constants';
 import useScrollToHashOnComponentMount from '../../hooks/useScrollToHashOnComponentMount';
 import useUpdateOnResize from '../../hooks/useUpdateOnResize';
@@ -105,6 +106,10 @@ const Gallery: React.FC = () => {
     };
   }, [clientHeight, clientWidth, galleryStateRef, animationStyle]);
 
+  const [loadingArray, setLoadingArray] = useState(
+    Array(pictures.length).fill(true)
+  );
+
   const pictureWrapperElements = useMemo(
     () =>
       pictures.map((picture, index) => (
@@ -137,6 +142,13 @@ const Gallery: React.FC = () => {
                   className='gallery__picture'
                   src={picture.preview}
                   alt={picture.name}
+                  onLoad={() => {
+                    setLoadingArray(loadingArray => {
+                      let clonedLoadingArray = [...loadingArray];
+                      clonedLoadingArray[index] = false;
+                      return clonedLoadingArray;
+                    });
+                  }}
                 />
               </NavLink>
             </animated.div>
@@ -144,6 +156,11 @@ const Gallery: React.FC = () => {
         </InView>
       )),
     [history, pictureStyle, animationStyle]
+  );
+
+  const loading = useMemo(
+    () => loadingArray.reduce((carry, current) => carry || current, false),
+    [loadingArray]
   );
 
   useEffect(() => {
@@ -198,6 +215,7 @@ const Gallery: React.FC = () => {
   return (
     <>
       <main className='gallery' ref={galleryCallbackRef}>
+        {loading && <Loading />}
         <Header
           className={'gallery__overlay-header'}
           style={overlayHeaderStyle}
