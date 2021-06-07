@@ -5,7 +5,6 @@ import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import Sound from 'react-sound';
 import FullSizeVideo from '../../components/FullSizeVideo/FullSizeVideo';
-import logo from '../../components/Header/images/logo.svg';
 import ImageHotspots from '../../components/ImageHotspots/ImageHotspots';
 import Magnifier from '../../components/Magnifier/Magnifier';
 import SideInfoPanel from '../../components/SideInfoPanel/SideInfoPanel';
@@ -14,7 +13,11 @@ import useUpdateOnResize from '../../hooks/useUpdateOnResize';
 import pictures from '../../shared/pictures';
 import './style.scss';
 
-const pause = `"data:image/svg+xml,%3Csvg version='1.0' width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle style='fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;' cx='40' cy='40' r='36'/%3E%3Cpath d='M17.991 40.976a6.631 6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0zm24.886 0a6.631 6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0z' style='fill: %23fff;' transform='matrix(.7772 0 0 .7772 21.5 21.5)'/%3E%3C/svg%3E%0A"`;
+const pause =
+  'data:image/svg+xml,%3Csvg version="1.0" width="80" height="80" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle style="fill: none; stroke: %23fff; stroke-width: 7.99928; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;" cx="40" cy="40" r="36"/%3E%3Cpath d="M17.991 40.976a6.631 6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0zm24.886 0a6.631 6.631 0 0 1-13.262 0V6.631a6.631 6.631 0 0 1 13.262 0z" style="fill: %23fff;" transform="matrix(.7772 0 0 .7772 21.5 21.5)"/%3E%3C/svg%3E';
+
+const logo =
+  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="58.036" height="58.036"%3E%3Cpath fill-rule="evenodd" clip-rule="evenodd" d="M8.339 52.758h5.156V31.741h2.212v21.017h4.885V31.741c.127-9.39-12.126-9.39-12.253 0zm28.93 0h5.172V31.741h2.196v21.017h4.901V31.741c.128-9.39-12.141-9.39-12.269 0zm-14.465 0h5.156V31.741h2.275v21.017h4.775V31.741c.127-9.39-12.142-9.39-12.27 0zM0 15.993h58.036V5.278H0zm0 4.919h57.989v-2.763H0z" style="fill: %23fff;"/%3E%3C/svg%3E';
 
 const videoCallbackRef = (node: HTMLVideoElement) => node && node.focus();
 
@@ -133,7 +136,7 @@ const Picture: React.FC = () => {
           aria-label={item.name}
           className='picture__sound-button'
           style={{
-            backgroundImage: `url(${playingSound ? pause : item.icon})`,
+            backgroundImage: `url('${playingSound ? pause : item.icon}')`,
           }}
           onClick={() => setPlayingSoundIndex(playingSound ? -1 : index)}
         />
@@ -218,7 +221,7 @@ const Picture: React.FC = () => {
           aria-label={item.name}
           className={classNameToUse}
           style={{
-            backgroundImage: `url(${item.icon})`,
+            backgroundImage: `url('${item.icon}')`,
           }}
           onClick={() => {
             if (!playingAnimatedVariation) {

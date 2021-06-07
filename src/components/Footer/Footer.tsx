@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../constants';
+import Loading from '../Loading/Loading';
 import SocialNetworkIcon, {
   SocialNetwork,
 } from '../SocialNetworkIcon/SocialNetworkIcon';
@@ -72,22 +73,28 @@ const socialLinkElements = [
   </a>
 ));
 
-const Footer: React.FC = () => (
-  <footer className='footer'>
-    <a className='footer__logo' href='https://vrubel.ru'>
-      <img src={logo} alt='Логотип музея' />
-    </a>
-    <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
-    <nav className='footer__social-links'>{socialLinkElements}</nav>
-    <div className='footer__copyright'>
-      <span className='footer__copyright-text'>
-        © Омский областной музей изобразительных искусств имени М.А. Врубеля
-      </span>
-      <a className='footer__copyright-link' href='https://vrubel.ru'>
-        vrubel.ru
+const Footer: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+  const stopLoading = useCallback(() => setLoading(false), []);
+
+  return (
+    <footer className='footer'>
+      {loading && <Loading />}
+      <a className='footer__logo' href='https://vrubel.ru'>
+        <img src={logo} alt='Логотип музея' onLoad={stopLoading} />
       </a>
-    </div>
-  </footer>
-);
+      <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
+      <nav className='footer__social-links'>{socialLinkElements}</nav>
+      <div className='footer__copyright'>
+        <span className='footer__copyright-text'>
+          © Омский областной музей изобразительных искусств имени М.А. Врубеля
+        </span>
+        <a className='footer__copyright-link' href='https://vrubel.ru'>
+          vrubel.ru
+        </a>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

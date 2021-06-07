@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { RemoveScroll } from 'react-remove-scroll';
 import './style.scss';
 
 const Loading: React.FC = () => {
@@ -9,7 +10,10 @@ const Loading: React.FC = () => {
     return null;
   }
 
-  return ReactDOM.createPortal(<div className='loading' />, rootElement);
+  return ReactDOM.createPortal(
+    <RemoveScroll removeScrollBar children={null} className='loading' />,
+    rootElement
+  );
 };
 
 export default Loading;
