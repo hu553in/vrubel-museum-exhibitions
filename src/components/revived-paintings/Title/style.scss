@@ -1,0 +1,35 @@
+.revived-paintings-title {
+  width: calc(100% - 80px);
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.revived-paintings-title__first-line,
+.revived-paintings-title__second-line,
+.revived-paintings-title__third-line {
+  color: #fff;
+  font-family: 'Lighthaus', sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+.revived-paintings-title__first-line {
+  font-size: max(10.22vmin, 36.8px);
+  line-height: max(13.2vmin, 47.5px);
+}
+
+.revived-paintings-title__second-line {
+  font-size: max(13.95vmin, 50.2px);
+  line-height: max(17.95vmin, 64.6px);
+}
+
+.revived-paintings-title__third-line {
+  font-size: max(5.58vmin, 20.1px);
+  line-height: max(19.15vmin, 68.9px);
+}

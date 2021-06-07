@@ -78,7 +78,13 @@
   margin-top: 0;
   margin-bottom: 20px;
   color: #d2d2d2;
-  line-height: 25px;
+  font-size: 20px;
+  line-height: 29px;
+
+  @media (max-width: 1250px) {
+    font-size: 16px;
+    line-height: 25px;
+  }
 
   &:last-child {
     margin-bottom: 0;
@@ -87,7 +93,7 @@
 
 .side-info-panel-overlay {
   position: fixed;
-  width: 100vw;
+  width: max(100vw, 360px);
   height: 100vh;
   background-color: transparent;
   z-index: 10000;

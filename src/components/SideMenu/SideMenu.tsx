@@ -7,7 +7,7 @@ import './style.scss';
 
 interface Link {
   label: string;
-  dest: string;
+  route: string;
   external?: boolean;
 }
 
@@ -41,22 +41,22 @@ const SideMenu: React.FC<Props> = props => {
   const linkElements = useMemo(
     () =>
       links.map((link, index) => {
-        const { label, dest, external = false } = link;
+        const { label, route, external = false } = link;
 
         const props = {
           key: `link-${index}`,
           className: cn('side-menu__link', {
-            'side-menu__link_active': dest === location.pathname,
+            'side-menu__link_active': route === location.pathname,
           }),
           onClick: onClose,
         };
 
         return external ? (
-          <a {...props} href={dest}>
+          <a {...props} href={route}>
             {label}
           </a>
         ) : (
-          <NavLink {...props} to={dest}>
+          <NavLink {...props} to={route}>
             {label}
           </NavLink>
         );

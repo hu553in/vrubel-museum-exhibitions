@@ -1,0 +1,89 @@
+.galos {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+
+  @media (max-width: 359px) {
+    justify-content: center;
+  }
+}
+
+.galos__overlay-main {
+  background: radial-gradient(75vmin 75vmin at center, transparent 50%, #000 50%);
+  display: inline-block;
+  z-index: 9997;
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+
+.galos__picture-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.galos__picture {
+  object-fit: cover;
+  width: 100vmin;
+  height: 100vmin;
+}
+
+.galos__overlay-circle {
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 9997;
+  pointer-events: none;
+}
+
+.galos__overlay-info-block {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, max-content));
+  grid-template-columns: 1fr;
+  width: fit-content;
+  height: fit-content;
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.galos__overlay-title,
+.galos__overlay-author-and-year {
+  font-family: 'Lighthaus', sans-serif;
+  font-size: 4vmin;
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 6vmin;
+  background-color: #000;
+}
+
+.galos__overlay-header {
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+}
+
+.galos__error-message {
+  width: 300px;
+  line-height: 25px;
+  text-align: center;
+  color: #fff;
+}
+
+.galos__picture-link {
+  font-size: 0;
+}

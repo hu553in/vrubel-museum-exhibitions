@@ -1,6 +1,6 @@
 {
-  "name": "revived-paintings-exhibition",
-  "description": "Revived paintings exhibition - Omsk regional M. A. Vrubel museum of fine arts",
+  "name": "vrubel-museum-exhibitions",
+  "description": "Omsk regional M. A. Vrubel museum of fine arts exhibitions",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
