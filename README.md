@@ -10,7 +10,7 @@ Currently, it is available in Russian language only.
 ## Authors
 
 * Website design — [Kristina Kalnitskaya](mailto:Kristormy@gmail.com)
-* Animation — [Anastasia Sergienko](mailto:sergienkoanastasiia@gmail.com)
+* Videos — [Anastasia Sergienko](mailto:sergienkoanastasiia@gmail.com)
 
 ## Tech stack
 
