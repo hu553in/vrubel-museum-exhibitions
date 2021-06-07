@@ -83,6 +83,12 @@ const Footer: React.FC = () => {
           vrubel.ru
         </a>
       </div>
+      <a
+        className='footer__personal-data-processing-policy-link'
+        href={`${process.env.PUBLIC_URL}/personal_data_processing_policy.pdf`}
+      >
+        Политика обработки персональных данных
+      </a>
     </footer>
   );
 };
