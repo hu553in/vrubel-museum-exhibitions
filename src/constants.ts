@@ -1,8 +1,9 @@
 export const ROUTES = {
   DEFAULT: '/',
-  GALLERY: '/gallery',
+  GALOS: '/galos',
   CONTACTS: '/contacts',
   CATALOGUE: '/catalogue',
   PICTURE: '/picture',
   ABOUT: '/about',
+  ACCOUNT: '/account',
 };

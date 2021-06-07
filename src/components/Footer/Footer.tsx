@@ -9,22 +9,12 @@ import logo from './images/logo.svg';
 import './style.scss';
 
 const navBarLinkElements = [
-  {
-    label: 'Главная',
-    route: ROUTES.DEFAULT,
-  },
-  {
-    label: 'Контакты',
-    route: ROUTES.CONTACTS,
-  },
-  {
-    label: 'Каталог',
-    route: ROUTES.CATALOGUE,
-  },
-  {
-    label: 'О проекте',
-    route: ROUTES.ABOUT,
-  },
+  { label: 'Главная', route: ROUTES.DEFAULT },
+  { label: 'Галос', route: ROUTES.GALOS },
+  { label: 'Контакты', route: ROUTES.CONTACTS },
+  { label: 'Каталог', route: ROUTES.CATALOGUE },
+  { label: 'Аккаунт', route: ROUTES.ACCOUNT },
+  { label: 'О проекте', route: ROUTES.ABOUT },
 ].map((navBarLink, index) => (
   <NavLink
     key={`nav-bar-link-${index}`}
@@ -87,7 +77,7 @@ const Footer: React.FC = () => {
       <nav className='footer__social-links'>{socialLinkElements}</nav>
       <div className='footer__copyright'>
         <span className='footer__copyright-text'>
-          © Омский областной музей изобразительных искусств имени М.А. Врубеля
+          © Омский областной музей изобразительных искусств имени М. А. Врубеля
         </span>
         <a className='footer__copyright-link' href='https://vrubel.ru'>
           vrubel.ru

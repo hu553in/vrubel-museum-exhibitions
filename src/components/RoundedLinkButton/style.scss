@@ -1,0 +1,28 @@
+.rounded-link-button__button {
+  width: 285px;
+  height: 64px;
+  border: 2px solid #fff;
+  border-radius: 32px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: transparent;
+  background-position: center;
+  background-size: 285px 64px;
+  background-repeat: no-repeat;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      border-width: 3px;
+    }
+  }
+
+  @media (max-width: 1250px) {
+    width: 230px;
+    height: 51.65px;
+    border-radius: 32px;
+    background-size: 230px 51.65px;
+    font-size: 25px;
+  }
+}

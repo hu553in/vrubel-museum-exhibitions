@@ -8,7 +8,7 @@ import HeaderFooterLayout from './layouts/HeaderFooter/HeaderFooterLayout';
 import About from './pages/About/About';
 import Catalogue from './pages/Catalogue/Catalogue';
 import Contacts from './pages/Contacts/Contacts';
-import Gallery from './pages/Gallery/Gallery';
+import Galos from './pages/Galos/Galos';
 import Main from './pages/Main/Main';
 import Picture from './pages/Picture/Picture';
 import './style.scss';
@@ -21,8 +21,8 @@ ReactDOM.render(
       <Route exact path={ROUTES.DEFAULT}>
         <Main />
       </Route>
-      <Route path={ROUTES.GALLERY}>
-        <Gallery />
+      <Route path={ROUTES.GALOS}>
+        <Galos />
       </Route>
       <Route path={ROUTES.ABOUT}>
         <HeaderFooterLayout>

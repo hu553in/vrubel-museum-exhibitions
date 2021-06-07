@@ -28,9 +28,9 @@
 
 .footer__nav-bar {
   display: grid;
-  grid-template-columns: repeat(2, max-content);
+  grid-template-columns: repeat(3, max-content);
   grid-template-rows: repeat(2, max-content);
-  gap: 23px 55px;
+  gap: 23px 27px;
   flex-shrink: 0;
   margin: auto 0 auto auto;
 

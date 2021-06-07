@@ -21,9 +21,9 @@ const triptihVideoSources = [
   },
 ];
 
-const Gallery: React.FC = () => {
+const Main: React.FC = () => {
   const [shouldShowTriptihVideo, setShouldShowTriptihVideo] = useState(true);
-  const [shouldRedirectToGallery, setShouldRedirectToGallery] = useState(false);
+  const [shouldRedirectToGalos, setShouldRedirectToGalos] = useState(false);
 
   const [
     shouldNotFadeOutTriptihAndTitle,
@@ -37,17 +37,17 @@ const Gallery: React.FC = () => {
   const handleVideoEnded = useCallback(() => {
     hideTriptihVideo();
     setTimeout(() => setShouldNotFadeOutTriptihAndTitle(false), 2750);
-    setTimeout(() => setShouldRedirectToGallery(true), 5000);
+    setTimeout(() => setShouldRedirectToGalos(true), 5000);
   }, [hideTriptihVideo]);
 
   useEffect(() => {
     setShouldShowTriptihVideo(true);
-    setShouldRedirectToGallery(false);
+    setShouldRedirectToGalos(false);
     return hideTriptihVideo;
   }, [hideTriptihVideo]);
 
-  if (shouldRedirectToGallery) {
-    return <Redirect to={ROUTES.GALLERY} />;
+  if (shouldRedirectToGalos) {
+    return <Redirect to={ROUTES.GALOS} />;
   }
 
   return (
@@ -67,4 +67,4 @@ const Gallery: React.FC = () => {
   );
 };
 
-export default Gallery;
+export default Main;

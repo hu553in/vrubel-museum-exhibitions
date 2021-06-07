@@ -11,7 +11,7 @@ import useUpdateOnResize from '../../hooks/useUpdateOnResize';
 import pictures from '../../shared/pictures';
 import './style.scss';
 
-const Gallery: React.FC = () => {
+const Galos: React.FC = () => {
   const history = useHistory();
   const [name, setName] = useState('');
   const [authorAndYear, setAuthorAndYear] = useState('');
@@ -19,12 +19,10 @@ const Gallery: React.FC = () => {
   useScrollToHashOnComponentMount();
   useUpdateOnResize();
 
-  const [galleryStateRef, setGalleryStateRef] = useState<HTMLElement | null>(
-    null
-  );
+  const [galosStateRef, setGalosStateRef] = useState<HTMLElement | null>(null);
 
-  const galleryCallbackRef = useCallback(node => setGalleryStateRef(node), []);
-  const { clientWidth, clientHeight } = galleryStateRef ?? {};
+  const galosCallbackRef = useCallback(node => setGalosStateRef(node), []);
+  const { clientWidth, clientHeight } = galosStateRef ?? {};
 
   const animationStyle = useSpring({
     opacity: 1,
@@ -47,20 +45,20 @@ const Gallery: React.FC = () => {
   const overlayHeaderStyle = useMemo(
     () => ({
       ...(viewportWidthSupported && animationStyle),
-      ...(galleryStateRef && { width: clientWidth }),
+      ...(galosStateRef && { width: clientWidth }),
     }),
-    [clientWidth, galleryStateRef, animationStyle, viewportWidthSupported]
+    [clientWidth, galosStateRef, animationStyle, viewportWidthSupported]
   );
 
   const overlayMainStyle = useMemo(
     () => ({
-      ...(galleryStateRef && { width: clientWidth, minHeight: clientHeight }),
+      ...(galosStateRef && { width: clientWidth, minHeight: clientHeight }),
     }),
-    [clientHeight, clientWidth, galleryStateRef]
+    [clientHeight, clientWidth, galosStateRef]
   );
 
   const overlayInfoBlockStyle = useMemo(() => {
-    if (!galleryStateRef) {
+    if (!galosStateRef) {
       return {};
     }
 
@@ -70,10 +68,10 @@ const Gallery: React.FC = () => {
       left: clientWidth! * 0.55,
       gap: Math.min(clientWidth!, clientHeight!) * 0.05,
     };
-  }, [clientHeight, clientWidth, galleryStateRef]);
+  }, [clientHeight, clientWidth, galosStateRef]);
 
   const overlayCircleStyle = useMemo(() => {
-    if (!galleryStateRef) {
+    if (!galosStateRef) {
       return {};
     }
 
@@ -88,10 +86,10 @@ const Gallery: React.FC = () => {
       top: clientHeight! / 2.0,
       left: clientWidth! / 2.0,
     };
-  }, [clientHeight, clientWidth, galleryStateRef]);
+  }, [clientHeight, clientWidth, galosStateRef]);
 
   const pictureStyle = useMemo(() => {
-    if (!galleryStateRef) {
+    if (!galosStateRef) {
       return {};
     }
 
@@ -104,7 +102,7 @@ const Gallery: React.FC = () => {
       maxWidth: clientMinDimension,
       maxHeight: clientMinDimension,
     };
-  }, [clientHeight, clientWidth, galleryStateRef, animationStyle]);
+  }, [clientHeight, clientWidth, galosStateRef, animationStyle]);
 
   const [loadingArray, setLoadingArray] = useState(
     Array(pictures.length).fill(true)
@@ -127,19 +125,19 @@ const Gallery: React.FC = () => {
           {({ ref }) => (
             <animated.div
               id={picture.id}
-              className='gallery__picture-wrapper'
+              className='galos__picture-wrapper'
               ref={ref}
               style={animationStyle}
             >
               <NavLink
-                className='gallery__picture-link'
-                to={`${ROUTES.PICTURE}/${encodeURIComponent(
-                  picture.id
-                )}?from=/gallery%23${encodeURIComponent(picture.id)}`}
+                className='galos__picture-link'
+                to={`${ROUTES.PICTURE}/${encodeURIComponent(picture.id)}?from=${
+                  ROUTES.GALOS
+                }%23${encodeURIComponent(picture.id)}`}
               >
                 <img
                   style={pictureStyle}
-                  className='gallery__picture'
+                  className='galos__picture'
                   src={picture.preview}
                   alt={picture.name}
                   onLoad={() => {
@@ -169,25 +167,25 @@ const Gallery: React.FC = () => {
     }
   }, [history, viewportWidthSupported]);
 
-  const galleryChildren = useMemo(
+  const galosChildren = useMemo(
     () =>
       viewportWidthSupported ? (
         <>
           {pictureWrapperElements}
-          <div className='gallery__overlay-main' style={overlayMainStyle} />
-          <div className='gallery__overlay-circle' style={overlayCircleStyle} />
+          <div className='galos__overlay-main' style={overlayMainStyle} />
+          <div className='galos__overlay-circle' style={overlayCircleStyle} />
           <div
-            className='gallery__overlay-info-block'
+            className='galos__overlay-info-block'
             style={overlayInfoBlockStyle}
           >
             <animated.p
-              className='gallery__overlay-title'
+              className='galos__overlay-title'
               style={textAnimationStyle}
             >
               {name}
             </animated.p>
             <animated.p
-              className='gallery__overlay-author-and-year'
+              className='galos__overlay-author-and-year'
               style={textAnimationStyle}
             >
               {authorAndYear}
@@ -195,7 +193,7 @@ const Gallery: React.FC = () => {
           </div>
         </>
       ) : (
-        <p className='gallery__error-message'>
+        <p className='galos__error-message'>
           Ширина окна браузера не поддерживается, но вы можете перейти на другую
           страницу через меню :)
         </p>
@@ -214,16 +212,13 @@ const Gallery: React.FC = () => {
 
   return (
     <>
-      <main className='gallery' ref={galleryCallbackRef}>
+      <main className='galos' ref={galosCallbackRef}>
         {loading && <Loading />}
-        <Header
-          className={'gallery__overlay-header'}
-          style={overlayHeaderStyle}
-        />
-        {galleryChildren}
+        <Header className='galos__overlay-header' style={overlayHeaderStyle} />
+        {galosChildren}
       </main>
     </>
   );
 };
 
-export default Gallery;
+export default Galos;

@@ -11,8 +11,10 @@ const logo =
 
 const sideMenuLinks = [
   { dest: ROUTES.DEFAULT, label: 'Главная' },
+  { dest: ROUTES.GALOS, label: 'Галос' },
   { dest: ROUTES.CONTACTS, label: 'Контакты' },
   { dest: ROUTES.CATALOGUE, label: 'Каталог' },
+  { dest: ROUTES.ACCOUNT, label: 'Аккаунт' },
   { dest: ROUTES.ABOUT, label: 'О проекте' },
 ];
 

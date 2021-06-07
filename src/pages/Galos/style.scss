@@ -1,4 +1,4 @@
-.gallery {
+.galos {
   width: 100%;
   height: 100%;
   max-height: 100vh;
@@ -14,7 +14,7 @@
   }
 }
 
-.gallery__overlay-main {
+.galos__overlay-main {
   background: radial-gradient(75vmin 75vmin at center, transparent 50%, #000 50%);
   display: inline-block;
   z-index: 9997;
@@ -23,7 +23,7 @@
   pointer-events: none;
 }
 
-.gallery__picture-wrapper {
+.galos__picture-wrapper {
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -33,13 +33,13 @@
   min-height: 100%;
 }
 
-.gallery__picture {
+.galos__picture {
   object-fit: cover;
   width: 100vmin;
   height: 100vmin;
 }
 
-.gallery__overlay-circle {
+.galos__overlay-circle {
   background-color: #000;
   border-radius: 50%;
   position: absolute;
@@ -48,7 +48,7 @@
   pointer-events: none;
 }
 
-.gallery__overlay-info-block {
+.galos__overlay-info-block {
   display: grid;
   grid-template-rows: repeat(2, minmax(0, max-content));
   grid-template-columns: 1fr;
@@ -60,8 +60,8 @@
   pointer-events: none;
 }
 
-.gallery__overlay-title,
-.gallery__overlay-author-and-year {
+.galos__overlay-title,
+.galos__overlay-author-and-year {
   font-family: 'Lighthaus', sans-serif;
   font-size: 4vmin;
   color: #fff;
@@ -71,19 +71,19 @@
   background-color: #000;
 }
 
-.gallery__overlay-header {
+.galos__overlay-header {
   z-index: 9999;
   position: absolute;
   top: 0;
 }
 
-.gallery__error-message {
+.galos__error-message {
   width: 300px;
   line-height: 24px;
   text-align: center;
   color: #fff;
 }
 
-.gallery__picture-link {
+.galos__picture-link {
   font-size: 0;
 }

@@ -7,6 +7,11 @@ in [Omsk regional M.A. Vrubel museum of fine arts](https://vrubel.ru/).\
 In fact, this project is just a part of paired diploma work at [OmSTU](https://omgtu.ru/english/).\
 Currently, it is available in Russian language only.
 
+## Authors
+
+* Website design — [Kristina Kalnitskaya](mailto:Kristormy@gmail.com)
+* Animation — [Anastasia Sergienko](mailto:sergienkoanastasiia@gmail.com)
+
 ## Tech stack
 
 * React (TypeScript)

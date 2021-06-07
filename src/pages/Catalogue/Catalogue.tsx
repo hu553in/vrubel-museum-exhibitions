@@ -14,13 +14,14 @@ const Catalogue: React.FC = () => {
     () =>
       pictures.map((picture, index) => (
         <NavLink
+          className='catalogue__picture-link'
           key={`catalogue-link-${index}`}
           to={`${ROUTES.PICTURE}/${encodeURIComponent(picture.id)}?from=${
             ROUTES.CATALOGUE
           }`}
         >
           <img
-            className={'catalogue__picture'}
+            className='catalogue__picture'
             src={picture.preview}
             alt={picture.name}
             onLoad={() => {
@@ -31,6 +32,12 @@ const Catalogue: React.FC = () => {
               });
             }}
           />
+          <p className='catalogue__picture-info'>
+            <span className='catalogue__picture-name'>{picture.name}</span>
+            <span className='catalogue__picture-author-and-year'>
+              {picture.authorAndYear}
+            </span>
+          </p>
         </NavLink>
       )),
     []

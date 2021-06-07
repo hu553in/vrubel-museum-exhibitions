@@ -2,6 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import Building from '../../components/Building/Building';
 import Loading from '../../components/Loading/Loading';
 import Map from '../../components/Map/Map';
+import RoundedLinkButton from '../../components/RoundedLinkButton/RoundedLinkButton';
+import buyTicket from './images/buy-ticket.webp';
 import first from './images/first.svg';
 import second from './images/second.svg';
 import third from './images/third.svg';
@@ -84,6 +86,12 @@ const Contacts: React.FC = () => {
         </p>
       </section>
       <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
+      <RoundedLinkButton
+        className='contacts__buy-ticket-button'
+        link='https://vrubel.ru/ticket/czentr-ermitazh-sibir'
+        label='Купить билет'
+        backgroundImage={buyTicket}
+      />
     </main>
   );
 };
