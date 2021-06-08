@@ -8,6 +8,9 @@ export enum SocialNetwork {
   TIKTOK = 'tiktok',
   VK = 'vk',
   YOUTUBE = 'youtube',
+  GOOGLE_TRANSPARENT = 'googleTransparent',
+  VK_TRANSPARENT = 'vkTransparent',
+  FACEBOOK_TRANSPARENT = 'facebookTransparent',
 }
 
 const socialNetworkIcons = {

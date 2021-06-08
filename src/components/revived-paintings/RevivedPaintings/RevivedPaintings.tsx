@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import HeaderFooterLayout from '../../../layouts/revived-paintings/HeaderFooter/HeaderFooterLayout';
 import About from '../../../pages/revived-paintings/About/About';
+import Account from '../../../pages/revived-paintings/Account/Account';
 import Catalogue from '../../../pages/revived-paintings/Catalogue/Catalogue';
 import Contacts from '../../../pages/revived-paintings/Contacts/Contacts';
 import Galos from '../../../pages/revived-paintings/Galos/Galos';
@@ -39,7 +40,9 @@ const RevivedPaintings: React.FC = () => {
         </HeaderFooterLayout>
       </Route>
       <Route path={`${path}${ROUTES.ACCOUNT}`}>
-        <Redirect to={ROUTES.DEFAULT} />
+        <HeaderFooterLayout>
+          <Account />
+        </HeaderFooterLayout>
       </Route>
       <Route>
         <Redirect to={ROUTES.DEFAULT} />
