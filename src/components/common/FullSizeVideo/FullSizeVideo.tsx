@@ -67,16 +67,18 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   const playPromise = useRef<Promise<void> | undefined>();
 
   useEffect(() => {
-    if (isVisible) {
-      playPromise.current = localRef?.current?.play();
-    } else {
-      if (playPromise.current) {
-        playPromise.current?.then(() => localRef?.current?.pause());
+    if (!loading) {
+      if (isVisible) {
+        playPromise.current = localRef?.current?.play();
       } else {
-        localRef?.current?.pause();
+        if (playPromise.current) {
+          playPromise.current?.then(() => localRef?.current?.pause());
+        } else {
+          localRef?.current?.pause();
+        }
       }
     }
-  }, [localRef, isVisible]);
+  }, [localRef, isVisible, loading]);
 
   const sourceElements = useMemo(
     () =>
