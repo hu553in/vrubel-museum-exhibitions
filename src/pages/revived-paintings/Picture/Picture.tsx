@@ -241,7 +241,7 @@ const Picture: React.FC = () => {
     playingAnimatedVariationIndex,
   ]);
 
-  const handleReturnClick = useCallback(() => {
+  const onReturnClick = useCallback(() => {
     if (openedFrom) {
       history.push(openedFrom);
     } else {
@@ -391,7 +391,7 @@ const Picture: React.FC = () => {
           <button
             aria-label='Вернуться назад'
             className='picture__control-button picture__control-button_return'
-            onClick={handleReturnClick}
+            onClick={onReturnClick}
           />
           <button
             aria-label='Информация о картине'

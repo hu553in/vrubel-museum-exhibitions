@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
 import Loading from '../../common/Loading/Loading';
-import left from './images/left.webp';
-import middle from './images/middle.webp';
-import right from './images/right.webp';
+import left from './assets/images/left.webp';
+import middle from './assets/images/middle.webp';
+import right from './assets/images/right.webp';
 import './style.scss';
 
 interface Props {

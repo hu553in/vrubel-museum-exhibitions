@@ -5,8 +5,8 @@ import Title from '../../../components/revived-paintings/Title/Title';
 import Triptih from '../../../components/revived-paintings/Triptih/Triptih';
 import { ROUTES } from '../../../constants';
 import './style.scss';
-import triptihMp4 from './videos/triptih.mp4';
-import triptihWebm from './videos/triptih.webm';
+import triptihMp4 from './assets/videos/triptih.mp4';
+import triptihWebm from './assets/videos/triptih.webm';
 
 const triptihVideoSources = [
   {
@@ -40,7 +40,7 @@ const Intro: React.FC = () => {
     setShouldShowTriptihVideo(false);
   }, []);
 
-  const handleVideoEnded = useCallback(() => {
+  const onVideoEnded = useCallback(() => {
     hideTriptihVideo();
     setTimeout(() => setShouldNotFadeOutTriptihAndTitle(false), 2750);
     setTimeout(() => setShouldRedirectToGalos(true), 5000);
@@ -53,10 +53,7 @@ const Intro: React.FC = () => {
   return (
     <main className='intro'>
       {shouldShowTriptihVideo ? (
-        <FullSizeVideo
-          sources={triptihVideoSources}
-          onEnded={handleVideoEnded}
-        />
+        <FullSizeVideo sources={triptihVideoSources} onEnded={onVideoEnded} />
       ) : (
         <>
           <Triptih open={shouldNotFadeOutTriptihAndTitle} />

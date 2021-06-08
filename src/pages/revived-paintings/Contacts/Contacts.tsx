@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Building from '../../../components/common/Building/Building';
 import Loading from '../../../components/common/Loading/Loading';
 import Map from '../../../components/common/Map/Map';
-import RoundedLinkButton from '../../../components/common/RoundedLinkButton/RoundedLinkButton';
-import buyTicket from './images/buy-ticket.webp';
-import first from './images/first.svg';
-import second from './images/second.svg';
-import third from './images/third.svg';
+import RoundedButton from '../../../components/common/RoundedButton/RoundedButton';
+import buyTicket from './assets/images/buy-ticket.webp';
+import first from './assets/images/first.svg';
+import second from './assets/images/second.svg';
+import third from './assets/images/third.svg';
 import './style.scss';
 
 const initialLoadingArray = Array(3).fill(true);
@@ -95,12 +95,12 @@ const Contacts: React.FC = () => {
         </p>
       </section>
       <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
-      <RoundedLinkButton
-        className='contacts__buy-ticket-button'
-        link='https://vrubel.ru/ticket/czentr-ermitazh-sibir'
-        label='Купить билет'
-        backgroundImage={buyTicket}
-      />
+      <a
+        href='https://vrubel.ru/ticket/czentr-ermitazh-sibir'
+        className='contacts__buy-ticket-button-link'
+      >
+        <RoundedButton label='Купить билет' backgroundImage={buyTicket} />
+      </a>
     </main>
   );
 };

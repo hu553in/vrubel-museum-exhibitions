@@ -1,16 +1,18 @@
 .account {
+  width: 80%;
+  max-width: 572px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  margin-bottom: 50px;
 }
 
 .account__title {
   font-family: 'Lighthaus', sans-serif;
   font-size: 70px;
   color: #fff;
-  margin: 30px 0 50px;
+  margin: 30px 0 30px;
   text-align: center;
 
   @media (max-width: 1250px) {
@@ -19,5 +21,97 @@
 
   @media (max-width: 400px) {
     font-size: 45px;
+  }
+}
+
+.account__social-sign-in-label {
+  font-size: 23px;
+  font-family: 'Montserrat', sans-serif;
+  color: #d2d2d2;
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-align: center;
+
+  @media (max-width: 1250px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 16px;
+  }
+}
+
+.account__social-sign-in-links {
+  display: flex;
+  justify-content: center;
+}
+
+.account__social-sign-in-link {
+  width: 37px;
+  height: 37px;
+  margin-right: 40px;
+  display: inline-block;
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @media (max-width: 1250px) {
+    width: 30px;
+    height: 30px;
+    margin-right: 32.4px;
+  }
+}
+
+.account__sign-in-form {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 75%;
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
+}
+
+.account__sign-in-password-text-field,
+.account__sign-in-remember-me-checkbox {
+  margin-top: 25px;
+}
+
+.account__sign-in-links {
+  margin-top: 40px;
+  border-top: 1px solid #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.account__sign-in-link {
+  text-decoration: none;
+  color: #d2d2d2;
+  font-size: 14px;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.account__sign-in-button {
+  margin-top: 10px;
+  width: 200px;
+  height: 45px;
+  background-size: 200px 45px;
+  font-size: 25px;
+
+  @media (max-width: 450px) {
+    margin-top: 20px;
   }
 }

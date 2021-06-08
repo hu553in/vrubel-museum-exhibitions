@@ -5,7 +5,7 @@ import Loading from '../../common/Loading/Loading';
 import SocialNetworkIcon, {
   SocialNetwork,
 } from '../../common/SocialNetworkIcon/SocialNetworkIcon';
-import logo from './images/logo.svg';
+import logo from './assets/images/logo.svg';
 import './style.scss';
 
 const navBarLinkElements = [

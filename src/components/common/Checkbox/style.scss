@@ -1,0 +1,25 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.checkbox__inner-element {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #000;
+  border: 1px solid #d2d2d2;
+
+  &_checked {
+    background-color: #d2d2d2;
+  }
+}
+
+.checkbox__label {
+  margin-left: 12px;
+  font-family: 'Montserrat', sans-serif;
+  color: #d2d2d2;
+}

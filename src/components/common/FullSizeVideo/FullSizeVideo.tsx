@@ -56,7 +56,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
 
   const stopLoading = useCallback(() => setLoading(false), []);
 
-  const handleError = useCallback(() => {
+  const onError = useCallback(() => {
     setLoading(false);
     setError(true);
   }, []);
@@ -122,7 +122,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [objectFit, oneHundredPercentHeight, rootElementHeight, style]
   );
 
-  const handleLoadedMetadataDataCanPlayEvents = useMemo(
+  const onLoadedMetadataDataCanPlayEvents = useMemo(
     () => (autoPlay ? undefined : stopLoading),
     [autoPlay, stopLoading]
   );
@@ -148,11 +148,11 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
         disablePictureInPicture
         controlsList='nodownload nofullscreen'
         preload='metadata'
-        onLoadedMetadata={handleLoadedMetadataDataCanPlayEvents}
-        onLoadedData={handleLoadedMetadataDataCanPlayEvents}
-        onCanPlay={handleLoadedMetadataDataCanPlayEvents}
+        onLoadedMetadata={onLoadedMetadataDataCanPlayEvents}
+        onLoadedData={onLoadedMetadataDataCanPlayEvents}
+        onCanPlay={onLoadedMetadataDataCanPlayEvents}
         onCanPlayThrough={stopLoading}
-        onError={handleError}
+        onError={onError}
         onPlay={stopLoading}
         style={styleToUse}
         playsInline

@@ -1,0 +1,17 @@
+.text-field {
+  border: 1px solid #fff;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  border-radius: 41px;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+
+  &[type='password']:not(:placeholder-shown) {
+    letter-spacing: 3px;
+  }
+
+  &::placeholder {
+    color: #d2d2d2;
+  }
+}

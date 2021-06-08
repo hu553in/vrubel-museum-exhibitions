@@ -7,8 +7,8 @@ import { ROUTES } from '../../../constants';
 import useDeviceOrientation, {
   DeviceOrientation,
 } from '../../../hooks/useDeviceOrientation';
-import first from './images/first.webp';
-import second from './images/second.webp';
+import first from './assets/images/first.webp';
+import second from './assets/images/second.webp';
 import './style.scss';
 
 const initialLoadingArray = Array(2).fill(true);
