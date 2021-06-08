@@ -8,14 +8,10 @@
   justify-content: flex-start;
   scroll-snap-type: y mandatory;
   overflow-y: auto;
-
-  @media (max-width: 359px) {
-    justify-content: center;
-  }
 }
 
 .galos__overlay-main {
-  background: radial-gradient(75vmin 75vmin at center, transparent 50%, #000 50%);
+  background: radial-gradient(max(75vmin, 270px) max(75vmin, 270px) at center, transparent 50%, #000 50%);
   display: inline-block;
   z-index: 9997;
   position: absolute;
@@ -35,8 +31,8 @@
 
 .galos__picture {
   object-fit: cover;
-  width: 100vmin;
-  height: 100vmin;
+  width: max(100vmin, 360px);
+  height: max(100vmin, 360px);
 }
 
 .galos__overlay-circle {
@@ -63,11 +59,11 @@
 .galos__overlay-title,
 .galos__overlay-author-and-year {
   font-family: 'Lighthaus', sans-serif;
-  font-size: 4vmin;
+  font-size: max(4vmin, 14.4px);
   color: #fff;
   margin-top: 0;
   margin-bottom: 0;
-  line-height: 6vmin;
+  line-height: max(6vmin, 21.6px);
   background-color: #000;
 }
 
@@ -75,13 +71,6 @@
   z-index: 9999;
   position: absolute;
   top: 0;
-}
-
-.galos__error-message {
-  width: 300px;
-  line-height: 25px;
-  text-align: center;
-  color: #fff;
 }
 
 .galos__picture-link {

@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
-import Loading from '../../Loading/Loading';
+import Loading from '../../common/Loading/Loading';
 import SocialNetworkIcon, {
   SocialNetwork,
-} from '../../SocialNetworkIcon/SocialNetworkIcon';
+} from '../../common/SocialNetworkIcon/SocialNetworkIcon';
 import logo from './images/logo.svg';
 import './style.scss';
 
@@ -65,13 +65,23 @@ const socialLinkElements = [
 
 const Footer: React.FC = () => {
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+  }, []);
+
   const stopLoading = useCallback(() => setLoading(false), []);
 
   return (
     <footer className='footer'>
       {loading && <Loading />}
       <a className='footer__logo' href='https://vrubel.ru'>
-        <img src={logo} alt='Логотип музея' onLoad={stopLoading} />
+        <img
+          src={logo}
+          alt='Логотип музея'
+          onLoad={stopLoading}
+          onError={stopLoading}
+        />
       </a>
       <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
       <nav className='footer__social-links'>{socialLinkElements}</nav>

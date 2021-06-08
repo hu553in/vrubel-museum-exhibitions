@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -21,22 +21,6 @@ interface Props {
 const SideMenu: React.FC<Props> = props => {
   const { open, onClose, links, parentElement } = props;
   const location = useLocation();
-  const [stateRef, setStateRef] = useState<HTMLElement | null>(null);
-  const callbackRef = useCallback(node => setStateRef(node), []);
-
-  useEffect(() => {
-    if (open) {
-      setTimeout(() => {
-        if (stateRef) {
-          stateRef.style.position = 'absolute';
-        }
-      }, 250);
-    } else {
-      if (stateRef) {
-        stateRef.style.removeProperty('position');
-      }
-    }
-  }, [open, parentElement.style, stateRef]);
 
   const linkElements = useMemo(
     () =>
@@ -75,7 +59,7 @@ const SideMenu: React.FC<Props> = props => {
   return ReactDOM.createPortal(
     <>
       <RemoveScroll enabled={open} removeScrollBar>
-        <aside className={classNameToUse} ref={callbackRef}>
+        <aside className={classNameToUse}>
           {linkElements}
           <button
             aria-label='Закрыть меню'

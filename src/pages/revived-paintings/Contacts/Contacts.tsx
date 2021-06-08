@@ -1,13 +1,15 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import Building from '../../../components/Building/Building';
-import Loading from '../../../components/Loading/Loading';
-import Map from '../../../components/Map/Map';
-import RoundedLinkButton from '../../../components/RoundedLinkButton/RoundedLinkButton';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import Building from '../../../components/common/Building/Building';
+import Loading from '../../../components/common/Loading/Loading';
+import Map from '../../../components/common/Map/Map';
+import RoundedLinkButton from '../../../components/common/RoundedLinkButton/RoundedLinkButton';
 import buyTicket from './images/buy-ticket.webp';
 import first from './images/first.svg';
 import second from './images/second.svg';
 import third from './images/third.svg';
 import './style.scss';
+
+const initialLoadingArray = Array(3).fill(true);
 
 const mapSrc =
   'https://yandex.ru/map-widget/v1/?um=constructor' +
@@ -15,7 +17,11 @@ const mapSrc =
   '&amp;source=constructor';
 
 const Contacts: React.FC = () => {
-  const [loadingArray, setLoadingArray] = useState(Array(3).fill(true));
+  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
+
+  useEffect(() => {
+    setLoadingArray(initialLoadingArray);
+  }, []);
 
   const loading = useMemo(
     () => loadingArray.reduce((carry, current) => carry || current, false),
@@ -35,6 +41,7 @@ const Contacts: React.FC = () => {
       {
         logo: first,
         onLogoLoad: () => uncheckLoadingArrayItem(0),
+        onLogoError: () => uncheckLoadingArrayItem(0),
         name: 'Генерал-губернаторский дворец',
         address: '644024, Омск, ул. Ленина, 23',
         busStops: ['«Площадь Ленина»', '«Краеведческий музей»'],
@@ -43,6 +50,7 @@ const Contacts: React.FC = () => {
       {
         logo: second,
         onLogoLoad: () => uncheckLoadingArrayItem(1),
+        onLogoError: () => uncheckLoadingArrayItem(1),
         name: 'Врубелевский корпус',
         address: '644043, Омск, ул. Ленина, 3',
         busStops: [
@@ -56,6 +64,7 @@ const Contacts: React.FC = () => {
       {
         logo: third,
         onLogoLoad: () => uncheckLoadingArrayItem(2),
+        onLogoError: () => uncheckLoadingArrayItem(2),
         name: 'Центр «Эрмитаж-Сибирь»',
         address: '644099, Омск, ул. Музейная, 4',
         busStops: [

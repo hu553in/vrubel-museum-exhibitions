@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ExternalMagnifier from 'react-magnifier';
-import useForceUpdate from '../../hooks/useForceUpdate';
-import calculateImageSizeByContainerAndNaturalSizes from '../../utils/calculateImageSizeByContainerAndNaturalSizes';
+import useForceUpdate from '../../../hooks/useForceUpdate';
+import calculateImageSizeByContainerAndNaturalSizes from '../../../utils/calculateImageSizeByContainerAndNaturalSizes';
 import Loading from '../Loading/Loading';
 
 interface Props {
@@ -49,17 +49,21 @@ const Magnifier: React.FC<Props> = props => {
   const magnifierPresent = useMemo(() => !!magnifier, [magnifier]);
   const [loading, setLoading] = useState(magnifierPresent);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => setLoading(magnifierPresent), []);
+  useEffect(() => setLoading(magnifierPresent), [magnifierPresent]);
 
   useEffect(() => {
-    const onImageLoad = () => {
+    const stopLoading = () => {
       forceUpdate();
       setLoading(false);
     };
 
-    stateRef?.img?.addEventListener('load', onImageLoad);
-    return () => stateRef?.img?.removeEventListener('load', onImageLoad);
+    stateRef?.img?.addEventListener('error', stopLoading);
+    stateRef?.img?.addEventListener('load', stopLoading);
+
+    return () => {
+      stateRef?.img?.removeEventListener('error', stopLoading);
+      stateRef?.img?.removeEventListener('load', stopLoading);
+    };
   }, [forceUpdate, stateRef?.img]);
 
   const rootElement = document.getElementById('root');

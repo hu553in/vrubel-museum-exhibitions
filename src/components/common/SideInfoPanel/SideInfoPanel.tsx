@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { RemoveScroll } from 'react-remove-scroll';
 import './style.scss';
 
 interface Props {
@@ -16,6 +15,11 @@ interface Props {
 const SideInfoPanel: React.FC<Props> = props => {
   const { open, onClose, parentElement, header, subheader, paragraphs } = props;
   const [collapseButtonShown, setCollapseButtonShown] = useState(false);
+
+  useEffect(() => {
+    setCollapseButtonShown(false);
+  }, []);
+
   const [stateRef, setStateRef] = useState<HTMLElement | null>(null);
   const callbackRef = useCallback(node => setStateRef(node), []);
 
@@ -65,13 +69,11 @@ const SideInfoPanel: React.FC<Props> = props => {
 
   return ReactDOM.createPortal(
     <>
-      <RemoveScroll enabled={open} removeScrollBar>
-        <aside className={classNameToUse} ref={callbackRef}>
-          <p className='side-info-panel__header'>{header}</p>
-          <p className='side-info-panel__subheader'>{subheader}</p>
-          {paragraphElements}
-        </aside>
-      </RemoveScroll>
+      <aside className={classNameToUse} ref={callbackRef}>
+        <p className='side-info-panel__header'>{header}</p>
+        <p className='side-info-panel__subheader'>{subheader}</p>
+        {paragraphElements}
+      </aside>
       {open && (
         <>
           {collapseButtonShown && (

@@ -4,8 +4,12 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+// @ts-ignore
+import { usePageVisibility } from 'react-page-visibility';
+import mergeRefs from 'react-merge-refs';
 import Loading from '../Loading/Loading';
 import './style.scss';
 
@@ -43,18 +47,36 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   } = props;
 
   const [loading, setLoading] = useState(true);
-  const stopLoading = useCallback(() => setLoading(false), []);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    setError(false);
+  }, []);
+
+  const stopLoading = useCallback(() => setLoading(false), []);
 
   const handleError = useCallback(() => {
     setLoading(false);
     setError(true);
   }, []);
 
+  const localRef = useRef<HTMLVideoElement | null>(null);
+  const refToUse = mergeRefs([ref, localRef]);
+  const isVisible = usePageVisibility();
+  const playPromise = useRef<Promise<void> | undefined>();
+
   useEffect(() => {
-    setLoading(true);
-    setError(false);
-  }, []);
+    if (isVisible) {
+      playPromise.current = localRef?.current?.play();
+    } else {
+      if (playPromise.current) {
+        playPromise.current?.then(() => localRef?.current?.pause());
+      } else {
+        localRef?.current?.pause();
+      }
+    }
+  }, [localRef, isVisible]);
 
   const sourceElements = useMemo(
     () =>
@@ -85,8 +107,8 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [sources]
   );
 
-  const { clientHeight: rootElementHeight } =
-    document.getElementById('root') ?? {};
+  const rootElement = document.getElementById('root');
+  const { clientHeight: rootElementHeight } = rootElement ?? {};
 
   const styleToUse = useMemo(
     () => ({
@@ -103,13 +125,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [autoPlay, stopLoading]
   );
 
-  if (sourceElements.length === 0) {
-    return null;
-  }
-
-  const rootElement = document.getElementById('root');
-
-  if (!rootElement) {
+  if (!rootElement || sourceElements.length === 0) {
     return null;
   }
 
@@ -138,7 +154,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
         onPlay={stopLoading}
         style={styleToUse}
         playsInline
-        ref={ref}
+        ref={refToUse}
         loop={loop}
       >
         {sourceElements}

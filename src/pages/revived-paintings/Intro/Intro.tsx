@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
-import FullSizeVideo from '../../../components/FullSizeVideo/FullSizeVideo';
+import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
 import Title from '../../../components/revived-paintings/Title/Title';
 import Triptih from '../../../components/revived-paintings/Triptih/Triptih';
 import { ROUTES } from '../../../constants';
@@ -30,6 +30,12 @@ const Intro: React.FC = () => {
     setShouldNotFadeOutTriptihAndTitle,
   ] = useState(true);
 
+  useEffect(() => {
+    setShouldShowTriptihVideo(true);
+    setShouldRedirectToGalos(false);
+    setShouldNotFadeOutTriptihAndTitle(true);
+  }, []);
+
   const hideTriptihVideo = useCallback(() => {
     setShouldShowTriptihVideo(false);
   }, []);
@@ -38,12 +44,6 @@ const Intro: React.FC = () => {
     hideTriptihVideo();
     setTimeout(() => setShouldNotFadeOutTriptihAndTitle(false), 2750);
     setTimeout(() => setShouldRedirectToGalos(true), 5000);
-  }, [hideTriptihVideo]);
-
-  useEffect(() => {
-    setShouldShowTriptihVideo(true);
-    setShouldRedirectToGalos(false);
-    return hideTriptihVideo;
   }, [hideTriptihVideo]);
 
   if (shouldRedirectToGalos) {

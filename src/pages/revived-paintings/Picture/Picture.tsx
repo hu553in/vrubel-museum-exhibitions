@@ -1,16 +1,16 @@
 import cn from 'classnames';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import Sound from 'react-sound';
-import FullSizeVideo from '../../../components/FullSizeVideo/FullSizeVideo';
-import ImageHotspots from '../../../components/ImageHotspots/ImageHotspots';
-import Magnifier from '../../../components/Magnifier/Magnifier';
-import SideInfoPanel from '../../../components/SideInfoPanel/SideInfoPanel';
+import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
+import ImageHotspots from '../../../components/common/ImageHotspots/ImageHotspots';
+import Magnifier from '../../../components/common/Magnifier/Magnifier';
+import SideInfoPanel from '../../../components/common/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '../../../constants';
 import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
-import pictures from '../../../shared/revived-paintings/pictures';
+import pictures from '../../../assets/revived-paintings/pictures';
 import './style.scss';
 
 const pause =
@@ -154,6 +154,10 @@ const Picture: React.FC = () => {
     setPlayingAnimatedVariationIndex,
   ] = useState(animatedVariationsPresent ? 0 : undefined);
 
+  useEffect(() => {
+    setPlayingAnimatedVariationIndex(animatedVariationsPresent ? 0 : undefined);
+  }, [animatedVariationsPresent]);
+
   const animatedVariationVideoElement = useMemo(() => {
     if (!animatedVariationsPresent) {
       return null;
@@ -296,6 +300,12 @@ const Picture: React.FC = () => {
     playingImageHotspotVideoSources,
     setPlayingImageHotspotVideoSources,
   ] = useState<VideoSource[] | undefined>();
+
+  useEffect(() => {
+    setPlayingSoundIndex(-1);
+    setInfoPanelOpen(false);
+    setPlayingImageHotspotVideoSources(undefined);
+  }, []);
 
   const playingImageHotspotVideoPresent = useMemo(
     () =>

@@ -1,9 +1,9 @@
 import cn from 'classnames';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { animated, SpringValue } from 'react-spring';
 import { ROUTES } from '../../../constants';
-import SideMenu from '../../SideMenu/SideMenu';
+import SideMenu from '../../common/SideMenu/SideMenu';
 import './style.scss';
 
 const logo =
@@ -30,6 +30,11 @@ interface Props {
 const Header: React.FC<Props> = props => {
   const { className = '', style } = props;
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, []);
+
   const openMenu = useCallback(() => setMenuOpen(true), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 

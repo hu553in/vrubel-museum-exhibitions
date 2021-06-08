@@ -1,7 +1,7 @@
 import cn from 'classnames';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Loading from '../../../components/Loading/Loading';
+import Loading from '../../../components/common/Loading/Loading';
 import Title from '../../../components/main/Title/Title';
 import { ROUTES } from '../../../constants';
 import useDeviceOrientation, {
@@ -11,9 +11,15 @@ import first from './images/first.webp';
 import second from './images/second.webp';
 import './style.scss';
 
+const initialLoadingArray = Array(2).fill(true);
+
 const Main: React.FC = () => {
   const deviceOrientation = useDeviceOrientation();
-  const [loadingArray, setLoadingArray] = useState(Array(2).fill(true));
+  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
+
+  useEffect(() => {
+    setLoadingArray(initialLoadingArray);
+  }, []);
 
   const loading = useMemo(
     () => loadingArray.reduce((carry, current) => carry || current, false),
@@ -44,6 +50,7 @@ const Main: React.FC = () => {
         src={first}
         alt='Первая часть фона'
         onLoad={() => uncheckLoadingArrayItem(0)}
+        onError={() => uncheckLoadingArrayItem(0)}
       />,
       <img
         key='main-background-second'
@@ -51,6 +58,7 @@ const Main: React.FC = () => {
         src={second}
         alt='Вторая часть фона'
         onLoad={() => uncheckLoadingArrayItem(1)}
+        onError={() => uncheckLoadingArrayItem(1)}
       />,
     ],
     [uncheckLoadingArrayItem]

@@ -5,6 +5,7 @@ import './style.scss';
 interface Props {
   logo: string;
   onLogoLoad: () => unknown;
+  onLogoError: () => unknown;
   name: string;
   address: string;
   busStops: string[];
@@ -16,6 +17,7 @@ const Building: React.FC<Props> = props => {
   const {
     logo,
     onLogoLoad,
+    onLogoError,
     name,
     address,
     busStops,
@@ -58,6 +60,7 @@ const Building: React.FC<Props> = props => {
         src={logo}
         alt='Логотип строения'
         onLoad={onLogoLoad}
+        onError={onLogoError}
       />
       <p className='building__name'>{name}</p>
       <div>

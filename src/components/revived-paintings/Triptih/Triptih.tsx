@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
-import Loading from '../../Loading/Loading';
+import Loading from '../../common/Loading/Loading';
 import left from './images/left.webp';
 import middle from './images/middle.webp';
 import right from './images/right.webp';
@@ -10,9 +10,15 @@ interface Props {
   open: boolean;
 }
 
+const initialLoadingArray = Array(3).fill(true);
+
 const Triptih: React.FC<Props> = props => {
   const { open } = props;
-  const [loadingArray, setLoadingArray] = useState(Array(3).fill(true));
+  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
+
+  useEffect(() => {
+    setLoadingArray(initialLoadingArray);
+  }, []);
 
   const loading = useMemo(
     () => loadingArray.reduce((carry, current) => carry || current, false),
@@ -35,6 +41,7 @@ const Triptih: React.FC<Props> = props => {
         src={left}
         alt='Триптих - левая часть'
         onLoad={() => uncheckLoadingArrayItem(0)}
+        onError={() => uncheckLoadingArrayItem(0)}
       />,
       <img
         key='triptih-middle'
@@ -42,6 +49,7 @@ const Triptih: React.FC<Props> = props => {
         src={middle}
         alt='Триптих - средняя часть'
         onLoad={() => uncheckLoadingArrayItem(1)}
+        onError={() => uncheckLoadingArrayItem(1)}
       />,
       <img
         key='triptih-right'
@@ -49,6 +57,7 @@ const Triptih: React.FC<Props> = props => {
         src={right}
         alt='Триптих - правая часть'
         onLoad={() => uncheckLoadingArrayItem(2)}
+        onError={() => uncheckLoadingArrayItem(2)}
       />,
     ],
     [uncheckLoadingArrayItem]

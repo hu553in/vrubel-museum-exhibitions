@@ -5,9 +5,9 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import useForceUpdate from '../../hooks/useForceUpdate';
-import useUpdateOnResize from '../../hooks/useUpdateOnResize';
-import calculateImageSizeByContainerAndNaturalSizes from '../../utils/calculateImageSizeByContainerAndNaturalSizes';
+import useForceUpdate from '../../../hooks/useForceUpdate';
+import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
+import calculateImageSizeByContainerAndNaturalSizes from '../../../utils/calculateImageSizeByContainerAndNaturalSizes';
 import ImageHotspot, {
   Props as ImageHotspotProps,
 } from '../ImageHotspot/ImageHotspot';

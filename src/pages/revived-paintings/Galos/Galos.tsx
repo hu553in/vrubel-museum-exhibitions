@@ -1,27 +1,32 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 import { InView } from 'react-intersection-observer';
 import { useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
 import Header from '../../../components/revived-paintings/Header/Header';
-import Loading from '../../../components/Loading/Loading';
+import Loading from '../../../components/common/Loading/Loading';
 import { ROUTES } from '../../../constants';
 import useScrollToHashOnComponentMount from '../../../hooks/useScrollToHashOnComponentMount';
-import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
-import pictures from '../../../shared/revived-paintings/pictures';
+import pictures from '../../../assets/revived-paintings/pictures';
 import './style.scss';
+
+const initialLoadingArray = Array(pictures.length).fill(true);
 
 const Galos: React.FC = () => {
   const history = useHistory();
   const [name, setName] = useState('');
   const [authorAndYear, setAuthorAndYear] = useState('');
-  const viewportWidthSupported = window.innerWidth >= 360;
-  useScrollToHashOnComponentMount();
-  useUpdateOnResize();
+  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
 
-  const [galosStateRef, setGalosStateRef] = useState<HTMLElement | null>(null);
-  const galosCallbackRef = useCallback(node => setGalosStateRef(node), []);
-  const { clientWidth, clientHeight } = galosStateRef ?? {};
+  useEffect(() => {
+    setName('');
+    setAuthorAndYear('');
+    setLoadingArray(initialLoadingArray);
+  }, []);
+
+  useScrollToHashOnComponentMount();
+  const { width, height, ref } = useResizeDetector();
 
   const animationStyle = useSpring({
     opacity: 1,
@@ -43,117 +48,117 @@ const Galos: React.FC = () => {
 
   const overlayHeaderStyle = useMemo(
     () => ({
-      ...(viewportWidthSupported && animationStyle),
-      ...(galosStateRef && { width: clientWidth }),
+      ...animationStyle,
+      ...(width !== undefined && { width }),
     }),
-    [clientWidth, galosStateRef, animationStyle, viewportWidthSupported]
+    [animationStyle, width]
   );
 
   const overlayMainStyle = useMemo(
     () => ({
-      ...(galosStateRef && { width: clientWidth, minHeight: clientHeight }),
+      ...(width !== undefined && { width }),
+      ...(height !== undefined && { minHeight: height }),
     }),
-    [clientHeight, clientWidth, galosStateRef]
+    [height, width]
   );
 
   const overlayInfoBlockStyle = useMemo(() => {
-    if (!galosStateRef) {
+    if (width === undefined || height === undefined) {
       return {};
     }
 
     return {
-      maxWidth: clientWidth! * 0.35,
-      top: clientHeight! / 2.0,
-      left: clientWidth! * 0.55,
-      gap: Math.min(clientWidth!, clientHeight!) * 0.05,
+      maxWidth: width! * 0.35,
+      top: height! / 2.0,
+      left: width! * 0.55,
+      gap: Math.min(width!, height!) * 0.05,
     };
-  }, [clientHeight, clientWidth, galosStateRef]);
+  }, [height, width]);
 
   const overlayCircleStyle = useMemo(() => {
-    if (!galosStateRef) {
+    if (width === undefined || height === undefined) {
       return {};
     }
 
-    const clientMinDimension40Percent =
-      Math.min(clientWidth!, clientHeight!) * 0.4;
+    const minDimension40Percent = Math.min(width!, height!) * 0.4;
 
     return {
-      minWidth: clientMinDimension40Percent,
-      minHeight: clientMinDimension40Percent,
-      maxWidth: clientMinDimension40Percent,
-      maxHeight: clientMinDimension40Percent,
-      top: clientHeight! / 2.0,
-      left: clientWidth! / 2.0,
+      minWidth: minDimension40Percent,
+      minHeight: minDimension40Percent,
+      maxWidth: minDimension40Percent,
+      maxHeight: minDimension40Percent,
+      top: height! / 2.0,
+      left: width! / 2.0,
     };
-  }, [clientHeight, clientWidth, galosStateRef]);
+  }, [height, width]);
 
   const pictureStyle = useMemo(() => {
-    if (!galosStateRef) {
+    if (width === undefined || height === undefined) {
       return {};
     }
 
-    const clientMinDimension = Math.min(clientWidth!, clientHeight!);
+    const minDimension = Math.min(width!, height!);
 
     return {
       ...animationStyle,
-      minWidth: clientMinDimension,
-      minHeight: clientMinDimension,
-      maxWidth: clientMinDimension,
-      maxHeight: clientMinDimension,
+      minWidth: minDimension,
+      minHeight: minDimension,
+      maxWidth: minDimension,
+      maxHeight: minDimension,
     };
-  }, [clientHeight, clientWidth, galosStateRef, animationStyle]);
-
-  const [loadingArray, setLoadingArray] = useState(
-    Array(pictures.length).fill(true)
-  );
+  }, [animationStyle, height, width]);
 
   const pictureWrapperElements = useMemo(
     () =>
-      pictures.map((picture, index) => (
-        <InView
-          key={`picture-${index}`}
-          threshold={0.5}
-          onChange={(_, entry) => {
-            if (entry.isIntersecting) {
-              setName(picture.name);
-              setAuthorAndYear(picture.authorAndYear);
-              history.push(`#${entry.target.id}`);
-            }
-          }}
-        >
-          {({ ref }) => (
-            <animated.div
-              id={picture.id}
-              className='galos__picture-wrapper'
-              ref={ref}
-              style={animationStyle}
-            >
-              <NavLink
-                className='galos__picture-link'
-                to={`${ROUTES.REVIVED_PAINTINGS}${
-                  ROUTES.PICTURE
-                }/${encodeURIComponent(picture.id)}?from=${
-                  ROUTES.REVIVED_PAINTINGS
-                }${ROUTES.GALOS}%23${encodeURIComponent(picture.id)}`}
+      pictures.map((picture, index) => {
+        const stopLoading = () =>
+          setLoadingArray(loadingArray => {
+            let clonedLoadingArray = [...loadingArray];
+            clonedLoadingArray[index] = false;
+            return clonedLoadingArray;
+          });
+
+        return (
+          <InView
+            key={`picture-${index}`}
+            threshold={0.5}
+            onChange={(_, entry) => {
+              if (entry.isIntersecting) {
+                setName(picture.name);
+                setAuthorAndYear(picture.authorAndYear);
+                history.push(`#${entry.target.id}`);
+              }
+            }}
+          >
+            {({ ref }) => (
+              <animated.div
+                id={picture.id}
+                className='galos__picture-wrapper'
+                ref={ref}
+                style={animationStyle}
               >
-                <img
-                  style={pictureStyle}
-                  className='galos__picture'
-                  src={picture.preview}
-                  alt={picture.name}
-                  onLoad={() => {
-                    setLoadingArray(loadingArray => {
-                      let clonedLoadingArray = [...loadingArray];
-                      clonedLoadingArray[index] = false;
-                      return clonedLoadingArray;
-                    });
-                  }}
-                />
-              </NavLink>
-            </animated.div>
-          )}
-        </InView>
-      )),
+                <NavLink
+                  className='galos__picture-link'
+                  to={`${ROUTES.REVIVED_PAINTINGS}${
+                    ROUTES.PICTURE
+                  }/${encodeURIComponent(picture.id)}?from=${
+                    ROUTES.REVIVED_PAINTINGS
+                  }${ROUTES.GALOS}%23${encodeURIComponent(picture.id)}`}
+                >
+                  <img
+                    style={pictureStyle}
+                    className='galos__picture'
+                    src={picture.preview}
+                    alt={picture.name}
+                    onLoad={stopLoading}
+                    onError={stopLoading}
+                  />
+                </NavLink>
+              </animated.div>
+            )}
+          </InView>
+        );
+      }),
     [history, pictureStyle, animationStyle]
   );
 
@@ -162,45 +167,32 @@ const Galos: React.FC = () => {
     [loadingArray]
   );
 
-  useEffect(() => {
-    if (!viewportWidthSupported) {
-      history.push('#');
-    }
-  }, [history, viewportWidthSupported]);
-
   const galosChildren = useMemo(
-    () =>
-      viewportWidthSupported ? (
-        <>
-          {pictureWrapperElements}
-          <div className='galos__overlay-main' style={overlayMainStyle} />
-          <div className='galos__overlay-circle' style={overlayCircleStyle} />
-          <div
-            className='galos__overlay-info-block'
-            style={overlayInfoBlockStyle}
+    () => (
+      <>
+        {pictureWrapperElements}
+        <div className='galos__overlay-main' style={overlayMainStyle} />
+        <div className='galos__overlay-circle' style={overlayCircleStyle} />
+        <div
+          className='galos__overlay-info-block'
+          style={overlayInfoBlockStyle}
+        >
+          <animated.p
+            className='galos__overlay-title'
+            style={textAnimationStyle}
           >
-            <animated.p
-              className='galos__overlay-title'
-              style={textAnimationStyle}
-            >
-              {name}
-            </animated.p>
-            <animated.p
-              className='galos__overlay-author-and-year'
-              style={textAnimationStyle}
-            >
-              {authorAndYear}
-            </animated.p>
-          </div>
-        </>
-      ) : (
-        <p className='galos__error-message'>
-          Ширина окна браузера не поддерживается, но вы можете перейти на другую
-          страницу через меню :)
-        </p>
-      ),
+            {name}
+          </animated.p>
+          <animated.p
+            className='galos__overlay-author-and-year'
+            style={textAnimationStyle}
+          >
+            {authorAndYear}
+          </animated.p>
+        </div>
+      </>
+    ),
     [
-      viewportWidthSupported,
       pictureWrapperElements,
       overlayMainStyle,
       overlayCircleStyle,
@@ -213,8 +205,8 @@ const Galos: React.FC = () => {
 
   return (
     <>
-      <main className='galos' ref={galosCallbackRef}>
-        {loading && viewportWidthSupported && <Loading />}
+      <main className='galos' ref={ref}>
+        {loading && <Loading />}
         <Header className='galos__overlay-header' style={overlayHeaderStyle} />
         {galosChildren}
       </main>
