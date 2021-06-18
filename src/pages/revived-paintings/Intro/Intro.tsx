@@ -4,9 +4,10 @@ import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVide
 import Title from '../../../components/revived-paintings/Title/Title';
 import Triptih from '../../../components/revived-paintings/Triptih/Triptih';
 import { ROUTES } from '../../../constants';
-import './style.scss';
+import useEventListener from '../../../hooks/useEventListener';
 import triptihMp4 from './assets/videos/triptih.mp4';
 import triptihWebm from './assets/videos/triptih.webm';
+import './style.scss';
 
 const triptihVideoSources = [
   {
@@ -36,15 +37,26 @@ const Intro: React.FC = () => {
     setShouldNotFadeOutTriptihAndTitle(true);
   }, []);
 
-  const hideTriptihVideo = useCallback(() => {
-    setShouldShowTriptihVideo(false);
-  }, []);
-
   const onVideoEnded = useCallback(() => {
-    hideTriptihVideo();
+    setShouldShowTriptihVideo(false);
     setTimeout(() => setShouldNotFadeOutTriptihAndTitle(false), 2750);
     setTimeout(() => setShouldRedirectToGalos(true), 5000);
-  }, [hideTriptihVideo]);
+  }, []);
+
+  const handleWindowKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (
+        event.key === ' ' &&
+        event.code === 'Space' &&
+        shouldShowTriptihVideo
+      ) {
+        onVideoEnded();
+      }
+    },
+    [onVideoEnded, shouldShowTriptihVideo]
+  );
+
+  useEventListener('keydown', handleWindowKeyDown);
 
   if (shouldRedirectToGalos) {
     return <Redirect to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}`} />;
