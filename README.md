@@ -11,6 +11,7 @@ You can see the deployed website version [here](https://vrubel-museum-exhibition
 
 * Website design — [Kristina Kalnitskaya](mailto:Kristormy@gmail.com)
 * Videos — [Anastasia Sergienko](mailto:sergienkoanastasiia@gmail.com)
+* Website development — me :)
 
 ## Tech stack
 
