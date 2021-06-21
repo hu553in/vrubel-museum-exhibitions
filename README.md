@@ -3,7 +3,7 @@
 ## Description
 
 This project is a website of [Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/) exhibitions.\
-In fact, this project is just a part of paired diploma work at [OmSTU](https://omgtu.ru/english/).\
+In fact, this project is just a part of group diploma work at [OmSTU](https://omgtu.ru/english/).\
 Currently, it is available in Russian language only.\
 You can see the deployed website version [here](https://vrubel-museum-exhibitions.netlify.app/).
 
