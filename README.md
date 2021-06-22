@@ -7,11 +7,10 @@ In fact, this project is just a part of group diploma work at [OmSTU](https://om
 Currently, it is available in Russian language only.\
 You can see the deployed website version [here](https://vrubel-museum-exhibitions.netlify.app/).
 
-## Authors
+## Co-authors
 
 * Website design – [Kristina Kalnitskaya](mailto:Kristormy@gmail.com)
 * Videos – [Anastasia Sergienko](mailto:sergienkoanastasiia@gmail.com)
-* Website development – me :)
 
 ## Tech stack
 
