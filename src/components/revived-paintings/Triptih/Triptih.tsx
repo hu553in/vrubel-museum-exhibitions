@@ -39,7 +39,7 @@ const Triptih: React.FC<Props> = props => {
         key='triptih-left'
         className='triptih__left'
         src={left}
-        alt='Триптих - левая часть'
+        alt='Триптих — левая часть'
         onLoad={() => uncheckLoadingArrayItem(0)}
         onError={() => uncheckLoadingArrayItem(0)}
       />,
@@ -47,7 +47,7 @@ const Triptih: React.FC<Props> = props => {
         key='triptih-middle'
         className='triptih__middle'
         src={middle}
-        alt='Триптих - средняя часть'
+        alt='Триптих — средняя часть'
         onLoad={() => uncheckLoadingArrayItem(1)}
         onError={() => uncheckLoadingArrayItem(1)}
       />,
@@ -55,7 +55,7 @@ const Triptih: React.FC<Props> = props => {
         key='triptih-right'
         className='triptih__right'
         src={right}
-        alt='Триптих - правая часть'
+        alt='Триптих — правая часть'
         onLoad={() => uncheckLoadingArrayItem(2)}
         onError={() => uncheckLoadingArrayItem(2)}
       />,
