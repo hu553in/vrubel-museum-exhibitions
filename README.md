@@ -1,5 +1,7 @@
 # Vrubel museum exhibitions
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9edad654-0f84-4273-949c-820db7393a73/deploy-status)](https://app.netlify.com/sites/vrubel-museum-exhibitions/deploys)
+
 ## Description
 
 This project is a website of [Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/) exhibitions.\
