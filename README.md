@@ -20,7 +20,7 @@ You can see the deployed website version [here](https://vrubel-museum-exhibition
 
 ## How to run
 
-1. Install `Node.js` (≥ 12.16.1)
+1. Install Node.js (≥ 12.16.1)
 2. Install `yarn` npm package globally
 3. Run `yarn` to install dependencies
 4. Run `yarn start` to run the app in development mode
