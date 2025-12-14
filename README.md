@@ -18,27 +18,11 @@ You can see the deployed website version [here](https://vrubel-museum-exhibition
 
 * React (TypeScript)
 
-## Roadmap
+## Future roadmap
 
-- [ ] add the button for skipping the intro video for devices which haven't always available **Space** key
-- [ ] add the note about the possibility to skip the intro video by pressing **Space** key
+- [ ] add a button for skipping the intro video for devices which haven't always available **Space** key
+- [ ] add a note about the possibility to skip the intro video by pressing **Space** key
 - [ ] add **Show password** button
-- [ ] remove [the global outline
-      disabling](https://github.com/hu553in/vrubel-museum-exhibitions/blob/main/src/style.scss#L4) from the project
+- [ ] remove [the global outline disabling](https://github.com/hu553in/vrubel-museum-exhibitions/blob/main/src/style.scss#L4)
 - [ ] add an optional error state to `TextField` component
-- [ ] make `Checkbox` component accessible
-      ([1](https://www.w3schools.com/howto/howto_css_custom_checkbox.asp),
-      [2](https://moderncss.dev/pure-css-custom-checkbox-style))
-
-## How to run
-
-1. Install Node.js (≥ 12.16.1)
-2. Install `yarn` npm package globally
-3. Run `yarn` to install dependencies
-4. Run `yarn start` to run the app in development mode
-
-## How to make a production build
-
-1. Do steps 1-3 from the previous section
-2. Run `yarn build` to create the production build
-3. See `./build` directory contents
+- [ ] make custom `Checkbox` component accessible
