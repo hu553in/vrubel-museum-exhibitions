@@ -58,6 +58,8 @@
   }
 
   &_second {
+    cursor: not-allowed;
+
     right: 10%;
     top: calc(50% - 30vmin);
 
