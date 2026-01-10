@@ -9,6 +9,28 @@ In fact, this project is just a part of group diploma work at [OmSTU](https://om
 Currently, it is available in Russian language only.\
 You can see the deployed website version [here](https://vrubel-museum-exhibitions.vercel.app/).
 
+## ⚠️ Build note
+
+When building this project on **Node.js 17+**, you may encounter the following error:
+
+```
+error:0308010C:digital envelope routines::unsupported
+ERR_OSSL_EVP_UNSUPPORTED
+```
+
+This happens because the project is very old and relies on older versions of `react-scripts` / `webpack`
+that are not fully compatible with **OpenSSL 3**, which is used in modern Node.js versions.
+
+### How to fix
+
+Before running the build, set the following environment variable:
+
+```
+NODE_OPTIONS=–openssl-legacy-provider
+```
+
+This enables legacy OpenSSL algorithms required by webpack and allows the build to succeed on newer Node.js versions.
+
 ## Co-authors
 
 * Website design – [Kristina Kalnitskaya](mailto:Kristormy@gmail.com)
