@@ -11,7 +11,7 @@ You can see the deployed website version [here](https://vrubel-museum-exhibition
 
 ## ⚠️ Build note
 
-When building this project on **Node.js 17+**, you may encounter the following error:
+When building this project on **Node.js 12+**, you may encounter the following error:
 
 ```
 error:0308010C:digital envelope routines::unsupported
