@@ -1,13 +1,13 @@
 # Vrubel museum exhibitions
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/9edad654-0f84-4273-949c-820db7393a73/deploy-status)](https://app.netlify.com/sites/vrubel-museum-exhibitions/deploys)
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/vrubel-museum-exhibitions)
 
 ## Description
 
 This project is a website of [Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/) exhibitions.\
 In fact, this project is just a part of group diploma work at [OmSTU](https://omgtu.ru/english/).\
 Currently, it is available in Russian language only.\
-You can see the deployed website version [here](https://vrubel-museum-exhibitions.netlify.app/).
+You can see the deployed website version [here](https://vrubel-museum-exhibitions.vercel.app/).
 
 ## Co-authors
 
