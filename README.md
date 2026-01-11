@@ -1,25 +1,27 @@
-# Vrubel museum exhibitions
+# Omsk regional M. A. Vrubel museum of fine arts exhibitions
 
 ![Vercel Deploy](https://deploy-badge.vercel.app/vercel/vrubel-museum-exhibitions)
 
-## Description
+A website showcasing exhibitions of [the Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/).
 
-This project is a website of [Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/) exhibitions.\
-In fact, this project is just a part of group diploma work at [OmSTU](https://omgtu.ru/english/).\
-Currently, it is available in Russian language only.\
-You can see the deployed website version [here](https://vrubel-museum-exhibitions.vercel.app/).
+This project was developed as part of a group diploma work at [Omsk State Technical University (OmSTU)](https://omgtu.ru/english/).<br>
+At the moment, the website is available in **Russian only**.
+
+The deployed version is available on Vercel: [vrubel-museum-exhibitions.vercel.app](https://vrubel-museum-exhibitions.vercel.app).
+
+---
 
 ## ⚠️ Build note
 
-When building this project on **Node.js 17+**, you may encounter the following error:
+When building this project with **Node.js 17 or newer**, you may encounter the following error:
 
 ```
-error:0308010C:digital envelope routines::unsupported
+error:0308010C:digital envelope routines::unsupported  
 ERR_OSSL_EVP_UNSUPPORTED
 ```
 
-This happens because the project is very old and relies on older versions of `react-scripts` / `webpack`
-that are not fully compatible with **OpenSSL 3**, which is used in modern Node.js versions.
+This happens because the project relies on older versions of `react-scripts` / `webpack` that are not fully compatible
+with **OpenSSL 3**, which is used in modern Node.js releases.
 
 ### How to fix
 
@@ -31,20 +33,26 @@ NODE_OPTIONS=--openssl-legacy-provider
 
 This enables legacy OpenSSL algorithms required by webpack and allows the build to succeed on newer Node.js versions.
 
+---
+
 ## Co-authors
 
-* Website design – [Kristina Kalnitskaya](mailto:Kristormy@gmail.com)
-* Videos – [Anastasia Khasanshina](mailto:sergienkoanastasiia@gmail.com)
+- Website design – Kristina Kalnitskaya ([Kristormy@gmail.com](mailto:Kristormy@gmail.com))
+- Videos – Anastasia Khasanshina ([sergienkoanastasiia@gmail.com](mailto:sergienkoanastasiia@gmail.com))
+
+---
 
 ## Tech stack
 
-* React (TypeScript)
+- React (TypeScript)
+
+---
 
 ## Future roadmap
 
-- [ ] add a button for skipping the intro video for devices which haven't always available **Space** key
-- [ ] add a note about the possibility to skip the intro video by pressing **Space** key
-- [ ] add **Show password** button
-- [ ] remove [the global outline disabling](https://github.com/hu553in/vrubel-museum-exhibitions/blob/main/src/style.scss#L4)
-- [ ] add an optional error state to `TextField` component
-- [ ] make custom `Checkbox` component accessible
+- [ ] Add a button to skip the intro video on devices where the **Space** key is not always available
+- [ ] Add a note explaining that the intro video can be skipped by pressing the **Space** key
+- [ ] Add a **Show password** button
+- [ ] Remove [global outline disabling](https://github.com/hu553in/vrubel-museum-exhibitions/blob/main/src/style.scss#L4)
+- [ ] Add an optional error state to the `TextField` component
+- [ ] Make the custom `Checkbox` component accessible
