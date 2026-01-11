@@ -2043,6 +2043,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-page-visibility@^6.4.4":
+  version "6.4.4"
+  resolved "https://registry.yarnpkg.com/@types/react-page-visibility/-/react-page-visibility-6.4.4.tgz#f00b2917e3aac64e467c20a57c6aa67ca6b22d62"
+  integrity sha512-qeL/98+LHVp5vQH4RjzyLwJib5ekUmKGURmJEXWwQYasr/vKJsdHUblHVaOUtV2sdrrXo2aBtd/sfMOorxkdoQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-router-dom@5.1.7":
   version "5.1.7"
   resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-5.1.7.tgz#a126d9ea76079ffbbdb0d9225073eb5797ab7271"

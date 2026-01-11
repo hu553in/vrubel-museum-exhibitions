@@ -61,11 +61,7 @@ const SideMenu: React.FC<Props> = props => {
       <RemoveScroll enabled={open} removeScrollBar>
         <aside className={classNameToUse}>
           {linkElements}
-          <button
-            aria-label='Закрыть меню'
-            className='side-menu__close-button'
-            onClick={onClose}
-          />
+          <button aria-label='Закрыть меню' className='side-menu__close-button' onClick={onClose} />
         </aside>
       </RemoveScroll>
       {open && <div className='side-menu-overlay' onClick={onClose} />}

@@ -1,14 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
 import { InView } from 'react-intersection-observer';
+import { useResizeDetector } from 'react-resize-detector';
 import { useHistory } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
-import Header from '../../../components/revived-paintings/Header/Header';
+import pictures from '../../../assets/revived-paintings/pictures';
 import Loading from '../../../components/common/Loading/Loading';
+import Header from '../../../components/revived-paintings/Header/Header';
 import { ROUTES } from '../../../constants';
 import useScrollToHashOnComponentMount from '../../../hooks/useScrollToHashOnComponentMount';
-import pictures from '../../../assets/revived-paintings/pictures';
 import './style.scss';
 
 const initialLoadingArray = Array(pictures.length).fill(true);
@@ -139,11 +139,11 @@ const Galos: React.FC = () => {
               >
                 <NavLink
                   className='galos__picture-link'
-                  to={`${ROUTES.REVIVED_PAINTINGS}${
-                    ROUTES.PICTURE
-                  }/${encodeURIComponent(picture.id)}?from=${
-                    ROUTES.REVIVED_PAINTINGS
-                  }${ROUTES.GALOS}%23${encodeURIComponent(picture.id)}`}
+                  to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.PICTURE}/${encodeURIComponent(
+                    picture.id
+                  )}?from=${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}%23${encodeURIComponent(
+                    picture.id
+                  )}`}
                 >
                   <img
                     style={pictureStyle}
@@ -162,10 +162,9 @@ const Galos: React.FC = () => {
     [history, pictureStyle, animationStyle]
   );
 
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
+  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
+    loadingArray,
+  ]);
 
   const galosChildren = useMemo(
     () => (
@@ -173,20 +172,11 @@ const Galos: React.FC = () => {
         {pictureWrapperElements}
         <div className='galos__overlay-main' style={overlayMainStyle} />
         <div className='galos__overlay-circle' style={overlayCircleStyle} />
-        <div
-          className='galos__overlay-info-block'
-          style={overlayInfoBlockStyle}
-        >
-          <animated.p
-            className='galos__overlay-title'
-            style={textAnimationStyle}
-          >
+        <div className='galos__overlay-info-block' style={overlayInfoBlockStyle}>
+          <animated.p className='galos__overlay-title' style={textAnimationStyle}>
             {name}
           </animated.p>
-          <animated.p
-            className='galos__overlay-author-and-year'
-            style={textAnimationStyle}
-          >
+          <animated.p className='galos__overlay-author-and-year' style={textAnimationStyle}>
             {authorAndYear}
           </animated.p>
         </div>

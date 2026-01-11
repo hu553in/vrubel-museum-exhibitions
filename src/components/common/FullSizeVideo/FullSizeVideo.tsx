@@ -7,9 +7,8 @@ import {
   useRef,
   useState,
 } from 'react';
-// @ts-ignore
-import { usePageVisibility } from 'react-page-visibility';
 import mergeRefs from 'react-merge-refs';
+import { usePageVisibility } from 'react-page-visibility';
 import Loading from '../Loading/Loading';
 import './style.scss';
 
@@ -83,11 +82,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   const sourceElements = useMemo(
     () =>
       sources.map((source, index) => (
-        <source
-          key={`source-${index}`}
-          src={source.src}
-          type={source.mimeType}
-        />
+        <source key={`source-${index}`} src={source.src} type={source.mimeType} />
       )),
     [sources]
   );
@@ -97,11 +92,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
       sources.map((source, index) => (
         <>
           <br key={`source-link-${index}-pre-new-line`} />
-          <a
-            key={`source-link-${index}`}
-            href={source.src}
-            className='full-size-video__video-link'
-          >
+          <a key={`source-link-${index}`} href={source.src} className='full-size-video__video-link'>
             {source.mimeTypeUserReadable}
           </a>
         </>
@@ -122,10 +113,10 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [objectFit, oneHundredPercentHeight, rootElementHeight, style]
   );
 
-  const onLoadedMetadataDataCanPlayEvents = useMemo(
-    () => (autoPlay ? undefined : stopLoading),
-    [autoPlay, stopLoading]
-  );
+  const onLoadedMetadataDataCanPlayEvents = useMemo(() => (autoPlay ? undefined : stopLoading), [
+    autoPlay,
+    stopLoading,
+  ]);
 
   if (!rootElement || sourceElements.length === 0) {
     return null;

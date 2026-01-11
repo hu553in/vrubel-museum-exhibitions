@@ -26,8 +26,7 @@ function useEventListener<T extends Event>(
     const addEventListener = element && element.addEventListener;
     if (!addEventListener) return;
 
-    const eventListener = ((event: T) =>
-      savedHandler.current && savedHandler.current(event)) as (
+    const eventListener = ((event: T) => savedHandler.current && savedHandler.current(event)) as (
       event: Event
     ) => void;
 

@@ -23,10 +23,9 @@ const Contacts: React.FC = () => {
     setLoadingArray(initialLoadingArray);
   }, []);
 
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
+  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
+    loadingArray,
+  ]);
 
   const uncheckLoadingArrayItem = useCallback((index: number) => {
     setLoadingArray(loadingArray => {
@@ -53,12 +52,7 @@ const Contacts: React.FC = () => {
         onLogoError: () => uncheckLoadingArrayItem(1),
         name: 'Врубелевский корпус',
         address: '644043, Омск, ул. Ленина, 3',
-        busStops: [
-          '«Площадь Победы»',
-          '«Торговый Центр»',
-          '«Драмтеатр»',
-          '«Госпиталь»',
-        ],
+        busStops: ['«Площадь Победы»', '«Торговый Центр»', '«Драмтеатр»', '«Госпиталь»'],
         contacts: ['+7 (3812) 24-15-64', '+7 (3812) 20-00-47'],
       },
       {
@@ -67,12 +61,7 @@ const Contacts: React.FC = () => {
         onLogoError: () => uncheckLoadingArrayItem(2),
         name: 'Центр «Эрмитаж-Сибирь»',
         address: '644099, Омск, ул. Музейная, 4',
-        busStops: [
-          '«Драмтеатр»',
-          '«Любинский проспект»',
-          '«Площадь Победы»',
-          '«Госпиталь»',
-        ],
+        busStops: ['«Драмтеатр»', '«Любинский проспект»', '«Площадь Победы»', '«Госпиталь»'],
         contacts: ['+7 (3812) 95-12-25', '+7 958-854-0590'],
       },
     ],
@@ -90,9 +79,7 @@ const Contacts: React.FC = () => {
       </section>
       <section className='contacts__schedule'>
         <p className='contacts__schedule-title'>Режим работы музея:</p>
-        <p className='contacts__schedule-text'>
-          10:00-19:00 (касса до 18:00), пн — выходной
-        </p>
+        <p className='contacts__schedule-text'>10:00-19:00 (касса до 18:00), пн — выходной</p>
       </section>
       <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
       <a

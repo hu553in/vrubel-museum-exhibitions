@@ -1,16 +1,8 @@
-import React, {
-  CSSProperties,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
 import useForceUpdate from '../../../hooks/useForceUpdate';
 import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
 import calculateImageSizeByContainerAndNaturalSizes from '../../../utils/calculateImageSizeByContainerAndNaturalSizes';
-import ImageHotspot, {
-  Props as ImageHotspotProps,
-} from '../ImageHotspot/ImageHotspot';
+import ImageHotspot, { Props as ImageHotspotProps } from '../ImageHotspot/ImageHotspot';
 import './style.scss';
 
 interface Props {
@@ -25,34 +17,23 @@ const ImageHotspots: React.FC<Props> = props => {
   const forceUpdate = useForceUpdate();
   useUpdateOnResize();
 
-  const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(
-    null
-  );
+  const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(null);
 
   const imageCallbackRef = useCallback(node => setImageStateRef(node), []);
 
-  const {
-    clientWidth: parentClientWidth,
-    clientHeight: parentClientHeight,
-  } = parentElement ?? {
+  const { clientWidth: parentClientWidth, clientHeight: parentClientHeight } = parentElement ?? {
     clientWidth: 0,
     clientHeight: 0,
   };
 
-  const {
-    naturalWidth: imageNaturalWidth,
-    naturalHeight: imageNaturalHeight,
-  } = imageStateRef ?? {
+  const { naturalWidth: imageNaturalWidth, naturalHeight: imageNaturalHeight } = imageStateRef ?? {
     naturalWidth: 0,
     naturalHeight: 0,
   };
 
   const rootAndImageStyle = useMemo(
     () =>
-      (!parentClientWidth ||
-      !parentClientHeight ||
-      !imageNaturalWidth ||
-      !imageNaturalHeight
+      (!parentClientWidth || !parentClientHeight || !imageNaturalWidth || !imageNaturalHeight
         ? { width: 0, height: 0 }
         : calculateImageSizeByContainerAndNaturalSizes(
             parentClientWidth,
@@ -60,12 +41,7 @@ const ImageHotspots: React.FC<Props> = props => {
             imageNaturalWidth,
             imageNaturalHeight
           )) as CSSProperties,
-    [
-      parentClientHeight,
-      parentClientWidth,
-      imageNaturalHeight,
-      imageNaturalWidth,
-    ]
+    [parentClientHeight, parentClientWidth, imageNaturalHeight, imageNaturalWidth]
   );
 
   useEffect(() => {
@@ -75,12 +51,7 @@ const ImageHotspots: React.FC<Props> = props => {
 
   return (
     <div className='image-hotspots' style={rootAndImageStyle}>
-      <img
-        ref={imageCallbackRef}
-        src={src}
-        alt={alt}
-        style={rootAndImageStyle}
-      />
+      <img ref={imageCallbackRef} src={src} alt={alt} style={rootAndImageStyle} />
       {imageHotspots.map((hotspot, index) => (
         <ImageHotspot key={`image-hotspot-${index}`} {...hotspot} />
       ))}

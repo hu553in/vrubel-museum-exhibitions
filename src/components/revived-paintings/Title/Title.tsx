@@ -22,9 +22,7 @@ const Title: React.FC<Props> = props => {
     <animated.div style={style} className='revived-paintings-title'>
       <p className='revived-paintings-title__first-line'>Выставка</p>
       <p className='revived-paintings-title__second-line'>«Ожившие картины»</p>
-      <p className='revived-paintings-title__third-line'>
-        Музей им. М. А. Врубеля
-      </p>
+      <p className='revived-paintings-title__third-line'>Музей им. М. А. Врубеля</p>
     </animated.div>
   );
 };

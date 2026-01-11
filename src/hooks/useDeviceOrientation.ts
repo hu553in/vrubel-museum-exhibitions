@@ -11,10 +11,7 @@ const useDeviceOrientation = () => {
   const { innerWidth, innerHeight } = window;
 
   const orientation = useMemo(
-    () =>
-      innerWidth <= innerHeight
-        ? DeviceOrientation.PORTRAIT
-        : DeviceOrientation.LANDSCAPE,
+    () => (innerWidth <= innerHeight ? DeviceOrientation.PORTRAIT : DeviceOrientation.LANDSCAPE),
     [innerHeight, innerWidth]
   );
 

@@ -77,10 +77,7 @@ const SideInfoPanel: React.FC<Props> = props => {
       {open && (
         <>
           {collapseButtonShown && (
-            <button
-              className='side-info-panel__collapse-button'
-              onClick={onClose}
-            />
+            <button className='side-info-panel__collapse-button' onClick={onClose} />
           )}
           <div className='side-info-panel-overlay' onClick={onClose} />
         </>

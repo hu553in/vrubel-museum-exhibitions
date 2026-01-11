@@ -26,10 +26,7 @@ const Intro: React.FC = () => {
   const [shouldShowTriptihVideo, setShouldShowTriptihVideo] = useState(true);
   const [shouldRedirectToGalos, setShouldRedirectToGalos] = useState(false);
 
-  const [
-    shouldNotFadeOutTriptihAndTitle,
-    setShouldNotFadeOutTriptihAndTitle,
-  ] = useState(true);
+  const [shouldNotFadeOutTriptihAndTitle, setShouldNotFadeOutTriptihAndTitle] = useState(true);
 
   useEffect(() => {
     setShouldShowTriptihVideo(true);
@@ -45,11 +42,7 @@ const Intro: React.FC = () => {
 
   const handleWindowKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      if (
-        event.key === ' ' &&
-        event.code === 'Space' &&
-        shouldShowTriptihVideo
-      ) {
+      if (event.key === ' ' && event.code === 'Space' && shouldShowTriptihVideo) {
         onVideoEnded();
       }
     },

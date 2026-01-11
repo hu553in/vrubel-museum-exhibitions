@@ -4,9 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Loading from '../../../components/common/Loading/Loading';
 import Title from '../../../components/main/Title/Title';
 import { ROUTES } from '../../../constants';
-import useDeviceOrientation, {
-  DeviceOrientation,
-} from '../../../hooks/useDeviceOrientation';
+import useDeviceOrientation, { DeviceOrientation } from '../../../hooks/useDeviceOrientation';
 import first from './assets/images/first.webp';
 import second from './assets/images/second.webp';
 import './style.scss';
@@ -21,10 +19,9 @@ const Main: React.FC = () => {
     setLoadingArray(initialLoadingArray);
   }, []);
 
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
+  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
+    loadingArray,
+  ]);
 
   const uncheckLoadingArrayItem = useCallback((index: number) => {
     setLoadingArray(loadingArray => {
@@ -69,10 +66,7 @@ const Main: React.FC = () => {
       {loading && <Loading />}
       {imageElements}
       <Title />
-      <NavLink
-        className='main__link main__link_first'
-        to={ROUTES.REVIVED_PAINTINGS}
-      >
+      <NavLink className='main__link main__link_first' to={ROUTES.REVIVED_PAINTINGS}>
         «Ожившие картины»
       </NavLink>
       <NavLink className='main__link main__link_second' to={ROUTES.DEFAULT}>

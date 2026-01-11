@@ -49,12 +49,7 @@ const Account: React.FC = () => {
         </section>
       </section>
       <form className='account__sign-in-form'>
-        <TextField
-          type='email'
-          placeholder='E-mail'
-          value={email}
-          onChange={onEmailChange}
-        />
+        <TextField type='email' placeholder='E-mail' value={email} onChange={onEmailChange} />
         <TextField
           className='account__sign-in-password-text-field'
           type='password'
@@ -73,11 +68,7 @@ const Account: React.FC = () => {
         <span className='account__sign-in-link'>Забыли пароль?</span>
         <span className='account__sign-in-link'>Регистрация</span>
       </section>
-      <RoundedButton
-        backgroundImage={signIn}
-        label='Войти'
-        className='account__sign-in-button'
-      />
+      <RoundedButton backgroundImage={signIn} label='Войти' className='account__sign-in-button' />
     </main>
   );
 };

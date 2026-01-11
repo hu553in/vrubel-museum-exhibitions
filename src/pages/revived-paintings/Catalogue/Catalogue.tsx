@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import pictures from '../../../assets/revived-paintings/pictures';
 import Loading from '../../../components/common/Loading/Loading';
 import { ROUTES } from '../../../constants';
-import pictures from '../../../assets/revived-paintings/pictures';
 import './style.scss';
 
 const initialLoadingArray = Array(pictures.length).fill(true);
@@ -28,11 +28,9 @@ const Catalogue: React.FC = () => {
           <NavLink
             className='catalogue__picture-link'
             key={`catalogue-link-${index}`}
-            to={`${ROUTES.REVIVED_PAINTINGS}${
-              ROUTES.PICTURE
-            }/${encodeURIComponent(picture.id)}?from=${
-              ROUTES.REVIVED_PAINTINGS
-            }${ROUTES.CATALOGUE}`}
+            to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.PICTURE}/${encodeURIComponent(
+              picture.id
+            )}?from=${ROUTES.REVIVED_PAINTINGS}${ROUTES.CATALOGUE}`}
           >
             <img
               className='catalogue__picture'
@@ -43,9 +41,7 @@ const Catalogue: React.FC = () => {
             />
             <p className='catalogue__picture-info'>
               <span className='catalogue__picture-name'>{picture.name}</span>
-              <span className='catalogue__picture-author-and-year'>
-                {picture.authorAndYear}
-              </span>
+              <span className='catalogue__picture-author-and-year'>{picture.authorAndYear}</span>
             </p>
           </NavLink>
         );
@@ -53,10 +49,9 @@ const Catalogue: React.FC = () => {
     []
   );
 
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
+  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
+    loadingArray,
+  ]);
 
   const rootElement = document.getElementById('root');
 

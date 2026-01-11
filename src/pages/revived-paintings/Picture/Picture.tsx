@@ -4,13 +4,13 @@ import Modal, { Styles } from 'react-modal';
 import { Redirect, useHistory, useLocation, useParams } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import Sound from 'react-sound';
+import pictures from '../../../assets/revived-paintings/pictures';
 import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
 import ImageHotspots from '../../../components/common/ImageHotspots/ImageHotspots';
 import Magnifier from '../../../components/common/Magnifier/Magnifier';
 import SideInfoPanel from '../../../components/common/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '../../../constants';
 import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
-import pictures from '../../../assets/revived-paintings/pictures';
 import './style.scss';
 
 const pause =
@@ -60,14 +60,11 @@ const Picture: React.FC = () => {
   const location = useLocation();
   useUpdateOnResize();
 
-  const openedFrom = useMemo(
-    () => new URLSearchParams(location.search).get('from'),
-    [location.search]
-  );
-
-  const picture = useMemo(() => pictures.find(picture => picture.id === id), [
-    id,
+  const openedFrom = useMemo(() => new URLSearchParams(location.search).get('from'), [
+    location.search,
   ]);
+
+  const picture = useMemo(() => pictures.find(picture => picture.id === id), [id]);
 
   const {
     preview,
@@ -149,10 +146,9 @@ const Picture: React.FC = () => {
     [animatedVariations]
   );
 
-  const [
-    playingAnimatedVariationIndex,
-    setPlayingAnimatedVariationIndex,
-  ] = useState(animatedVariationsPresent ? 0 : undefined);
+  const [playingAnimatedVariationIndex, setPlayingAnimatedVariationIndex] = useState(
+    animatedVariationsPresent ? 0 : undefined
+  );
 
   useEffect(() => {
     setPlayingAnimatedVariationIndex(animatedVariationsPresent ? 0 : undefined);
@@ -163,8 +159,7 @@ const Picture: React.FC = () => {
       return null;
     }
 
-    const { mp4, webm, name } =
-      animatedVariations![playingAnimatedVariationIndex!] ?? {};
+    const { mp4, webm, name } = animatedVariations![playingAnimatedVariationIndex!] ?? {};
 
     if (!name) {
       return null;
@@ -201,11 +196,7 @@ const Picture: React.FC = () => {
         loop
       />
     );
-  }, [
-    animatedVariations,
-    animatedVariationsPresent,
-    playingAnimatedVariationIndex,
-  ]);
+  }, [animatedVariations, animatedVariationsPresent, playingAnimatedVariationIndex]);
 
   const animatedVariationButtonElements = useMemo(() => {
     if (!animatedVariationsPresent) {
@@ -235,11 +226,7 @@ const Picture: React.FC = () => {
         />
       );
     });
-  }, [
-    animatedVariations,
-    animatedVariationsPresent,
-    playingAnimatedVariationIndex,
-  ]);
+  }, [animatedVariations, animatedVariationsPresent, playingAnimatedVariationIndex]);
 
   const onReturnClick = useCallback(() => {
     if (openedFrom) {
@@ -253,16 +240,12 @@ const Picture: React.FC = () => {
   const openInfoPanel = useCallback(() => setInfoPanelOpen(true), []);
   const closeInfoPanel = useCallback(() => setInfoPanelOpen(false), []);
 
-  const [pictureStateRef, setPictureStateRef] = useState<HTMLElement | null>(
-    null
-  );
+  const [pictureStateRef, setPictureStateRef] = useState<HTMLElement | null>(null);
 
   const pictureCallbackRef = useCallback(node => setPictureStateRef(node), []);
   const magnifierPresent = useMemo(() => name && magnifier, [magnifier, name]);
 
-  const animatedVideosPresent = useMemo(() => animatedSources.length > 0, [
-    animatedSources.length,
-  ]);
+  const animatedVideosPresent = useMemo(() => animatedSources.length > 0, [animatedSources.length]);
 
   const imageHotspotsPresent = useMemo(
     () => preview && name && imageHotspots && imageHotspots.length > 0,
@@ -296,10 +279,9 @@ const Picture: React.FC = () => {
     setPlayingImageHotspotVideoSources(undefined);
   }, []);
 
-  const [
-    playingImageHotspotVideoSources,
-    setPlayingImageHotspotVideoSources,
-  ] = useState<VideoSource[] | undefined>();
+  const [playingImageHotspotVideoSources, setPlayingImageHotspotVideoSources] = useState<
+    VideoSource[] | undefined
+  >();
 
   useEffect(() => {
     setPlayingSoundIndex(-1);
@@ -308,9 +290,7 @@ const Picture: React.FC = () => {
   }, []);
 
   const playingImageHotspotVideoPresent = useMemo(
-    () =>
-      playingImageHotspotVideoSources &&
-      playingImageHotspotVideoSources.length > 0,
+    () => playingImageHotspotVideoSources && playingImageHotspotVideoSources.length > 0,
     [playingImageHotspotVideoSources]
   );
 
@@ -358,8 +338,7 @@ const Picture: React.FC = () => {
 
   const dynamicButtonsPresent = useMemo(
     () =>
-      (animatedVariationButtonElements &&
-        animatedVariationButtonElements.length > 0) ||
+      (animatedVariationButtonElements && animatedVariationButtonElements.length > 0) ||
       (soundButtonElements && soundButtonElements.length > 0),
     [animatedVariationButtonElements, soundButtonElements]
   );
@@ -401,19 +380,10 @@ const Picture: React.FC = () => {
         </section>
       </header>
       {animatedVideosPresent && (
-        <FullSizeVideo
-          sources={animatedSources}
-          objectFit='contain'
-          ref={videoCallbackRef}
-          loop
-        />
+        <FullSizeVideo sources={animatedSources} objectFit='contain' ref={videoCallbackRef} loop />
       )}
       {magnifierPresent && (
-        <Magnifier
-          parentElement={pictureStateRef}
-          name={name!}
-          magnifier={magnifier!}
-        />
+        <Magnifier parentElement={pictureStateRef} name={name!} magnifier={magnifier!} />
       )}
       {imageHotspotsPresent && (
         <ImageHotspots

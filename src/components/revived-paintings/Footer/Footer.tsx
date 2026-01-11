@@ -2,9 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import Loading from '../../common/Loading/Loading';
-import SocialNetworkIcon, {
-  SocialNetwork,
-} from '../../common/SocialNetworkIcon/SocialNetworkIcon';
+import SocialNetworkIcon, { SocialNetwork } from '../../common/SocialNetworkIcon/SocialNetworkIcon';
 import logo from './assets/images/logo.svg';
 import './style.scss';
 
@@ -16,11 +14,7 @@ const navBarLinkElements = [
   { label: 'Аккаунт', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.ACCOUNT}` },
   { label: 'О проекте', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.ABOUT}` },
 ].map((navBarLink, index) => (
-  <NavLink
-    key={`nav-bar-link-${index}`}
-    className='footer__nav-bar-link'
-    to={navBarLink.route}
-  >
+  <NavLink key={`nav-bar-link-${index}`} className='footer__nav-bar-link' to={navBarLink.route}>
     {navBarLink.label}
   </NavLink>
 ));
@@ -52,14 +46,8 @@ const socialLinkElements = [
     socialNetwork: 'youtube',
   },
 ].map((socialLink, index) => (
-  <a
-    key={`social-link-${index}`}
-    className='footer__social-link'
-    href={socialLink.href}
-  >
-    <SocialNetworkIcon
-      socialNetwork={socialLink.socialNetwork as SocialNetwork}
-    />
+  <a key={`social-link-${index}`} className='footer__social-link' href={socialLink.href}>
+    <SocialNetworkIcon socialNetwork={socialLink.socialNetwork as SocialNetwork} />
   </a>
 ));
 
@@ -76,12 +64,7 @@ const Footer: React.FC = () => {
     <footer className='footer'>
       {loading && <Loading />}
       <a className='footer__logo' href='https://vrubel.ru'>
-        <img
-          src={logo}
-          alt='Логотип музея'
-          onLoad={stopLoading}
-          onError={stopLoading}
-        />
+        <img src={logo} alt='Логотип музея' onLoad={stopLoading} onError={stopLoading} />
       </a>
       <nav className='footer__nav-bar'>{navBarLinkElements}</nav>
       <nav className='footer__social-links'>{socialLinkElements}</nav>

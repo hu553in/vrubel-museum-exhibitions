@@ -20,10 +20,7 @@ const Magnifier: React.FC<Props> = props => {
   const [stateRef, setStateRef] = useState<MagnifierStateRef | null>(null);
   const callbackRef = useCallback(node => setStateRef(node), []);
 
-  const {
-    clientWidth: parentWidth,
-    clientHeight: parentHeight,
-  } = parentElement ?? {
+  const { clientWidth: parentWidth, clientHeight: parentHeight } = parentElement ?? {
     clientWidth: 0,
     clientHeight: 0,
   };
@@ -87,7 +84,6 @@ const Magnifier: React.FC<Props> = props => {
           {...size}
           // @ts-ignore
           style={size}
-          // @ts-ignore
           alt={name}
         />
       )}

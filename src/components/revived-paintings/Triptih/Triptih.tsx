@@ -20,10 +20,9 @@ const Triptih: React.FC<Props> = props => {
     setLoadingArray(initialLoadingArray);
   }, []);
 
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
+  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
+    loadingArray,
+  ]);
 
   const uncheckLoadingArrayItem = useCallback((index: number) => {
     setLoadingArray(loadingArray => {
