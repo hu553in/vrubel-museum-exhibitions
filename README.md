@@ -1,13 +1,13 @@
 # Omsk regional M. A. Vrubel museum of fine arts exhibitions
 
-![Vercel Deploy](https://deploy-badge.vercel.app/vercel/vrubel-museum-exhibitions)
+[![Vercel Deploy](https://deploy-badge.vercel.app/vercel/vrubel-museum-exhibitions)](https://vrubel-museum-exhibitions.vercel.app/)
 
-A website showcasing exhibitions of [the Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/).
+A website showcasing exhibitions of the Omsk regional M. A. Vrubel museum of fine arts: https://vrubel.ru/.
 
-This project was developed as part of a group diploma work at [Omsk State Technical University (OmSTU)](https://omgtu.ru/english/).<br>
+This project was developed as part of a group diploma work at Omsk State Technical University: https://omgtu.ru/english/.<br>
 At the moment, the website is available in **Russian only**.
 
-The deployed version is available on Vercel: [vrubel-museum-exhibitions.vercel.app](https://vrubel-museum-exhibitions.vercel.app).
+The deployed version is available on Vercel: https://vrubel-museum-exhibitions.vercel.app/.
 
 ---
 
@@ -53,6 +53,6 @@ This enables legacy OpenSSL algorithms required by webpack and allows the build 
 - [ ] Add a button to skip the intro video on devices where the **Space** key is not always available
 - [ ] Add a note explaining that the intro video can be skipped by pressing the **Space** key
 - [ ] Add a **Show password** button
-- [ ] Remove [global outline disabling](https://github.com/hu553in/vrubel-museum-exhibitions/blob/main/src/style.scss#L4)
+- [ ] Remove global outline disabling: [src/style.scss#L4](./src/style.scss#L4)
 - [ ] Add an optional error state to the `TextField` component
 - [ ] Make the custom `Checkbox` component accessible
