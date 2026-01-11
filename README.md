@@ -26,7 +26,7 @@ that are not fully compatible with **OpenSSL 3**, which is used in modern Node.j
 Before running the build, set the following environment variable:
 
 ```
-NODE_OPTIONS=–openssl-legacy-provider
+NODE_OPTIONS=--openssl-legacy-provider
 ```
 
 This enables legacy OpenSSL algorithms required by webpack and allows the build to succeed on newer Node.js versions.
