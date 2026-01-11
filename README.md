@@ -16,7 +16,7 @@ The deployed version is available on Vercel: [vrubel-museum-exhibitions.vercel.a
 When building this project with **Node.js 17 or newer**, you may encounter the following error:
 
 ```
-error:0308010C:digital envelope routines::unsupported  
+error:0308010C:digital envelope routines::unsupported
 ERR_OSSL_EVP_UNSUPPORTED
 ```
 
