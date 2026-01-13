@@ -45,14 +45,3 @@ This enables legacy OpenSSL algorithms required by webpack and allows the build 
 ## Tech stack
 
 - React (TypeScript)
-
----
-
-## Future roadmap
-
-- [ ] Add a button to skip the intro video on devices where the **Space** key is not always available
-- [ ] Add a note explaining that the intro video can be skipped by pressing the **Space** key
-- [ ] Add a **Show password** button
-- [ ] Remove global outline disabling: [src/style.scss#L4](./src/style.scss#L4)
-- [ ] Add an optional error state to the `TextField` component
-- [ ] Make the custom `Checkbox` component accessible
