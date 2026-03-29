@@ -23,7 +23,7 @@
 
 .main__link {
   color: #fff;
-  font-family: 'Lighthaus', sans-serif;
+  font-family: Lighthaus, sans-serif;
   text-decoration: none;
   position: absolute;
   font-size: max(4.58vmin, 16.5px);
@@ -52,18 +52,17 @@
     left: 10%;
     bottom: calc(50% - 30vmin);
 
-    @media (max-width: 360px) {
+    @media (width <= 360px) {
       bottom: calc(50% - 108px);
     }
   }
 
   &_second {
     cursor: not-allowed;
-
     right: 10%;
     top: calc(50% - 30vmin);
 
-    @media (max-width: 360px) {
+    @media (width <= 360px) {
       top: calc(50% - 108px);
     }
   }

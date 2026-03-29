@@ -11,11 +11,11 @@
 .building__name {
   margin: 30px 0 0;
   color: #fff;
-  font-family: 'Lighthaus', sans-serif;
+  font-family: Lighthaus, sans-serif;
   font-size: 30px;
   text-align: center;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     padding: 0 30px;
   }
 }

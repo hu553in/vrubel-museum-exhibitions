@@ -19,7 +19,7 @@
     transform: translateX(0);
   }
 
-  @media (max-width: 500px) {
+  @media (width <= 500px) {
     width: 100%;
   }
 }

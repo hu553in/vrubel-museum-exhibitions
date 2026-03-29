@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import mergeRefs from 'react-merge-refs';
+import { mergeRefs } from 'react-merge-refs';
 import { usePageVisibility } from 'react-page-visibility';
 import Loading from '../Loading/Loading';
 import './style.scss';
@@ -63,7 +63,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
   const localRef = useRef<HTMLVideoElement | null>(null);
   const refToUse = mergeRefs([ref, localRef]);
   const isVisible = usePageVisibility();
-  const playPromise = useRef<Promise<void> | undefined>();
+  const playPromise = useRef<Promise<void> | undefined>(undefined);
 
   useEffect(() => {
     if (!loading) {

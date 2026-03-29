@@ -9,34 +9,34 @@
 }
 
 .account__title {
-  font-family: 'Lighthaus', sans-serif;
+  font-family: Lighthaus, sans-serif;
   font-size: 70px;
   color: #fff;
-  margin: 30px 0 30px;
+  margin: 30px 0;
   text-align: center;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     font-size: 50px;
   }
 
-  @media (max-width: 400px) {
+  @media (width <= 400px) {
     font-size: 45px;
   }
 }
 
 .account__social-sign-in-label {
   font-size: 23px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   color: #d2d2d2;
   margin-top: 0;
   margin-bottom: 30px;
   text-align: center;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     font-size: 20px;
   }
 
-  @media (max-width: 400px) {
+  @media (width <= 400px) {
     font-size: 16px;
   }
 }
@@ -57,7 +57,7 @@
     margin-right: 0;
   }
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     width: 30px;
     height: 30px;
     margin-right: 32.4px;
@@ -71,7 +71,7 @@
   justify-content: space-between;
   width: 75%;
 
-  @media (max-width: 400px) {
+  @media (width <= 400px) {
     width: 100%;
   }
 }
@@ -111,7 +111,7 @@
   background-size: 200px 45px;
   font-size: 25px;
 
-  @media (max-width: 450px) {
+  @media (width <= 450px) {
     margin-top: 20px;
   }
 }

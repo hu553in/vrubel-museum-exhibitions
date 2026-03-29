@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ROUTES } from '../../../constants';
 import HeaderFooterLayout from '../../../layouts/revived-paintings/HeaderFooter/HeaderFooterLayout';
 import About from '../../../pages/revived-paintings/About/About';
@@ -11,43 +11,45 @@ import Intro from '../../../pages/revived-paintings/Intro/Intro';
 import Picture from '../../../pages/revived-paintings/Picture/Picture';
 
 const RevivedPaintings: React.FC = () => {
-  const { path } = useRouteMatch();
-
   return (
-    <Switch>
-      <Route exact path={path}>
-        <Intro />
-      </Route>
-      <Route path={`${path}${ROUTES.GALOS}`}>
-        <Galos />
-      </Route>
-      <Route path={`${path}${ROUTES.ABOUT}`}>
-        <HeaderFooterLayout>
-          <About />
-        </HeaderFooterLayout>
-      </Route>
-      <Route path={`${path}${ROUTES.CATALOGUE}`}>
-        <HeaderFooterLayout>
-          <Catalogue />
-        </HeaderFooterLayout>
-      </Route>
-      <Route path={`${path}${ROUTES.PICTURE}/:id`}>
-        <Picture />
-      </Route>
-      <Route path={`${path}${ROUTES.CONTACTS}`}>
-        <HeaderFooterLayout>
-          <Contacts />
-        </HeaderFooterLayout>
-      </Route>
-      <Route path={`${path}${ROUTES.ACCOUNT}`}>
-        <HeaderFooterLayout>
-          <Account />
-        </HeaderFooterLayout>
-      </Route>
-      <Route>
-        <Redirect to={ROUTES.DEFAULT} />
-      </Route>
-    </Switch>
+    <Routes>
+      <Route index element={<Intro />} />
+      <Route path={ROUTES.GALOS.slice(1)} element={<Galos />} />
+      <Route
+        path={ROUTES.ABOUT.slice(1)}
+        element={
+          <HeaderFooterLayout>
+            <About />
+          </HeaderFooterLayout>
+        }
+      />
+      <Route
+        path={ROUTES.CATALOGUE.slice(1)}
+        element={
+          <HeaderFooterLayout>
+            <Catalogue />
+          </HeaderFooterLayout>
+        }
+      />
+      <Route path={`${ROUTES.PICTURE.slice(1)}/:id`} element={<Picture />} />
+      <Route
+        path={ROUTES.CONTACTS.slice(1)}
+        element={
+          <HeaderFooterLayout>
+            <Contacts />
+          </HeaderFooterLayout>
+        }
+      />
+      <Route
+        path={ROUTES.ACCOUNT.slice(1)}
+        element={
+          <HeaderFooterLayout>
+            <Account />
+          </HeaderFooterLayout>
+        }
+      />
+      <Route path='*' element={<Navigate to={ROUTES.DEFAULT} replace />} />
+    </Routes>
   );
 };
 

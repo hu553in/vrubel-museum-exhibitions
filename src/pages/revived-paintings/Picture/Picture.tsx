@@ -1,8 +1,7 @@
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
-import { Redirect, useHistory, useLocation, useParams } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Sound from 'react-sound';
 import pictures from '../../../assets/revived-paintings/pictures';
 import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
@@ -44,19 +43,19 @@ const imageHotspotVideoStyle = {
   },
 } as Styles;
 
-interface Params {
-  id: string;
-}
-
 interface VideoSource {
   src: string;
   mimeType: string;
   mimeTypeUserReadable: string;
 }
 
+type PictureImageHotspot = NonNullable<
+  NonNullable<(typeof pictures)[number]['imageHotspots']>
+>[number];
+
 const Picture: React.FC = () => {
-  const { id } = useParams<Params>();
-  const history = useHistory();
+  const { id } = useParams<'id'>();
+  const navigate = useNavigate();
   const location = useLocation();
   useUpdateOnResize();
 
@@ -231,11 +230,11 @@ const Picture: React.FC = () => {
 
   const onReturnClick = useCallback(() => {
     if (openedFrom) {
-      history.push(openedFrom);
+      navigate(openedFrom);
     } else {
-      history.goBack();
+      navigate(-1);
     }
-  }, [history, openedFrom]);
+  }, [navigate, openedFrom]);
 
   const [infoPanelOpen, setInfoPanelOpen] = useState(false);
   const openInfoPanel = useCallback(() => setInfoPanelOpen(true), []);
@@ -243,7 +242,10 @@ const Picture: React.FC = () => {
 
   const [pictureStateRef, setPictureStateRef] = useState<HTMLElement | null>(null);
 
-  const pictureCallbackRef = useCallback(node => setPictureStateRef(node), []);
+  const pictureCallbackRef = useCallback(
+    (node: HTMLElement | null) => setPictureStateRef(node),
+    []
+  );
   const magnifierPresent = useMemo(() => name && magnifier, [magnifier, name]);
 
   const animatedVideosPresent = useMemo(() => animatedSources.length > 0, [animatedSources.length]);
@@ -253,7 +255,7 @@ const Picture: React.FC = () => {
     [imageHotspots, name, preview]
   );
 
-  const openImageHotspotVideo = useCallback(imageHotspot => {
+  const openImageHotspotVideo = useCallback((imageHotspot: PictureImageHotspot) => {
     let result = [];
     const { mp4, webm } = imageHotspot ?? {};
 
@@ -351,7 +353,7 @@ const Picture: React.FC = () => {
   }
 
   if (!picturePresent) {
-    return <Redirect to={ROUTES.DEFAULT} />;
+    return <Navigate to={ROUTES.DEFAULT} replace />;
   }
 
   return (

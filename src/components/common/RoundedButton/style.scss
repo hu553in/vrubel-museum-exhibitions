@@ -3,7 +3,7 @@
   height: 64px;
   border: 2px solid #fff;
   border-radius: 32px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   background-color: transparent;
   background-position: center;
   background-size: 285px 64px;
@@ -18,7 +18,7 @@
     }
   }
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     width: 230px;
     height: 51.65px;
     border-radius: 32px;

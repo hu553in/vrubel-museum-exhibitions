@@ -15,7 +15,7 @@ const ImageHotspot: React.FC<Props> = props => {
       ({
         top: `${y}%`,
         left: `${x}%`,
-      } as CSSProperties),
+      }) as CSSProperties,
     [x, y]
   );
 

@@ -21,7 +21,7 @@ const SideInfoPanel: React.FC<Props> = props => {
   }, []);
 
   const [stateRef, setStateRef] = useState<HTMLElement | null>(null);
-  const callbackRef = useCallback(node => setStateRef(node), []);
+  const callbackRef = useCallback((node: HTMLElement | null) => setStateRef(node), []);
 
   useEffect(() => {
     if (open) {

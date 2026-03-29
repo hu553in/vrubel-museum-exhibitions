@@ -16,7 +16,7 @@ function useEventListener<T extends Event>(
   options: Options = {}
 ) {
   const { capture, passive, once } = options;
-  const savedHandler = useRef<(event: T) => void | undefined>();
+  const savedHandler = useRef<((event: T) => void) | undefined>(undefined);
 
   useEffect(() => {
     savedHandler.current = handler;

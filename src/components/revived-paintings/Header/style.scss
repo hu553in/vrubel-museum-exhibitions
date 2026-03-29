@@ -6,7 +6,7 @@
   height: 150px;
   flex-shrink: 0;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     height: 125px;
   }
 }
@@ -15,7 +15,7 @@
   margin-left: 45px;
   font-size: 0;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     margin-left: 40px;
   }
 }
@@ -24,7 +24,7 @@
   width: 60px;
   height: 60px;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     width: 45px;
     height: 45px;
   }
@@ -42,7 +42,7 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     margin-right: 40px;
     width: 23.5px;
     height: 23.5px;

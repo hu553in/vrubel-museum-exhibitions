@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
 import Title from '../../../components/revived-paintings/Title/Title';
 import Triptih from '../../../components/revived-paintings/Triptih/Triptih';
@@ -52,7 +52,7 @@ const Intro: React.FC = () => {
   useEventListener('keydown', handleWindowKeyDown);
 
   if (shouldRedirectToGalos) {
-    return <Redirect to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}`} />;
+    return <Navigate to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}`} replace />;
   }
 
   return (

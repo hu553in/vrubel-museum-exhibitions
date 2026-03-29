@@ -1,4 +1,4 @@
-@import './fonts/style.scss';
+@import url('./fonts/style.scss');
 
 * {
   outline: 0;
@@ -10,7 +10,7 @@ body {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #000;

@@ -10,15 +10,15 @@ interface Props {
   magnifier: string;
 }
 
-type MagnifierStateRef = HTMLElement & {
-  img: HTMLImageElement;
+type MagnifierStateRef = React.Component & {
+  img?: HTMLImageElement | null;
 };
 
 const Magnifier: React.FC<Props> = props => {
   const { name, magnifier, parentElement } = props;
   const forceUpdate = useForceUpdate();
   const [stateRef, setStateRef] = useState<MagnifierStateRef | null>(null);
-  const callbackRef = useCallback(node => setStateRef(node), []);
+  const callbackRef = useCallback((node: MagnifierStateRef | null) => setStateRef(node), []);
 
   const { clientWidth: parentWidth, clientHeight: parentHeight } = parentElement ?? {
     clientWidth: 0,

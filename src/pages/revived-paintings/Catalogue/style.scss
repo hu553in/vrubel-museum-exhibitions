@@ -7,17 +7,17 @@
 }
 
 .catalogue__title {
-  font-family: 'Lighthaus', sans-serif;
+  font-family: Lighthaus, sans-serif;
   font-size: 70px;
   color: #fff;
   margin: 30px 0 50px;
   text-align: center;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     font-size: 50px;
   }
 
-  @media (max-width: 400px) {
+  @media (width <= 400px) {
     font-size: 45px;
   }
 }
@@ -28,7 +28,7 @@
   gap: max(1.5vw, 5.4px);
   margin-bottom: 30px;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     grid-template-columns: 1fr;
     column-gap: 0;
   }
@@ -45,7 +45,7 @@
   height: 20vw;
   overflow: hidden;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     width: max(75vw, 270px);
     height: max(60vw, 216px);
   }
@@ -71,7 +71,7 @@
   row-gap: 10px;
   visibility: hidden;
   background-color: #000;
-  font-family: 'Lighthaus', sans-serif;
+  font-family: Lighthaus, sans-serif;
   width: 100%;
   box-sizing: border-box;
   text-align: center;
@@ -82,7 +82,7 @@
 
   @media (hover: none) {
     visibility: visible;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgb(0 0 0 / 70%);
   }
 
   @media (hover: hover) {
@@ -97,7 +97,7 @@
   font-size: 1.7vw;
   line-height: 2.55vw;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     font-size: max(6vw, 21.6px);
     line-height: max(9vw, 32.4px);
   }
@@ -108,7 +108,7 @@
   line-height: 1.8vw;
   margin-bottom: 10px;
 
-  @media (max-width: 1250px) {
+  @media (width <= 1250px) {
     font-size: max(4.5vw, 16.2px);
     line-height: max(6.75vw, 24.3px);
   }

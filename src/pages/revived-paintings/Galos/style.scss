@@ -11,12 +11,11 @@
 }
 
 .galos__overlay-main {
-  background:
-    radial-gradient(
-      max(75vmin, 270px) max(75vmin, 270px) at center,
-      transparent 50%,
-      #000 50%
-    );
+  background: radial-gradient(
+    max(75vmin, 270px) max(75vmin, 270px) at center,
+    transparent 50%,
+    #000 50%
+  );
   display: inline-block;
   z-index: 9997;
   position: absolute;
@@ -63,7 +62,7 @@
 
 .galos__overlay-title,
 .galos__overlay-author-and-year {
-  font-family: 'Lighthaus', sans-serif;
+  font-family: Lighthaus, sans-serif;
   font-size: max(4vmin, 14.4px);
   color: #fff;
   margin-top: 0;

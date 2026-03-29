@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 import { useResizeDetector } from 'react-resize-detector';
-import { useHistory } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
 import pictures from '../../../assets/revived-paintings/pictures';
 import Loading from '../../../components/common/Loading/Loading';
@@ -14,7 +13,7 @@ import './style.scss';
 const initialLoadingArray = Array(pictures.length).fill(true);
 
 const Galos: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [authorAndYear, setAuthorAndYear] = useState('');
   const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
@@ -126,7 +125,7 @@ const Galos: React.FC = () => {
               if (entry.isIntersecting) {
                 setName(picture.name);
                 setAuthorAndYear(picture.authorAndYear);
-                history.push(`#${entry.target.id}`);
+                navigate({ hash: `#${entry.target.id}` });
               }
             }}
           >
@@ -159,7 +158,7 @@ const Galos: React.FC = () => {
           </InView>
         );
       }),
-    [history, pictureStyle, animationStyle]
+    [navigate, pictureStyle, animationStyle]
   );
 
   const loading = useMemo(

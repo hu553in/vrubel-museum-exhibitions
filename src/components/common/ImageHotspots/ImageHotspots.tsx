@@ -19,7 +19,10 @@ const ImageHotspots: React.FC<Props> = props => {
 
   const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(null);
 
-  const imageCallbackRef = useCallback(node => setImageStateRef(node), []);
+  const imageCallbackRef = useCallback(
+    (node: HTMLImageElement | null) => setImageStateRef(node),
+    []
+  );
 
   const { clientWidth: parentClientWidth, clientHeight: parentClientHeight } = parentElement ?? {
     clientWidth: 0,
