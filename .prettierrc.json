@@ -8,6 +8,7 @@
   "bracketSpacing": true,
   "semi": true,
   "quoteProps": "as-needed",
-  "jsxBracketSameLine": false,
-  "arrowParens": "avoid"
+  "bracketSameLine": false,
+  "arrowParens": "avoid",
+  "endOfLine": "lf"
 }

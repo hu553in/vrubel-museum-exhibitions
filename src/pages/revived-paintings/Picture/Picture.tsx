@@ -60,9 +60,10 @@ const Picture: React.FC = () => {
   const location = useLocation();
   useUpdateOnResize();
 
-  const openedFrom = useMemo(() => new URLSearchParams(location.search).get('from'), [
-    location.search,
-  ]);
+  const openedFrom = useMemo(
+    () => new URLSearchParams(location.search).get('from'),
+    [location.search]
+  );
 
   const picture = useMemo(() => pictures.find(picture => picture.id === id), [id]);
 

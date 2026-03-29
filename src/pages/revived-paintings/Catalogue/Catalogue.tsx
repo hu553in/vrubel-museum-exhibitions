@@ -49,9 +49,10 @@ const Catalogue: React.FC = () => {
     []
   );
 
-  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
-    loadingArray,
-  ]);
+  const loading = useMemo(
+    () => loadingArray.reduce((carry, current) => carry || current, false),
+    [loadingArray]
+  );
 
   const rootElement = document.getElementById('root');
 

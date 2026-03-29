@@ -113,10 +113,10 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [objectFit, oneHundredPercentHeight, rootElementHeight, style]
   );
 
-  const onLoadedMetadataDataCanPlayEvents = useMemo(() => (autoPlay ? undefined : stopLoading), [
-    autoPlay,
-    stopLoading,
-  ]);
+  const onLoadedMetadataDataCanPlayEvents = useMemo(
+    () => (autoPlay ? undefined : stopLoading),
+    [autoPlay, stopLoading]
+  );
 
   if (!rootElement || sourceElements.length === 0) {
     return null;

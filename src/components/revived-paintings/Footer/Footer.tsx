@@ -25,8 +25,7 @@ const socialLinkElements = [
     socialNetwork: 'vk',
   },
   {
-    href:
-      'https://www.facebook.com/Омский-областной-музей-изобразительных-искусств-имени-МА-Врубеля-358420747675784/',
+    href: 'https://www.facebook.com/Омский-областной-музей-изобразительных-искусств-имени-МА-Врубеля-358420747675784/',
     socialNetwork: 'facebook',
   },
   {

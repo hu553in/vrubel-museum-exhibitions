@@ -11,7 +11,12 @@
 }
 
 .galos__overlay-main {
-  background: radial-gradient(max(75vmin, 270px) max(75vmin, 270px) at center, transparent 50%, #000 50%);
+  background:
+    radial-gradient(
+      max(75vmin, 270px) max(75vmin, 270px) at center,
+      transparent 50%,
+      #000 50%
+    );
   display: inline-block;
   z-index: 9997;
   position: absolute;

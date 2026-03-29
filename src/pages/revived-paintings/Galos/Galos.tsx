@@ -162,9 +162,10 @@ const Galos: React.FC = () => {
     [history, pictureStyle, animationStyle]
   );
 
-  const loading = useMemo(() => loadingArray.reduce((carry, current) => carry || current, false), [
-    loadingArray,
-  ]);
+  const loading = useMemo(
+    () => loadingArray.reduce((carry, current) => carry || current, false),
+    [loadingArray]
+  );
 
   const galosChildren = useMemo(
     () => (
