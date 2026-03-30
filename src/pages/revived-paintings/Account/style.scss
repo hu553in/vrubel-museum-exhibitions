@@ -76,9 +76,38 @@
   }
 }
 
-.account__sign-in-password-text-field,
+.account__sign-in-password-field-wrapper,
 .account__sign-in-remember-me-checkbox {
   margin-top: 25px;
+}
+
+.account__sign-in-password-field-wrapper {
+  position: relative;
+}
+
+.account__sign-in-password-text-field {
+  padding-right: 110px;
+  width: 100%;
+}
+
+.account__sign-in-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #d2d2d2;
+  font-size: 14px;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+
+  @media (hover: hover) {
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 .account__sign-in-links {

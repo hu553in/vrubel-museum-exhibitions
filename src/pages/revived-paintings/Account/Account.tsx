@@ -11,8 +11,10 @@ import './style.scss';
 const Account: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const [rememberMe, toggleRememberMe] = useReducer(value => !value, false);
+  const togglePasswordShown = useCallback(() => setPasswordShown(value => !value), []);
 
   const onEmailChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value),
@@ -45,13 +47,22 @@ const Account: React.FC = () => {
       </section>
       <form className='account__sign-in-form'>
         <TextField type='email' placeholder='E-mail' value={email} onChange={onEmailChange} />
-        <TextField
-          className='account__sign-in-password-text-field'
-          type='password'
-          placeholder='Пароль'
-          value={password}
-          onChange={onPasswordChange}
-        />
+        <div className='account__sign-in-password-field-wrapper'>
+          <TextField
+            className='account__sign-in-password-text-field'
+            type={passwordShown ? 'text' : 'password'}
+            placeholder='Пароль'
+            value={password}
+            onChange={onPasswordChange}
+          />
+          <button
+            type='button'
+            className='account__sign-in-password-toggle'
+            onClick={togglePasswordShown}
+          >
+            {passwordShown ? 'Скрыть' : 'Показать'}
+          </button>
+        </div>
         <Checkbox
           toggle={toggleRememberMe}
           value={rememberMe}
