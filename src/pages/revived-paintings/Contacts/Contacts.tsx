@@ -17,19 +17,19 @@ const mapSrc =
 type BuildingInfo = Omit<BuildingProps, 'className'>;
 
 function Contacts() {
-  const { loading, markImageAsLoaded } = useImageLoadingState(3);
+  const { loading, getImageLoadHandlers } = useImageLoadingState(3);
   const createBuildingInfo = (
     building: (typeof contactBuildings)[number],
     index: number
-  ): BuildingInfo => ({
-    ...building,
-    onLogoLoad: () => {
-      markImageAsLoaded(index);
-    },
-    onLogoError: () => {
-      markImageAsLoaded(index);
-    },
-  });
+  ): BuildingInfo => {
+    const { onLoad, onError } = getImageLoadHandlers(index);
+
+    return {
+      ...building,
+      onLogoLoad: onLoad,
+      onLogoError: onError,
+    };
+  };
   const [firstBuilding, secondBuilding, thirdBuilding] = [
     createBuildingInfo(contactBuildings[0], 0),
     createBuildingInfo(contactBuildings[1], 1),

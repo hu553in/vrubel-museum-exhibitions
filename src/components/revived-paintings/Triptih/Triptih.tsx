@@ -15,7 +15,7 @@ interface Props {
 
 function Triptih(props: Props) {
   const { open } = props;
-  const { loading, markImageAsLoaded } = useImageLoadingState(3);
+  const { loading, getImageLoadHandlers } = useImageLoadingState(3);
 
   const style = useSpring({
     opacity: open ? 1 : 0,
@@ -34,34 +34,19 @@ function Triptih(props: Props) {
           className='triptih__left'
           src={left}
           alt='Триптих — левая часть'
-          onLoad={() => {
-            markImageAsLoaded(0);
-          }}
-          onError={() => {
-            markImageAsLoaded(0);
-          }}
+          {...getImageLoadHandlers(0)}
         />
         <img
           className='triptih__middle'
           src={middle}
           alt='Триптих — средняя часть'
-          onLoad={() => {
-            markImageAsLoaded(1);
-          }}
-          onError={() => {
-            markImageAsLoaded(1);
-          }}
+          {...getImageLoadHandlers(1)}
         />
         <img
           className='triptih__right'
           src={right}
           alt='Триптих — правая часть'
-          onLoad={() => {
-            markImageAsLoaded(2);
-          }}
-          onError={() => {
-            markImageAsLoaded(2);
-          }}
+          {...getImageLoadHandlers(2)}
         />
       </animated.div>
     </>

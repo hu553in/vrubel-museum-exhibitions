@@ -1,7 +1,6 @@
 import './style.scss';
 
 import { animated, useSpring } from '@react-spring/web';
-import { useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useIntersectionObserver } from 'usehooks-ts';
@@ -9,14 +8,16 @@ import { useIntersectionObserver } from 'usehooks-ts';
 import pictures from '@/assets/revived-paintings/pictures';
 import Loading from '@/components/common/Loading/Loading';
 import Header from '@/components/revived-paintings/Header/Header';
+import useGalosActivePicture from '@/hooks/useGalosActivePicture';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
 import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
 import getGalosLayout from '@/utils/galosLayout';
+import getGalosPictureStyle from '@/utils/galosPictureStyle';
 import { buildPictureRoute } from '@/utils/pictureRoutes';
 
 interface PictureWrapperProps {
   animationStyle: object;
-  onVisible: (pictureId: string) => void;
+  onVisible: () => void;
   picture: (typeof pictures)[number];
   pictureStyle: object;
   stopLoading: () => void;
@@ -33,7 +34,7 @@ function PictureWrapper({
     threshold: 0.5,
     onChange: isIntersecting => {
       if (isIntersecting) {
-        onVisible(picture.id);
+        onVisible();
       }
     },
   });
@@ -64,9 +65,8 @@ function PictureWrapper({
 
 function Galos() {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
-  const [authorAndYear, setAuthorAndYear] = useState('');
-  const { loading, markImageAsLoaded } = useImageLoadingState(pictures.length);
+  const { activePicture, onPictureVisible } = useGalosActivePicture(navigate);
+  const { loading, getImageLoadHandlers } = useImageLoadingState(pictures.length);
 
   useScrollToHashOnComponentMount();
   const { width, height, ref } = useResizeDetector();
@@ -104,25 +104,13 @@ function Galos() {
         <PictureWrapper
           key={picture.id}
           animationStyle={animationStyle}
-          onVisible={pictureId => {
-            setName(picture.name);
-            setAuthorAndYear(picture.authorAndYear);
-            void navigate({ hash: `#${pictureId}` });
+          onVisible={() => {
+            onPictureVisible(picture);
           }}
           picture={picture}
-          pictureStyle={
-            galosLayout.pictureSize === undefined
-              ? {}
-              : {
-                  ...animationStyle,
-                  minWidth: galosLayout.pictureSize,
-                  minHeight: galosLayout.pictureSize,
-                  maxWidth: galosLayout.pictureSize,
-                  maxHeight: galosLayout.pictureSize,
-                }
-          }
+          pictureStyle={getGalosPictureStyle(galosLayout.pictureSize, animationStyle)}
           stopLoading={() => {
-            markImageAsLoaded(index);
+            getImageLoadHandlers(index).onLoad();
           }}
         />
       ))}
@@ -135,10 +123,10 @@ function Galos() {
       <div className='galos__overlay-circle' style={galosLayout.circle ?? {}} />
       <div className='galos__overlay-info-block' style={galosLayout.infoBlock ?? {}}>
         <animated.p className='galos__overlay-title' style={textAnimationStyle}>
-          {name}
+          {activePicture.name}
         </animated.p>
         <animated.p className='galos__overlay-author-and-year' style={textAnimationStyle}>
-          {authorAndYear}
+          {activePicture.authorAndYear}
         </animated.p>
       </div>
     </main>

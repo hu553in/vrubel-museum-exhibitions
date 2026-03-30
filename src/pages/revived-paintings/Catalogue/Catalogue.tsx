@@ -8,7 +8,7 @@ import useImageLoadingState from '@/hooks/useImageLoadingState';
 import { buildPictureRoute } from '@/utils/pictureRoutes';
 
 function Catalogue() {
-  const { loading, markImageAsLoaded } = useImageLoadingState(pictures.length);
+  const { loading, getImageLoadHandlers } = useImageLoadingState(pictures.length);
 
   return (
     <main className='catalogue'>
@@ -16,10 +16,6 @@ function Catalogue() {
       <p className='catalogue__title'>«Ожившие картины»</p>
       <section className='catalogue__body'>
         {pictures.map((picture, index) => {
-          const stopLoading = () => {
-            markImageAsLoaded(index);
-          };
-
           return (
             <NavLink
               className='catalogue__picture-link'
@@ -30,8 +26,7 @@ function Catalogue() {
                 className='catalogue__picture'
                 src={picture.preview}
                 alt={picture.name}
-                onLoad={stopLoading}
-                onError={stopLoading}
+                {...getImageLoadHandlers(index)}
               />
               <p className='catalogue__picture-info'>
                 <span className='catalogue__picture-name'>{picture.name}</span>

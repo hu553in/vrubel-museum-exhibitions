@@ -24,9 +24,19 @@ const useImageLoadingState = (itemsCount: number) => {
     });
   };
 
+  const getImageLoadHandlers = (index: number) => ({
+    onLoad: () => {
+      markImageAsLoaded(index);
+    },
+    onError: () => {
+      markImageAsLoaded(index);
+    },
+  });
+
   return {
     loading: loadingState.some(Boolean),
     markImageAsLoaded,
+    getImageLoadHandlers,
   };
 };
 
