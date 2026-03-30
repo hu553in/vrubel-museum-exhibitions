@@ -2,6 +2,15 @@ import { render, screen } from '@testing-library/react';
 
 import Loading from './Loading';
 
+function LoadingPair({ first, second }: { first: boolean; second: boolean }) {
+  return (
+    <>
+      {first && <Loading />}
+      {second && <Loading />}
+    </>
+  );
+}
+
 describe('Loading', () => {
   beforeEach(() => {
     document.body.innerHTML = '<div id="root"></div>';
@@ -25,15 +34,34 @@ describe('Loading', () => {
     expect(status).toHaveAttribute('aria-busy', 'true');
   });
 
-  it('locks body scroll while mounted and restores it on unmount', () => {
+  it('preserves existing body overflow inline style across mount and unmount in jsdom', () => {
     document.body.style.overflow = 'scroll';
 
     const { unmount } = render(<Loading />);
 
-    expect(document.body.style.overflow).toBe('hidden');
+    expect(document.body.style.overflow).toBe('scroll');
 
     unmount();
 
+    expect(document.body.style.overflow).toBe('scroll');
+  });
+
+  it('allows multiple loading overlays to mount and unmount independently', () => {
+    document.body.style.overflow = 'scroll';
+
+    const { rerender } = render(<LoadingPair first second />);
+
+    expect(screen.getAllByRole('status')).toHaveLength(2);
+    expect(document.body.style.overflow).toBe('scroll');
+
+    rerender(<LoadingPair first={false} second />);
+
+    expect(screen.getAllByRole('status')).toHaveLength(1);
+    expect(document.body.style.overflow).toBe('scroll');
+
+    rerender(<LoadingPair first={false} second={false} />);
+
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe('scroll');
   });
 });

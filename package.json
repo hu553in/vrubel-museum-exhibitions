@@ -11,6 +11,7 @@
     "react-dom": "^19.2.4",
     "react-magnifier": "^3.0.4",
     "react-merge-refs": "^3.0.2",
+    "react-remove-scroll": "^2.7.2",
     "react-resize-detector": "^12.3.0",
     "react-router-dom": "^7.13.2",
     "usehooks-ts": "^3.1.1"

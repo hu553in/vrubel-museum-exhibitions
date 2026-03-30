@@ -32,6 +32,9 @@ importers:
       react-merge-refs:
         specifier: ^3.0.2
         version: 3.0.2(react@19.2.4)
+      react-remove-scroll:
+        specifier: ^2.7.2
+        version: 2.7.2(@types/react@19.2.14)(react@19.2.4)
       react-resize-detector:
         specifier: ^12.3.0
         version: 12.3.0(react@19.2.4)
