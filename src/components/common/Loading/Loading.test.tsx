@@ -24,4 +24,16 @@ describe('Loading', () => {
     expect(status).toHaveAttribute('aria-live', 'polite');
     expect(status).toHaveAttribute('aria-busy', 'true');
   });
+
+  it('locks body scroll while mounted and restores it on unmount', () => {
+    document.body.style.overflow = 'scroll';
+
+    const { unmount } = render(<Loading />);
+
+    expect(document.body.style.overflow).toBe('hidden');
+
+    unmount();
+
+    expect(document.body.style.overflow).toBe('scroll');
+  });
 });

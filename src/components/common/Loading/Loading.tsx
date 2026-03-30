@@ -1,8 +1,12 @@
 import './style.scss';
 
+import { useScrollLock } from 'usehooks-ts';
+
 import Portal from '@/components/common/Portal/Portal';
 
 function Loading() {
+  useScrollLock();
+
   return (
     <Portal>
       <div className='loading'>
