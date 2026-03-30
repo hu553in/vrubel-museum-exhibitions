@@ -287,12 +287,6 @@ const Picture: React.FC = () => {
     VideoSource[] | undefined
   >();
 
-  useEffect(() => {
-    setPlayingSoundIndex(-1);
-    setInfoPanelOpen(false);
-    setPlayingImageHotspotVideoSources(undefined);
-  }, []);
-
   const playingImageHotspotVideoPresent = useMemo(
     () => playingImageHotspotVideoSources && playingImageHotspotVideoSources.length > 0,
     [playingImageHotspotVideoSources]
