@@ -4,10 +4,10 @@ import Header from '@/components/revived-paintings/Header/Header';
 import { ROUTES } from '@/constants';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
 import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
+import { animated, useSpring } from '@react-spring/web';
 import React, { useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { animated, useSpring } from 'react-spring';
 import { useIntersectionObserver } from 'usehooks-ts';
 import './style.scss';
 

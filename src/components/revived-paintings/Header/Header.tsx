@@ -1,10 +1,10 @@
+import logo from '@/assets/common/icons/museum-mark.svg';
 import SideMenu from '@/components/common/SideMenu/SideMenu';
 import { ROUTES } from '@/constants';
-import logo from '@/assets/common/icons/museum-mark.svg';
+import { animated, SpringValue } from '@react-spring/web';
 import cn from 'classnames';
 import React, { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { animated, SpringValue } from 'react-spring';
 import './style.scss';
 
 const sideMenuLinks = [

@@ -1,7 +1,7 @@
 import Loading from '@/components/common/Loading/Loading';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
+import { animated, useSpring } from '@react-spring/web';
 import React, { useMemo } from 'react';
-import { animated, useSpring } from 'react-spring';
 import left from './assets/images/left.webp';
 import middle from './assets/images/middle.webp';
 import right from './assets/images/right.webp';

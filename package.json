@@ -15,7 +15,7 @@
     "react-resize-detector": "^12.3.0",
     "react-router-dom": "^7.13.2",
     "react-sound": "^1.2.0",
-    "react-spring": "^10.0.3",
+    "@react-spring/web": "^10.0.3",
     "soundmanager2": "^2.97.20170602",
     "usehooks-ts": "^3.1.1"
   },
