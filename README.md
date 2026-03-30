@@ -20,6 +20,10 @@ pnpm install
 pnpm dev
 pnpm build
 pnpm preview
+pnpm test
+pnpm lint
+pnpm lint:fix
+pnpm types
 ```
 
 ---
@@ -33,6 +37,6 @@ pnpm preview
 
 ## Tech stack
 
-- React
+- React 19
 - TypeScript
 - Vite
