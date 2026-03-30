@@ -52,7 +52,15 @@ const Intro: React.FC = () => {
   return (
     <main className='intro'>
       {shouldShowTriptihVideo ? (
-        <FullSizeVideo sources={triptihVideoSources} onEnded={onVideoEnded} />
+        <>
+          <FullSizeVideo sources={triptihVideoSources} onEnded={onVideoEnded} />
+          <div className='intro__controls'>
+            <p className='intro__hint'>Нажмите пробел для пропуска</p>
+            <button type='button' className='intro__skip-button' onClick={onVideoEnded}>
+              Пропустить
+            </button>
+          </div>
+        </>
       ) : (
         <>
           <Triptih open={shouldNotFadeOutTriptihAndTitle} />
