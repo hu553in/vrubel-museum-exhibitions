@@ -57,8 +57,8 @@
     "dev": "vite",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
-    "lint": "lefthook run lint --all-files --force",
-    "lint:fix": "lefthook run lint-fix --all-files --force",
+    "check": "lefthook run check --all-files --force",
+    "check:fix": "lefthook run check-fix --all-files --force",
     "prepare": "lefthook install"
   },
   "browserslist": [

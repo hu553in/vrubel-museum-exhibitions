@@ -29,7 +29,7 @@ pre-commit:
     - name: test
       run: pnpm test
 
-lint:
+check:
   jobs:
     - name: eslint
       glob: '*.{js,jsx,ts,tsx}'
@@ -46,7 +46,7 @@ lint:
     - name: typecheck
       run: pnpm exec tsc --noEmit
 
-lint-fix:
+check-fix:
   jobs:
     - name: prettier
       run: pnpm exec prettier --write .

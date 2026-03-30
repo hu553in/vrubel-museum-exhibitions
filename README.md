@@ -21,9 +21,8 @@ pnpm dev
 pnpm build
 pnpm preview
 pnpm test
-pnpm lint
-pnpm lint:fix
-pnpm types
+pnpm check
+pnpm check:fix
 ```
 
 ---
