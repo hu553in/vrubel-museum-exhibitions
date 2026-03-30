@@ -1,8 +1,8 @@
-import ImageHotspot, {
-  Props as ImageHotspotProps,
-} from '@/components/common/ImageHotspot/ImageHotspot';
+import type { Props as ImageHotspotProps } from '@/components/common/ImageHotspot/ImageHotspot';
+import ImageHotspot from '@/components/common/ImageHotspot/ImageHotspot';
 import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
-import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
+import type { CSSProperties } from 'react';
+import { useState } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 import './style.scss';
 
@@ -13,17 +13,11 @@ interface Props {
   imageHotspots: ImageHotspotProps[];
 }
 
-const ImageHotspots: React.FC<Props> = props => {
+function ImageHotspots(props: Props) {
   const { parentElement, src, alt, imageHotspots } = props;
   useWindowSize();
 
   const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(null);
-  const [, setImageLoaded] = useState(false);
-
-  const imageCallbackRef = useCallback(
-    (node: HTMLImageElement | null) => setImageStateRef(node),
-    []
-  );
 
   const { clientWidth: parentClientWidth, clientHeight: parentClientHeight } = parentElement ?? {
     clientWidth: 0,
@@ -35,37 +29,27 @@ const ImageHotspots: React.FC<Props> = props => {
     naturalHeight: 0,
   };
 
-  const rootAndImageStyle = useMemo(
-    () =>
-      (!parentClientWidth || !parentClientHeight || !imageNaturalWidth || !imageNaturalHeight
-        ? { width: 0, height: 0 }
-        : calculateImageSizeByContainerAndNaturalSizes(
-            parentClientWidth,
-            parentClientHeight,
-            imageNaturalWidth,
-            imageNaturalHeight
-          )) as CSSProperties,
-    [imageNaturalHeight, imageNaturalWidth, parentClientHeight, parentClientWidth]
-  );
-
-  useEffect(() => {
-    setImageLoaded(false);
-  }, [src]);
+  const rootAndImageStyle: CSSProperties =
+    !parentClientWidth || !parentClientHeight || !imageNaturalWidth || !imageNaturalHeight
+      ? { width: 0, height: 0 }
+      : calculateImageSizeByContainerAndNaturalSizes(
+          parentClientWidth,
+          parentClientHeight,
+          imageNaturalWidth,
+          imageNaturalHeight
+        );
 
   return (
     <div className='image-hotspots' style={rootAndImageStyle}>
-      <img
-        ref={imageCallbackRef}
-        src={src}
-        alt={alt}
-        style={rootAndImageStyle}
-        onLoad={() => setImageLoaded(true)}
-      />
+      <img ref={setImageStateRef} src={src} alt={alt} style={rootAndImageStyle} />
       {imageHotspots.map((hotspot, index) => (
-        <ImageHotspot key={`image-hotspot-${index}`} {...hotspot} />
+        <ImageHotspot
+          key={`${String(hotspot.x)}-${String(hotspot.y)}-${String(index)}`}
+          {...hotspot}
+        />
       ))}
     </div>
   );
-};
+}
 
 export default ImageHotspots;

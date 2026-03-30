@@ -157,6 +157,28 @@
   background-size: 40px 40px;
 }
 
+.picture__image-hotspot-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.picture__image-hotspot-video-panel {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: calc(100% - 100px);
+  height: calc(100% - 100px);
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #d2d2d2;
+  background-color: #000;
+}
+
 .picture__dynamic-buttons {
   @media (width <= 450px) {
     display: grid;

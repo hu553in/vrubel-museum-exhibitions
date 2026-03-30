@@ -1,8 +1,9 @@
 import Loading from '@/components/common/Loading/Loading';
 import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
 import getAppRootElement from '@/utils/getAppRootElement';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import ExternalMagnifier, { MagnifierProps as ExternalMagnifierProps } from 'react-magnifier';
+import { type Component, type ComponentClass, useEffect, useState } from 'react';
+import type { MagnifierProps as ExternalMagnifierProps } from 'react-magnifier';
+import ExternalMagnifier from 'react-magnifier';
 
 interface Props {
   parentElement: HTMLElement | null;
@@ -10,17 +11,16 @@ interface Props {
   magnifier: string;
 }
 
-type MagnifierStateRef = React.Component & {
+type MagnifierStateRef = Component & {
   img?: HTMLImageElement | null;
 };
 
 const TypedExternalMagnifier =
-  ExternalMagnifier as unknown as React.ComponentClass<ExternalMagnifierProps>;
+  ExternalMagnifier as unknown as ComponentClass<ExternalMagnifierProps>;
 
-const Magnifier: React.FC<Props> = props => {
+function Magnifier(props: Props) {
   const { name, magnifier, parentElement } = props;
   const [stateRef, setStateRef] = useState<MagnifierStateRef | null>(null);
-  const callbackRef = useCallback((node: MagnifierStateRef | null) => setStateRef(node), []);
 
   const { clientWidth: parentWidth, clientHeight: parentHeight } = parentElement ?? {
     clientWidth: 0,
@@ -32,27 +32,22 @@ const Magnifier: React.FC<Props> = props => {
     naturalHeight: 0,
   };
 
-  const size = useMemo(
-    () =>
-      !parentWidth || !parentHeight || !naturalWidth || !naturalHeight
-        ? { width: 0, height: 0 }
-        : calculateImageSizeByContainerAndNaturalSizes(
-            parentWidth,
-            parentHeight,
-            naturalWidth,
-            naturalHeight
-          ),
-    [parentHeight, parentWidth, naturalHeight, naturalWidth]
-  );
+  const size =
+    !parentWidth || !parentHeight || !naturalWidth || !naturalHeight
+      ? { width: 0, height: 0 }
+      : calculateImageSizeByContainerAndNaturalSizes(
+          parentWidth,
+          parentHeight,
+          naturalWidth,
+          naturalHeight
+        );
 
-  const magnifierPresent = useMemo(() => !!magnifier, [magnifier]);
-  const [loading, setLoading] = useState(magnifierPresent);
-
-  useEffect(() => setLoading(magnifierPresent), [magnifierPresent]);
+  const [loadedMagnifier, setLoadedMagnifier] = useState<string | null>(null);
+  const loading = Boolean(magnifier) && loadedMagnifier !== magnifier;
 
   useEffect(() => {
     const stopLoading = () => {
-      setLoading(false);
+      setLoadedMagnifier(magnifier);
     };
 
     stateRef?.img?.addEventListener('error', stopLoading);
@@ -62,7 +57,7 @@ const Magnifier: React.FC<Props> = props => {
       stateRef?.img?.removeEventListener('error', stopLoading);
       stateRef?.img?.removeEventListener('load', stopLoading);
     };
-  }, [stateRef?.img]);
+  }, [magnifier, stateRef?.img]);
 
   const rootElement = getAppRootElement();
 
@@ -73,16 +68,16 @@ const Magnifier: React.FC<Props> = props => {
   return (
     <>
       {loading && <Loading />}
-      {magnifierPresent && (
+      {magnifier && (
         <TypedExternalMagnifier
           {...{
-            src: magnifier!,
+            src: magnifier,
             mgWidth: 200,
             mgHeight: 200,
             mgTouchOffsetX: 0,
             mgTouchOffsetY: 0,
             mgShowOverflow: false,
-            ref: callbackRef,
+            ref: setStateRef,
             ...size,
             style: size,
             alt: name,
@@ -91,6 +86,6 @@ const Magnifier: React.FC<Props> = props => {
       )}
     </>
   );
-};
+}
 
 export default Magnifier;

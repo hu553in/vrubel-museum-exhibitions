@@ -1,15 +1,7 @@
 import Loading from '@/components/common/Loading/Loading';
 import usePageVisibility from '@/hooks/usePageVisibility';
 import getAppRootElement from '@/utils/getAppRootElement';
-import {
-  CSSProperties,
-  forwardRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { type CSSProperties, type Ref, useEffect, useRef, useState } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 import './style.scss';
 
@@ -23,7 +15,7 @@ type FitMode = 'cover' | 'contain';
 
 interface Props {
   sources?: Source[];
-  onEnded?: () => any;
+  onEnded?: () => void;
   autoPlay?: boolean;
   muted?: boolean;
   controls?: boolean;
@@ -31,10 +23,12 @@ interface Props {
   loop?: boolean;
   oneHundredPercentHeight?: boolean;
   style?: CSSProperties;
+  ref?: Ref<HTMLVideoElement>;
 }
 
-const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
+function FullSizeVideo(props: Props) {
   const {
+    ref,
     sources = [],
     onEnded,
     autoPlay = true,
@@ -48,80 +42,55 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
-  const stopLoading = useCallback(() => setLoading(false), []);
-
-  const onError = useCallback(() => {
+  const stopLoading = () => {
+    setLoading(false);
+  };
+  const onError = () => {
     setLoading(false);
     setError(true);
-  }, []);
+  };
 
   const localRef = useRef<HTMLVideoElement | null>(null);
-  const refToUse = mergeRefs([ref, localRef]);
   const isVisible = usePageVisibility();
   const playPromise = useRef<Promise<void> | undefined>(undefined);
 
   useEffect(() => {
     if (!loading) {
       if (isVisible) {
-        playPromise.current = localRef?.current?.play();
+        playPromise.current = localRef.current?.play();
       } else {
         if (playPromise.current) {
-          playPromise.current?.then(() => localRef?.current?.pause());
+          void playPromise.current
+            .then(() => {
+              localRef.current?.pause();
+            })
+            .catch(() => undefined);
         } else {
-          localRef?.current?.pause();
+          localRef.current?.pause();
         }
       }
     }
   }, [localRef, isVisible, loading]);
 
-  const sourceElements = useMemo(
-    () =>
-      sources.map((source, index) => (
-        <source key={`source-${index}`} src={source.src} type={source.mimeType} />
-      )),
-    [sources]
-  );
-
-  const sourceLinks = useMemo(
-    () =>
-      sources.map((source, index) => (
-        <>
-          <br key={`source-link-${index}-pre-new-line`} />
-          <a key={`source-link-${index}`} href={source.src} className='full-size-video__video-link'>
-            {source.mimeTypeUserReadable}
-          </a>
-        </>
-      )),
-    [sources]
-  );
-
   const rootElement = getAppRootElement();
   const { clientHeight: rootElementHeight } = rootElement ?? {};
+  const onLoadedMetadataDataCanPlayEvents = autoPlay ? undefined : stopLoading;
 
-  const styleToUse = useMemo(
-    () => ({
-      objectFit,
-      maxHeight: rootElementHeight,
-      ...(oneHundredPercentHeight && { height: '100%' }),
-      ...style,
-    }),
-    [objectFit, oneHundredPercentHeight, rootElementHeight, style]
-  );
-
-  const onLoadedMetadataDataCanPlayEvents = useMemo(
-    () => (autoPlay ? undefined : stopLoading),
-    [autoPlay, stopLoading]
-  );
-
-  if (!rootElement || sourceElements.length === 0) {
+  if (!rootElement || sources.length === 0) {
     return null;
   }
 
   return error ? (
     <p className='full-size-video__error-message'>
       Невозможно воспроизвести видео, но вы можете попробовать его скачать:
-      {sourceLinks}
+      {sources.map(source => (
+        <span key={source.src}>
+          <br />
+          <a href={source.src} className='full-size-video__video-link'>
+            {source.mimeTypeUserReadable}
+          </a>
+        </span>
+      ))}
     </p>
   ) : (
     <>
@@ -141,15 +110,22 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
         onCanPlayThrough={stopLoading}
         onError={onError}
         onPlay={stopLoading}
-        style={styleToUse}
+        style={{
+          objectFit,
+          maxHeight: rootElementHeight,
+          ...(oneHundredPercentHeight ? { height: '100%' } : {}),
+          ...style,
+        }}
         playsInline
-        ref={refToUse}
+        ref={mergeRefs([ref, localRef])}
         loop={loop}
       >
-        {sourceElements}
+        {sources.map(source => (
+          <source key={source.src} src={source.src} type={source.mimeType} />
+        ))}
       </video>
     </>
   );
-});
+}
 
 export default FullSizeVideo;

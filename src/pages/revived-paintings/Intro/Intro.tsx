@@ -2,7 +2,7 @@ import FullSizeVideo from '@/components/common/FullSizeVideo/FullSizeVideo';
 import Title from '@/components/revived-paintings/Title/Title';
 import Triptih from '@/components/revived-paintings/Triptih/Triptih';
 import { ROUTES } from '@/constants';
-import React, { useCallback, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useEventListener } from 'usehooks-ts';
 import triptihMp4 from './assets/videos/triptih.mp4';
@@ -22,26 +22,44 @@ const triptihVideoSources = [
   },
 ];
 
-const Intro: React.FC = () => {
+function Intro() {
   const [shouldShowTriptihVideo, setShouldShowTriptihVideo] = useState(true);
   const [shouldRedirectToGalos, setShouldRedirectToGalos] = useState(false);
-
   const [shouldNotFadeOutTriptihAndTitle, setShouldNotFadeOutTriptihAndTitle] = useState(true);
+  const timeoutsRef = useRef<number[]>([]);
 
-  const onVideoEnded = useCallback(() => {
+  const onVideoEnded = () => {
+    if (!shouldShowTriptihVideo) {
+      return;
+    }
+
     setShouldShowTriptihVideo(false);
-    setTimeout(() => setShouldNotFadeOutTriptihAndTitle(false), 2750);
-    setTimeout(() => setShouldRedirectToGalos(true), 5000);
-  }, []);
+    timeoutsRef.current.push(
+      window.setTimeout(() => {
+        setShouldNotFadeOutTriptihAndTitle(false);
+      }, 2750)
+    );
+    timeoutsRef.current.push(
+      window.setTimeout(() => {
+        setShouldRedirectToGalos(true);
+      }, 5000)
+    );
+  };
 
-  const handleWindowKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === ' ' && event.code === 'Space' && shouldShowTriptihVideo) {
-        onVideoEnded();
-      }
+  useEffect(
+    () => () => {
+      timeoutsRef.current.forEach(timeoutId => {
+        window.clearTimeout(timeoutId);
+      });
     },
-    [onVideoEnded, shouldShowTriptihVideo]
+    []
   );
+
+  const handleWindowKeyDown = (event: KeyboardEvent) => {
+    if (event.key === ' ' && event.code === 'Space' && shouldShowTriptihVideo) {
+      onVideoEnded();
+    }
+  };
 
   useEventListener('keydown', handleWindowKeyDown);
 
@@ -69,6 +87,6 @@ const Intro: React.FC = () => {
       )}
     </main>
   );
-};
+}
 
 export default Intro;

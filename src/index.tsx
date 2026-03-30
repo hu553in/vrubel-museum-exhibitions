@@ -3,6 +3,7 @@ import { ROUTES } from '@/constants';
 import Main from '@/pages/main/Main/Main';
 import getAppRootElement from '@/utils/getAppRootElement';
 import 'normalize.css';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { soundManager } from 'soundmanager2';
@@ -17,11 +18,13 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
-  <BrowserRouter>
-    <Routes>
-      <Route path={ROUTES.DEFAULT} element={<Main />} />
-      <Route path={`${ROUTES.REVIVED_PAINTINGS}/*`} element={<RevivedPaintings />} />
-      <Route path='*' element={<Navigate to={ROUTES.DEFAULT} replace />} />
-    </Routes>
-  </BrowserRouter>
+  <StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path={ROUTES.DEFAULT} element={<Main />} />
+        <Route path={`${ROUTES.REVIVED_PAINTINGS}/*`} element={<RevivedPaintings />} />
+        <Route path='*' element={<Navigate to={ROUTES.DEFAULT} replace />} />
+      </Routes>
+    </BrowserRouter>
+  </StrictMode>
 );

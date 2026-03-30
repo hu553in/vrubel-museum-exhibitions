@@ -1,8 +1,7 @@
 import cn from 'classnames';
-import React, { useMemo } from 'react';
 import './style.scss';
 
-interface Props {
+export interface Props {
   logo: string;
   onLogoLoad: () => unknown;
   onLogoError: () => unknown;
@@ -13,7 +12,7 @@ interface Props {
   className?: string;
 }
 
-const Building: React.FC<Props> = props => {
+function Building(props: Props) {
   const {
     logo,
     onLogoLoad,
@@ -25,36 +24,12 @@ const Building: React.FC<Props> = props => {
     className = '',
   } = props;
 
-  const busStopElements = useMemo(
-    () =>
-      busStops.map((busStop, index) => (
-        <p key={`bus-stop-${index}`} className='building__bus-stop'>
-          {busStop}
-        </p>
-      )),
-    [busStops]
-  );
-
-  const contactElements = useMemo(
-    () =>
-      contacts.map((contact, index) => (
-        <p key={`contact-${index}`} className='building__contact'>
-          {contact}
-        </p>
-      )),
-    [contacts]
-  );
-
-  const classNameToUse = useMemo(
-    () =>
-      cn('building', {
-        [className]: className.length > 0,
-      }),
-    [className]
-  );
-
   return (
-    <div className={classNameToUse}>
+    <div
+      className={cn('building', {
+        [className]: className.length > 0,
+      })}
+    >
       <img
         className='building__logo'
         src={logo}
@@ -67,12 +42,20 @@ const Building: React.FC<Props> = props => {
         <p className='building__address-label'>Адрес:</p>
         <p className='building__address'>{address}</p>
         <p className='building__bus-stops-label'>Остановки:</p>
-        {busStopElements}
+        {busStops.map(busStop => (
+          <p key={busStop} className='building__bus-stop'>
+            {busStop}
+          </p>
+        ))}
         <p className='building__contacts-label'>Контакты:</p>
-        {contactElements}
+        {contacts.map(contact => (
+          <p key={contact} className='building__contact'>
+            {contact}
+          </p>
+        ))}
       </div>
     </div>
   );
-};
+}
 
 export default Building;

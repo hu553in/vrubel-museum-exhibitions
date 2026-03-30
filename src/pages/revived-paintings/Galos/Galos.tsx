@@ -5,27 +5,27 @@ import { ROUTES } from '@/constants';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
 import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
 import { animated, useSpring } from '@react-spring/web';
-import React, { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useIntersectionObserver } from 'usehooks-ts';
 import './style.scss';
 
-type PictureWrapperProps = {
+interface PictureWrapperProps {
   animationStyle: object;
   onVisible: (pictureId: string) => void;
   picture: (typeof pictures)[number];
   pictureStyle: object;
   stopLoading: () => void;
-};
+}
 
-const PictureWrapper: React.FC<PictureWrapperProps> = ({
+function PictureWrapper({
   animationStyle,
   onVisible,
   picture,
   pictureStyle,
   stopLoading,
-}) => {
+}: PictureWrapperProps) {
   const { ref } = useIntersectionObserver({
     threshold: 0.5,
     onChange: isIntersecting => {
@@ -59,9 +59,9 @@ const PictureWrapper: React.FC<PictureWrapperProps> = ({
       </NavLink>
     </animated.div>
   );
-};
+}
 
-const Galos: React.FC = () => {
+function Galos() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [authorAndYear, setAuthorAndYear] = useState('');
@@ -88,129 +88,94 @@ const Galos: React.FC = () => {
     },
   });
 
-  const overlayHeaderStyle = useMemo(
-    () => ({
-      ...animationStyle,
-      ...(width !== undefined && { width }),
-    }),
-    [animationStyle, width]
-  );
-
-  const overlayMainStyle = useMemo(
-    () => ({
-      ...(width !== undefined && { width }),
-      ...(height !== undefined && { minHeight: height }),
-    }),
-    [height, width]
-  );
-
-  const overlayInfoBlockStyle = useMemo(() => {
-    if (width === undefined || height === undefined) {
-      return {};
-    }
-
-    return {
-      maxWidth: width! * 0.35,
-      top: height! / 2.0,
-      left: width! * 0.55,
-      gap: Math.min(width!, height!) * 0.05,
-    };
-  }, [height, width]);
-
-  const overlayCircleStyle = useMemo(() => {
-    if (width === undefined || height === undefined) {
-      return {};
-    }
-
-    const minDimension40Percent = Math.min(width!, height!) * 0.4;
-
-    return {
-      minWidth: minDimension40Percent,
-      minHeight: minDimension40Percent,
-      maxWidth: minDimension40Percent,
-      maxHeight: minDimension40Percent,
-      top: height! / 2.0,
-      left: width! / 2.0,
-    };
-  }, [height, width]);
-
-  const pictureStyle = useMemo(() => {
-    if (width === undefined || height === undefined) {
-      return {};
-    }
-
-    const minDimension = Math.min(width!, height!);
-
-    return {
-      ...animationStyle,
-      minWidth: minDimension,
-      minHeight: minDimension,
-      maxWidth: minDimension,
-      maxHeight: minDimension,
-    };
-  }, [animationStyle, height, width]);
-
-  const pictureWrapperElements = useMemo(
-    () =>
-      pictures.map((picture, index) => {
-        const onVisible = (pictureId: string) => {
-          setName(picture.name);
-          setAuthorAndYear(picture.authorAndYear);
-          navigate({ hash: `#${pictureId}` });
-        };
-
-        const stopLoading = () => markImageAsLoaded(index);
-
-        return (
-          <PictureWrapper
-            key={`picture-${index}`}
-            animationStyle={animationStyle}
-            onVisible={onVisible}
-            picture={picture}
-            pictureStyle={pictureStyle}
-            stopLoading={stopLoading}
-          />
-        );
-      }),
-    [animationStyle, markImageAsLoaded, navigate, pictureStyle]
-  );
-
-  const galosChildren = useMemo(
-    () => (
-      <>
-        {pictureWrapperElements}
-        <div className='galos__overlay-main' style={overlayMainStyle} />
-        <div className='galos__overlay-circle' style={overlayCircleStyle} />
-        <div className='galos__overlay-info-block' style={overlayInfoBlockStyle}>
-          <animated.p className='galos__overlay-title' style={textAnimationStyle}>
-            {name}
-          </animated.p>
-          <animated.p className='galos__overlay-author-and-year' style={textAnimationStyle}>
-            {authorAndYear}
-          </animated.p>
-        </div>
-      </>
-    ),
-    [
-      pictureWrapperElements,
-      overlayMainStyle,
-      overlayCircleStyle,
-      overlayInfoBlockStyle,
-      textAnimationStyle,
-      name,
-      authorAndYear,
-    ]
-  );
-
   return (
-    <>
-      <main className='galos' ref={ref}>
-        {loading && <Loading />}
-        <Header className='galos__overlay-header' style={overlayHeaderStyle} />
-        {galosChildren}
-      </main>
-    </>
+    <main className='galos' ref={ref}>
+      {loading && <Loading />}
+      <Header
+        className='galos__overlay-header'
+        style={{
+          ...animationStyle,
+          ...(width !== undefined && { width }),
+        }}
+      />
+      {pictures.map((picture, index) => (
+        <PictureWrapper
+          key={picture.id}
+          animationStyle={animationStyle}
+          onVisible={pictureId => {
+            setName(picture.name);
+            setAuthorAndYear(picture.authorAndYear);
+            void navigate({ hash: `#${pictureId}` });
+          }}
+          picture={picture}
+          pictureStyle={
+            width === undefined || height === undefined
+              ? {}
+              : (() => {
+                  const minDimension = Math.min(width, height);
+
+                  return {
+                    ...animationStyle,
+                    minWidth: minDimension,
+                    minHeight: minDimension,
+                    maxWidth: minDimension,
+                    maxHeight: minDimension,
+                  };
+                })()
+          }
+          stopLoading={() => {
+            markImageAsLoaded(index);
+          }}
+        />
+      ))}
+      <div
+        className='galos__overlay-main'
+        style={{
+          ...(width !== undefined && { width }),
+          ...(height !== undefined && { minHeight: height }),
+        }}
+      />
+      <div
+        className='galos__overlay-circle'
+        style={
+          width === undefined || height === undefined
+            ? {}
+            : (() => {
+                const minDimension40Percent = Math.min(width, height) * 0.4;
+
+                return {
+                  minWidth: minDimension40Percent,
+                  minHeight: minDimension40Percent,
+                  maxWidth: minDimension40Percent,
+                  maxHeight: minDimension40Percent,
+                  top: height / 2.0,
+                  left: width / 2.0,
+                };
+              })()
+        }
+      />
+      <div
+        className='galos__overlay-info-block'
+        style={
+          width === undefined || height === undefined
+            ? {}
+            : {
+                maxWidth: width * 0.35,
+                top: height / 2.0,
+                left: width * 0.55,
+                gap: Math.min(width, height) * 0.05,
+              }
+        }
+      >
+        <animated.p className='galos__overlay-title' style={textAnimationStyle}>
+          {name}
+        </animated.p>
+        <animated.p className='galos__overlay-author-and-year' style={textAnimationStyle}>
+          {authorAndYear}
+        </animated.p>
+      </div>
+    </main>
   );
-};
+}
 
 export default Galos;

@@ -1,6 +1,6 @@
 import Dialog from '@/components/common/Dialog/Dialog';
 import cn from 'classnames';
-import React, { useId, useMemo } from 'react';
+import { useId } from 'react';
 import './style.scss';
 
 interface Props {
@@ -12,35 +12,19 @@ interface Props {
   paragraphs: string[];
 }
 
-const SideInfoPanel: React.FC<Props> = props => {
+function SideInfoPanel(props: Props) {
   const { open, onClose, parentElement, header, subheader, paragraphs } = props;
   const headerId = useId();
   const subheaderId = useId();
-
-  const paragraphElements = useMemo(
-    () =>
-      paragraphs.map((paragraph, index) => (
-        <p className='side-info-panel__paragraph' key={`paragraph-${index}`}>
-          {paragraph}
-        </p>
-      )),
-    [paragraphs]
-  );
-
-  const classNameToUse = useMemo(
-    () =>
-      cn('side-info-panel', {
-        'side-info-panel_open': open,
-      }),
-    [open]
-  );
 
   return (
     <Dialog
       open={open}
       onClose={onClose}
       container={parentElement}
-      panelClassName={classNameToUse}
+      panelClassName={cn('side-info-panel', {
+        'side-info-panel_open': open,
+      })}
       overlayClassName='side-info-panel-overlay'
       labelledBy={headerId}
       describedBy={subheaderId}
@@ -51,7 +35,11 @@ const SideInfoPanel: React.FC<Props> = props => {
       <p className='side-info-panel__subheader' id={subheaderId}>
         {subheader}
       </p>
-      {paragraphElements}
+      {paragraphs.map(paragraph => (
+        <p className='side-info-panel__paragraph' key={paragraph}>
+          {paragraph}
+        </p>
+      ))}
       <button
         type='button'
         aria-label='Закрыть панель с информацией о картине'
@@ -60,6 +48,6 @@ const SideInfoPanel: React.FC<Props> = props => {
       />
     </Dialog>
   );
-};
+}
 
 export default SideInfoPanel;

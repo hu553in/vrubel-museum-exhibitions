@@ -22,7 +22,9 @@ describe('useScrollToHashOnComponentMount', () => {
     const requestAnimationFrameSpy = vi.fn();
     window.requestAnimationFrame = requestAnimationFrameSpy;
 
-    renderHook(() => useScrollToHashOnComponentMount());
+    renderHook(() => {
+      useScrollToHashOnComponentMount();
+    });
 
     expect(requestAnimationFrameSpy).not.toHaveBeenCalled();
   });
@@ -32,7 +34,9 @@ describe('useScrollToHashOnComponentMount', () => {
     const requestAnimationFrameSpy = vi.fn();
     window.requestAnimationFrame = requestAnimationFrameSpy;
 
-    renderHook(() => useScrollToHashOnComponentMount());
+    renderHook(() => {
+      useScrollToHashOnComponentMount();
+    });
 
     expect(requestAnimationFrameSpy).not.toHaveBeenCalled();
   });
@@ -52,7 +56,9 @@ describe('useScrollToHashOnComponentMount', () => {
     element.scrollIntoView = scrollIntoViewSpy;
     document.body.appendChild(element);
 
-    renderHook(() => useScrollToHashOnComponentMount());
+    renderHook(() => {
+      useScrollToHashOnComponentMount();
+    });
 
     expect(requestAnimationFrameSpy).toHaveBeenCalledTimes(1);
     expect(scrollIntoViewSpy).toHaveBeenCalledTimes(1);

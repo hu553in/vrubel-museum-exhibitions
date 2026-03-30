@@ -4,11 +4,12 @@ import SocialNetworkIcon, {
   SocialNetwork,
 } from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
 import TextField from '@/components/common/TextField/TextField';
-import React, { useCallback, useReducer, useState } from 'react';
+import type { ChangeEvent, FocusEvent } from 'react';
+import { useReducer, useState } from 'react';
 import signIn from './assets/images/sign-in.webp';
 import './style.scss';
 
-const Account: React.FC = () => {
+function Account() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
@@ -16,25 +17,24 @@ const Account: React.FC = () => {
   const [passwordError, setPasswordError] = useState(false);
 
   const [rememberMe, toggleRememberMe] = useReducer(value => !value, false);
-  const togglePasswordShown = useCallback(() => setPasswordShown(value => !value), []);
 
-  const onEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
     setEmailError(false);
-  }, []);
+  };
 
-  const onPasswordChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     setPasswordError(false);
-  }, []);
+  };
 
-  const validateEmail = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
+  const validateEmail = (e: FocusEvent<HTMLInputElement>) => {
     setEmailError(!e.target.validity.valid);
-  }, []);
+  };
 
-  const validatePassword = useCallback(() => {
+  const validatePassword = () => {
     setPasswordError(password.trim().length === 0);
-  }, [password]);
+  };
 
   return (
     <main className='account'>
@@ -93,7 +93,9 @@ const Account: React.FC = () => {
             className='account__sign-in-password-toggle'
             aria-label={passwordShown ? 'Скрыть пароль' : 'Показать пароль'}
             aria-pressed={passwordShown}
-            onClick={togglePasswordShown}
+            onClick={() => {
+              setPasswordShown(value => !value);
+            }}
           >
             {passwordShown ? 'Скрыть' : 'Показать'}
           </button>
@@ -117,6 +119,6 @@ const Account: React.FC = () => {
       />
     </main>
   );
-};
+}
 
 export default Account;

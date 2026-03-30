@@ -1,15 +1,13 @@
 import Footer from '@/components/revived-paintings/Footer/Footer';
 import Header from '@/components/revived-paintings/Header/Header';
-import React from 'react';
+import type { ReactNode } from 'react';
 import './style.scss';
 
 interface Props {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
-const HeaderFooterLayout: React.FC<Props> = props => {
-  const { children } = props;
-
+function HeaderFooterLayout({ children }: Props) {
   return (
     <div className='header-footer-layout'>
       <Header />
@@ -17,6 +15,6 @@ const HeaderFooterLayout: React.FC<Props> = props => {
       <Footer />
     </div>
   );
-};
+}
 
 export default HeaderFooterLayout;

@@ -1,12 +1,11 @@
 import { animated, useSpring } from '@react-spring/web';
-import React from 'react';
 import './style.scss';
 
 interface Props {
   open: boolean;
 }
 
-const Title: React.FC<Props> = props => {
+function Title(props: Props) {
   const { open } = props;
 
   const style = useSpring({
@@ -25,6 +24,6 @@ const Title: React.FC<Props> = props => {
       <p className='revived-paintings-title__third-line'>Музей им. М. А. Врубеля</p>
     </animated.div>
   );
-};
+}
 
 export default Title;

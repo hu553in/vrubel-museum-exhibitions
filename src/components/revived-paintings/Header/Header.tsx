@@ -3,7 +3,8 @@ import SideMenu from '@/components/common/SideMenu/SideMenu';
 import { ROUTES } from '@/constants';
 import { animated, SpringValue } from '@react-spring/web';
 import cn from 'classnames';
-import React, { useCallback, useState } from 'react';
+import type { CSSProperties } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './style.scss';
 
@@ -19,25 +20,23 @@ const sideMenuLinks = [
 interface Props {
   className?: string;
   style?:
-    | React.CSSProperties
-    | (Omit<React.CSSProperties, 'opacity'> & {
+    | CSSProperties
+    | (Omit<CSSProperties, 'opacity'> & {
         opacity?: SpringValue<number>;
       });
 }
 
-const Header: React.FC<Props> = props => {
+function Header(props: Props) {
   const { className = '', style } = props;
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const openMenu = useCallback(() => setMenuOpen(true), []);
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
-
-  const classNameToUse = cn('header', {
-    [className]: className.length > 0,
-  });
-
   return (
-    <animated.header style={style} className={classNameToUse}>
+    <animated.header
+      style={style}
+      className={cn('header', {
+        [className]: className.length > 0,
+      })}
+    >
       <NavLink to={ROUTES.DEFAULT} className='header__homepage-link'>
         <img className='header__logo' src={logo} alt='Логотип музея' />
       </NavLink>
@@ -47,11 +46,19 @@ const Header: React.FC<Props> = props => {
         aria-haspopup='dialog'
         aria-expanded={menuOpen}
         className='header__menu-button'
-        onClick={openMenu}
+        onClick={() => {
+          setMenuOpen(true);
+        }}
       />
-      <SideMenu open={menuOpen} onClose={closeMenu} links={sideMenuLinks} />
+      <SideMenu
+        open={menuOpen}
+        onClose={() => {
+          setMenuOpen(false);
+        }}
+        links={sideMenuLinks}
+      />
     </animated.header>
   );
-};
+}
 
 export default Header;

@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React from 'react';
+import type { ChangeEventHandler, FocusEventHandler } from 'react';
 import './style.scss';
 
 type Type = 'text' | 'email' | 'password';
@@ -7,8 +7,8 @@ type Type = 'text' | 'email' | 'password';
 interface Props {
   id?: string;
   value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLInputElement>;
   className?: string;
   placeholder?: string;
   name?: string;
@@ -19,7 +19,7 @@ interface Props {
   error?: boolean;
 }
 
-const TextField: React.FC<Props> = props => {
+function TextField(props: Props) {
   const {
     type = 'text',
     id,
@@ -35,17 +35,15 @@ const TextField: React.FC<Props> = props => {
     error = false,
   } = props;
 
-  const classNameToUse = cn('text-field', {
-    'text-field_error': error,
-    [className]: className.length > 0,
-  });
-
   return (
     <input
       onChange={onChange}
       onBlur={onBlur}
       id={id}
-      className={classNameToUse}
+      className={cn('text-field', {
+        'text-field_error': error,
+        [className]: className.length > 0,
+      })}
       placeholder={placeholder}
       value={value}
       name={name}
@@ -56,6 +54,6 @@ const TextField: React.FC<Props> = props => {
       aria-invalid={error}
     />
   );
-};
+}
 
 export default TextField;

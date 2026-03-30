@@ -7,7 +7,9 @@ const useScrollToHashOnComponentMount = () => {
       const element = document.getElementById(id);
 
       if (element) {
-        window.requestAnimationFrame(() => element!.scrollIntoView());
+        window.requestAnimationFrame(() => {
+          element.scrollIntoView();
+        });
       }
     }
   }, []);

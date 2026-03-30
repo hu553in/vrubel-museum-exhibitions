@@ -1,19 +1,19 @@
 import cn from 'classnames';
-import React, { useMemo } from 'react';
+import type { HTMLAttributeAnchorTarget, MouseEventHandler } from 'react';
 import './style.scss';
 
 interface Props {
   backgroundImage: string;
   label: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   href?: string;
-  target?: React.HTMLAttributeAnchorTarget;
+  target?: HTMLAttributeAnchorTarget;
   rel?: string;
   disabled?: boolean;
 }
 
-const RoundedButton: React.FC<Props> = props => {
+function RoundedButton(props: Props) {
   const {
     backgroundImage,
     label,
@@ -25,36 +25,31 @@ const RoundedButton: React.FC<Props> = props => {
     disabled = false,
   } = props;
 
-  const buttonStyle = useMemo(
-    () => ({
-      backgroundImage: `url(${backgroundImage})`,
-    }),
-    [backgroundImage]
-  );
-
-  const classNameToUse = useMemo(
-    () =>
-      cn('rounded-button', {
-        [className]: className.length > 0,
-      }),
-    [className]
-  );
-
   return href ? (
-    <a className={classNameToUse} href={href} style={buttonStyle} target={target} rel={rel}>
+    <a
+      className={cn('rounded-button', {
+        [className]: className.length > 0,
+      })}
+      href={href}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+      target={target}
+      rel={rel}
+    >
       {label}
     </a>
   ) : (
     <button
       type='button'
-      className={classNameToUse}
-      style={buttonStyle}
+      className={cn('rounded-button', {
+        [className]: className.length > 0,
+      })}
+      style={{ backgroundImage: `url(${backgroundImage})` }}
       onClick={onClick}
       disabled={disabled}
     >
       {label}
     </button>
   );
-};
+}
 
 export default RoundedButton;

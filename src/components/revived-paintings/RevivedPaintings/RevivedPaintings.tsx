@@ -7,10 +7,9 @@ import Contacts from '@/pages/revived-paintings/Contacts/Contacts';
 import Galos from '@/pages/revived-paintings/Galos/Galos';
 import Intro from '@/pages/revived-paintings/Intro/Intro';
 import Picture from '@/pages/revived-paintings/Picture/Picture';
-import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-const RevivedPaintings: React.FC = () => {
+function RevivedPaintings() {
   return (
     <Routes>
       <Route index element={<Intro />} />
@@ -51,6 +50,6 @@ const RevivedPaintings: React.FC = () => {
       <Route path='*' element={<Navigate to={ROUTES.DEFAULT} replace />} />
     </Routes>
   );
-};
+}
 
 export default RevivedPaintings;

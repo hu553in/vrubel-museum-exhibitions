@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import React, { useMemo } from 'react';
 import './style.scss';
 
 interface Props {
@@ -8,36 +7,26 @@ interface Props {
   src: string;
 }
 
-const Map: React.FC<Props> = props => {
+function Map(props: Props) {
   const { className = '', wrapperClassName = '', src } = props;
 
-  const wrapperClassNameToUse = useMemo(
-    () =>
-      cn('map-wrapper', {
-        [wrapperClassName]: wrapperClassName.length > 0,
-      }),
-    [wrapperClassName]
-  );
-
-  const classNameToUse = useMemo(
-    () =>
-      cn('map', {
-        [className]: className.length > 0,
-      }),
-    [className]
-  );
-
   return (
-    <div className={wrapperClassNameToUse}>
+    <div
+      className={cn('map-wrapper', {
+        [wrapperClassName]: wrapperClassName.length > 0,
+      })}
+    >
       <iframe
         title='Интерактивная карта музея'
         src={src}
         loading='lazy'
-        className={classNameToUse}
-        frameBorder='0'
+        className={cn('map', {
+          [className]: className.length > 0,
+        })}
+        style={{ border: 0 }}
       />
     </div>
   );
-};
+}
 
 export default Map;

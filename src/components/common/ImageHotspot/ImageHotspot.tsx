@@ -1,29 +1,24 @@
-import React, { CSSProperties, useMemo } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import './style.scss';
 
 export interface Props {
   x: number;
   y: number;
-  content: React.ReactNode;
+  content: ReactNode;
 }
 
-const ImageHotspot: React.FC<Props> = props => {
+function ImageHotspot(props: Props) {
   const { x, y, content } = props;
-
-  const style = useMemo(
-    () =>
-      ({
-        top: `${y}%`,
-        left: `${x}%`,
-      }) as CSSProperties,
-    [x, y]
-  );
+  const style: CSSProperties = {
+    top: `${String(y)}%`,
+    left: `${String(x)}%`,
+  };
 
   return (
     <div className='image-hotspot' style={style}>
       {content}
     </div>
   );
-};
+}
 
 export default ImageHotspot;

@@ -1,30 +1,31 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const createInitialLoadingState = (itemsCount: number) => Array(itemsCount).fill(true);
+const createInitialLoadingState = (itemsCount: number): boolean[] =>
+  Array.from({ length: itemsCount }, () => true);
 
 const useImageLoadingState = (itemsCount: number) => {
-  const [loadingState, setLoadingState] = useState(() => createInitialLoadingState(itemsCount));
+  const [loadingState, setLoadingState] = useState<boolean[]>(() =>
+    createInitialLoadingState(itemsCount)
+  );
 
   useEffect(() => {
     setLoadingState(createInitialLoadingState(itemsCount));
   }, [itemsCount]);
 
-  const loading = useMemo(() => loadingState.some(Boolean), [loadingState]);
-
-  const markImageAsLoaded = useCallback((index: number) => {
+  const markImageAsLoaded = (index: number) => {
     setLoadingState(previousLoadingState => {
       if (index < 0 || index >= previousLoadingState.length || !previousLoadingState[index]) {
         return previousLoadingState;
       }
 
-      let nextLoadingState = [...previousLoadingState];
+      const nextLoadingState = [...previousLoadingState];
       nextLoadingState[index] = false;
       return nextLoadingState;
     });
-  }, []);
+  };
 
   return {
-    loading,
+    loading: loadingState.some(Boolean),
     markImageAsLoaded,
   };
 };

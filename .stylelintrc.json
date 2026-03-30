@@ -1,5 +1,9 @@
 {
   "extends": ["stylelint-config-recommended", "stylelint-config-standard"],
+  "reportDescriptionlessDisables": true,
+  "reportInvalidScopeDisables": true,
+  "reportNeedlessDisables": true,
+  "reportUnscopedDisables": true,
   "rules": {
     "selector-class-pattern": null
   }

@@ -11,7 +11,9 @@ const usePageVisibility = () => {
       return undefined;
     }
 
-    const handleVisibilityChange = () => setIsVisible(getIsPageVisible());
+    const handleVisibilityChange = () => {
+      setIsVisible(getIsPageVisible());
+    };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
 

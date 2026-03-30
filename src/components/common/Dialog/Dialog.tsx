@@ -1,19 +1,19 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import React from 'react';
+import type { ReactNode, RefObject } from 'react';
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   panelClassName: string;
   overlayClassName: string;
   container?: Element | DocumentFragment | null;
   labelledBy?: string;
   describedBy?: string;
-  initialFocusRef?: React.RefObject<HTMLElement | null>;
+  initialFocusRef?: RefObject<HTMLElement | null>;
 }
 
-const Dialog: React.FC<Props> = props => {
+function Dialog(props: Props) {
   const {
     open,
     onClose,
@@ -27,7 +27,14 @@ const Dialog: React.FC<Props> = props => {
   } = props;
 
   return (
-    <DialogPrimitive.Root open={open} onOpenChange={nextOpen => !nextOpen && onClose()}>
+    <DialogPrimitive.Root
+      open={open}
+      onOpenChange={nextOpen => {
+        if (!nextOpen) {
+          onClose();
+        }
+      }}
+    >
       <DialogPrimitive.Portal container={container}>
         <DialogPrimitive.Overlay className={overlayClassName} />
         <DialogPrimitive.Content
@@ -48,6 +55,6 @@ const Dialog: React.FC<Props> = props => {
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
   );
-};
+}
 
 export default Dialog;

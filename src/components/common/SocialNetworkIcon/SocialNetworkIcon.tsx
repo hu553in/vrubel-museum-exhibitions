@@ -6,7 +6,6 @@ import tiktokIcon from '@/assets/common/icons/social/tiktok.svg';
 import vkIcon from '@/assets/common/icons/social/vk.svg';
 import youtubeIcon from '@/assets/common/icons/social/youtube.svg';
 import cn from 'classnames';
-import React from 'react';
 import './style.scss';
 
 export enum SocialNetwork {
@@ -50,17 +49,16 @@ const socialNetworkIcons = {
   },
 } as const satisfies Record<SocialNetwork, { src: string; alt: string }>;
 
-export type Props = {
+export interface Props {
   socialNetwork: SocialNetwork;
   className?: string;
-};
+}
 
-const SocialNetworkIcon: React.FC<Props> = props => {
+function SocialNetworkIcon(props: Props) {
   const { className = '', socialNetwork } = props;
   const icon = socialNetworkIcons[socialNetwork];
-  const classNameToUse = cn('social-network-icon', className);
 
-  return <img src={icon.src} alt={icon.alt} className={classNameToUse} />;
-};
+  return <img src={icon.src} alt={icon.alt} className={cn('social-network-icon', className)} />;
+}
 
 export default SocialNetworkIcon;

@@ -1,13 +1,13 @@
 import getAppRootElement from '@/utils/getAppRootElement';
-import React from 'react';
 import { createPortal } from 'react-dom';
+import type { ReactNode } from 'react';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   container?: Element | DocumentFragment | null;
 }
 
-const Portal: React.FC<Props> = ({ children, container }) => {
+function Portal({ children, container }: Props) {
   const target = container ?? getAppRootElement();
 
   if (!target) {
@@ -15,6 +15,6 @@ const Portal: React.FC<Props> = ({ children, container }) => {
   }
 
   return createPortal(children, target);
-};
+}
 
 export default Portal;

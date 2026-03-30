@@ -1,6 +1,6 @@
 import Dialog from '@/components/common/Dialog/Dialog';
 import cn from 'classnames';
-import React, { useId, useMemo, useRef } from 'react';
+import { useId, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
 
@@ -16,51 +16,19 @@ interface Props {
   links: Link[];
 }
 
-const SideMenu: React.FC<Props> = props => {
+function SideMenu(props: Props) {
   const { open, onClose, links } = props;
   const location = useLocation();
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const titleId = useId();
 
-  const linkElements = useMemo(
-    () =>
-      links.map((link, index) => {
-        const { label, route, external = false } = link;
-
-        const props = {
-          key: `link-${index}`,
-          className: cn('side-menu__link', {
-            'side-menu__link_active': route === location.pathname,
-          }),
-          onClick: onClose,
-        };
-
-        return external ? (
-          <a {...props} href={route}>
-            {label}
-          </a>
-        ) : (
-          <NavLink {...props} to={route}>
-            {label}
-          </NavLink>
-        );
-      }),
-    [links, location.pathname, onClose]
-  );
-
-  const classNameToUse = useMemo(
-    () =>
-      cn('side-menu', {
-        'side-menu_open': open,
-      }),
-    [open]
-  );
-
   return (
     <Dialog
       open={open}
       onClose={onClose}
-      panelClassName={classNameToUse}
+      panelClassName={cn('side-menu', {
+        'side-menu_open': open,
+      })}
       overlayClassName='side-menu-overlay'
       labelledBy={titleId}
       initialFocusRef={closeButtonRef}
@@ -68,7 +36,22 @@ const SideMenu: React.FC<Props> = props => {
       <h2 className='side-menu__title' id={titleId}>
         Навигационное меню
       </h2>
-      {linkElements}
+      {links.map(link => {
+        const { label, route, external = false } = link;
+        const className = cn('side-menu__link', {
+          'side-menu__link_active': route === location.pathname,
+        });
+
+        return external ? (
+          <a key={route} className={className} href={route} onClick={onClose}>
+            {label}
+          </a>
+        ) : (
+          <NavLink key={route} className={className} to={route} onClick={onClose}>
+            {label}
+          </NavLink>
+        );
+      })}
       <button
         type='button'
         ref={closeButtonRef}
@@ -78,6 +61,6 @@ const SideMenu: React.FC<Props> = props => {
       />
     </Dialog>
   );
-};
+}
 
 export default SideMenu;
