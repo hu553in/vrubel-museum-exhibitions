@@ -1,24 +1,18 @@
 import pictures from '@/assets/revived-paintings/pictures';
 import Loading from '@/components/common/Loading/Loading';
 import { ROUTES } from '@/constants';
-import React, { useMemo, useState } from 'react';
+import useImageLoadingState from '@/hooks/useImageLoadingState';
+import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import './style.scss';
 
-const initialLoadingArray = Array(pictures.length).fill(true);
-
 const Catalogue: React.FC = () => {
-  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
+  const { loading, markImageAsLoaded } = useImageLoadingState(pictures.length);
 
   const catalogueLinkElements = useMemo(
     () =>
       pictures.map((picture, index) => {
-        const stopLoading = () =>
-          setLoadingArray(loadingArray => {
-            let clonedLoadingArray = [...loadingArray];
-            clonedLoadingArray[index] = false;
-            return clonedLoadingArray;
-          });
+        const stopLoading = () => markImageAsLoaded(index);
 
         return (
           <NavLink
@@ -42,12 +36,7 @@ const Catalogue: React.FC = () => {
           </NavLink>
         );
       }),
-    []
-  );
-
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
+    [markImageAsLoaded]
   );
 
   const rootElement = document.getElementById('root');

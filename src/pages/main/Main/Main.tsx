@@ -1,32 +1,18 @@
 import Loading from '@/components/common/Loading/Loading';
 import Title from '@/components/main/Title/Title';
 import { ROUTES } from '@/constants';
+import useImageLoadingState from '@/hooks/useImageLoadingState';
 import cn from 'classnames';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useWindowSize } from 'usehooks-ts';
 import first from './assets/images/first.webp';
 import second from './assets/images/second.webp';
 import './style.scss';
 
-const initialLoadingArray = Array(2).fill(true);
-
 const Main: React.FC = () => {
   const { width = 0, height = 0 } = useWindowSize();
-  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
-
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
-
-  const uncheckLoadingArrayItem = useCallback((index: number) => {
-    setLoadingArray(loadingArray => {
-      let clonedLoadingArray = [...loadingArray];
-      clonedLoadingArray[index] = false;
-      return clonedLoadingArray;
-    });
-  }, []);
+  const { loading, markImageAsLoaded } = useImageLoadingState(2);
 
   const classNameToUse = useMemo(
     () =>
@@ -43,19 +29,19 @@ const Main: React.FC = () => {
         className='main__background'
         src={first}
         alt='Первая часть фона'
-        onLoad={() => uncheckLoadingArrayItem(0)}
-        onError={() => uncheckLoadingArrayItem(0)}
+        onLoad={() => markImageAsLoaded(0)}
+        onError={() => markImageAsLoaded(0)}
       />,
       <img
         key='main-background-second'
         className='main__background'
         src={second}
         alt='Вторая часть фона'
-        onLoad={() => uncheckLoadingArrayItem(1)}
-        onError={() => uncheckLoadingArrayItem(1)}
+        onLoad={() => markImageAsLoaded(1)}
+        onError={() => markImageAsLoaded(1)}
       />,
     ],
-    [uncheckLoadingArrayItem]
+    [markImageAsLoaded]
   );
 
   return (

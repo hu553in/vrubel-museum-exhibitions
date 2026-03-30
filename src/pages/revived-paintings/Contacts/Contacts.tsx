@@ -2,14 +2,13 @@ import Building from '@/components/common/Building/Building';
 import Loading from '@/components/common/Loading/Loading';
 import Map from '@/components/common/Map/Map';
 import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
-import React, { useCallback, useMemo, useState } from 'react';
+import useImageLoadingState from '@/hooks/useImageLoadingState';
+import React, { useMemo } from 'react';
 import buyTicket from './assets/images/buy-ticket.webp';
 import first from './assets/images/first.svg';
 import second from './assets/images/second.svg';
 import third from './assets/images/third.svg';
 import './style.scss';
-
-const initialLoadingArray = Array(3).fill(true);
 
 const mapSrc =
   'https://yandex.ru/map-widget/v1/?um=constructor' +
@@ -17,27 +16,14 @@ const mapSrc =
   '&amp;source=constructor';
 
 const Contacts: React.FC = () => {
-  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
-
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
-  );
-
-  const uncheckLoadingArrayItem = useCallback((index: number) => {
-    setLoadingArray(loadingArray => {
-      let clonedLoadingArray = [...loadingArray];
-      clonedLoadingArray[index] = false;
-      return clonedLoadingArray;
-    });
-  }, []);
+  const { loading, markImageAsLoaded } = useImageLoadingState(3);
 
   const buildings = useMemo(
     () => [
       {
         logo: first,
-        onLogoLoad: () => uncheckLoadingArrayItem(0),
-        onLogoError: () => uncheckLoadingArrayItem(0),
+        onLogoLoad: () => markImageAsLoaded(0),
+        onLogoError: () => markImageAsLoaded(0),
         name: 'Генерал-губернаторский дворец',
         address: '644024, Омск, ул. Ленина, 23',
         busStops: ['«Площадь Ленина»', '«Краеведческий музей»'],
@@ -45,8 +31,8 @@ const Contacts: React.FC = () => {
       },
       {
         logo: second,
-        onLogoLoad: () => uncheckLoadingArrayItem(1),
-        onLogoError: () => uncheckLoadingArrayItem(1),
+        onLogoLoad: () => markImageAsLoaded(1),
+        onLogoError: () => markImageAsLoaded(1),
         name: 'Врубелевский корпус',
         address: '644043, Омск, ул. Ленина, 3',
         busStops: ['«Площадь Победы»', '«Торговый Центр»', '«Драмтеатр»', '«Госпиталь»'],
@@ -54,15 +40,15 @@ const Contacts: React.FC = () => {
       },
       {
         logo: third,
-        onLogoLoad: () => uncheckLoadingArrayItem(2),
-        onLogoError: () => uncheckLoadingArrayItem(2),
+        onLogoLoad: () => markImageAsLoaded(2),
+        onLogoError: () => markImageAsLoaded(2),
         name: 'Центр «Эрмитаж-Сибирь»',
         address: '644099, Омск, ул. Музейная, 4',
         busStops: ['«Драмтеатр»', '«Любинский проспект»', '«Площадь Победы»', '«Госпиталь»'],
         contacts: ['+7 (3812) 95-12-25', '+7 958-854-0590'],
       },
     ],
-    [uncheckLoadingArrayItem]
+    [markImageAsLoaded]
   );
 
   return (

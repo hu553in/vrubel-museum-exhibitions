@@ -1,0 +1,67 @@
+output:
+  - execution
+  - failure
+
+pre-commit:
+  jobs:
+    - name: prettier
+      run: pnpm exec prettier --write .
+      stage_fixed: true
+
+    - name: eslint
+      glob: '*.{js,jsx,ts,tsx}'
+      run: pnpm exec eslint --max-warnings=0 --fix {staged_files}
+      stage_fixed: true
+
+    - name: stylelint
+      glob: '*.{css,sass,scss}'
+      run: pnpm exec stylelint --max-warnings=0 --fix {staged_files}
+      stage_fixed: true
+
+    - name: svg-format
+      glob: '*.svg'
+      run: bash -lc 'for f in "$@"; do xmllint --format "$f" -o "$f"; done' -- {staged_files}
+      stage_fixed: true
+
+    - name: typecheck
+      run: pnpm exec tsc --noEmit
+
+    - name: test
+      run: pnpm test
+
+lint:
+  jobs:
+    - name: eslint
+      glob: '*.{js,jsx,ts,tsx}'
+      run: pnpm exec eslint --max-warnings=0 {all_files}
+
+    - name: stylelint
+      glob: '*.{css,sass,scss}'
+      run: pnpm exec stylelint --max-warnings=0 {all_files}
+
+    - name: svg-check
+      glob: '*.svg'
+      run: bash -lc 'for f in "$@"; do xmllint --noout "$f"; done' -- {all_files}
+
+    - name: typecheck
+      run: pnpm exec tsc --noEmit
+
+lint-fix:
+  jobs:
+    - name: prettier
+      run: pnpm exec prettier --write .
+
+    - name: eslint
+      glob: '*.{js,jsx,ts,tsx}'
+      run: pnpm exec eslint --max-warnings=0 --fix {all_files}
+
+    - name: stylelint
+      glob: '*.{css,sass,scss}'
+      run: pnpm exec stylelint --max-warnings=0 --fix {all_files}
+
+    - name: svg-format
+      glob: '*.svg'
+      run: bash -lc 'for f in "$@"; do xmllint --format "$f" -o "$f"; done' -- {all_files}
+
+    - name: typecheck
+      run: pnpm exec tsc --noEmit

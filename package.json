@@ -40,9 +40,8 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^17.4.0",
-    "husky": "^9.1.7",
     "jsdom": "^29.0.1",
-    "lint-staged": "^16.4.0",
+    "lefthook": "^2.1.4",
     "prettier": "^3.8.1",
     "sass": "^1.98.0",
     "stylelint": "^17.6.0",
@@ -58,17 +57,12 @@
     "dev": "vite",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
-    "lint": "eslint --max-warnings=0 . && stylelint --max-warnings=0 \"**/*.{css,sass,scss}\"",
-    "lint:fix": "prettier --write . && eslint --max-warnings=0 --fix . && stylelint --max-warnings=0 --fix \"**/*.{css,sass,scss}\"",
-    "types": "tsc --noEmit",
-    "prepare": "husky"
+    "lint": "lefthook run lint --all-files --force",
+    "lint:fix": "lefthook run lint-fix --all-files --force",
+    "prepare": "lefthook install"
   },
   "browserslist": [
     "defaults",
     "fully supports es6-module"
-  ],
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint --max-warnings=0 --fix",
-    "*.{css,sass,scss}": "stylelint --max-warnings=0 --fix"
-  }
+  ]
 }

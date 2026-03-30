@@ -2,6 +2,7 @@ import pictures from '@/assets/revived-paintings/pictures';
 import Loading from '@/components/common/Loading/Loading';
 import Header from '@/components/revived-paintings/Header/Header';
 import { ROUTES } from '@/constants';
+import useImageLoadingState from '@/hooks/useImageLoadingState';
 import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
 import React, { useMemo, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
@@ -9,8 +10,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
 import { useIntersectionObserver } from 'usehooks-ts';
 import './style.scss';
-
-const initialLoadingArray = Array(pictures.length).fill(true);
 
 type PictureWrapperProps = {
   animationStyle: object;
@@ -66,7 +65,7 @@ const Galos: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [authorAndYear, setAuthorAndYear] = useState('');
-  const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
+  const { loading, markImageAsLoaded } = useImageLoadingState(pictures.length);
 
   useScrollToHashOnComponentMount();
   const { width, height, ref } = useResizeDetector();
@@ -160,12 +159,7 @@ const Galos: React.FC = () => {
           navigate({ hash: `#${pictureId}` });
         };
 
-        const stopLoading = () =>
-          setLoadingArray(loadingArray => {
-            let clonedLoadingArray = [...loadingArray];
-            clonedLoadingArray[index] = false;
-            return clonedLoadingArray;
-          });
+        const stopLoading = () => markImageAsLoaded(index);
 
         return (
           <PictureWrapper
@@ -178,12 +172,7 @@ const Galos: React.FC = () => {
           />
         );
       }),
-    [navigate, pictureStyle, animationStyle]
-  );
-
-  const loading = useMemo(
-    () => loadingArray.reduce((carry, current) => carry || current, false),
-    [loadingArray]
+    [animationStyle, markImageAsLoaded, navigate, pictureStyle]
   );
 
   const galosChildren = useMemo(
