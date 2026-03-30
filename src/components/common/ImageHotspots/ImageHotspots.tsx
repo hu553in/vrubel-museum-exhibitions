@@ -1,10 +1,9 @@
 import ImageHotspot, {
   Props as ImageHotspotProps,
 } from '@/components/common/ImageHotspot/ImageHotspot';
-import useForceUpdate from '@/hooks/useForceUpdate';
-import useUpdateOnResize from '@/hooks/useUpdateOnResize';
 import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
+import { useWindowSize } from 'usehooks-ts';
 import './style.scss';
 
 interface Props {
@@ -16,10 +15,10 @@ interface Props {
 
 const ImageHotspots: React.FC<Props> = props => {
   const { parentElement, src, alt, imageHotspots } = props;
-  const forceUpdate = useForceUpdate();
-  useUpdateOnResize();
+  useWindowSize();
 
   const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(null);
+  const [, setImageLoaded] = useState(false);
 
   const imageCallbackRef = useCallback(
     (node: HTMLImageElement | null) => setImageStateRef(node),
@@ -46,17 +45,22 @@ const ImageHotspots: React.FC<Props> = props => {
             imageNaturalWidth,
             imageNaturalHeight
           )) as CSSProperties,
-    [parentClientHeight, parentClientWidth, imageNaturalHeight, imageNaturalWidth]
+    [imageNaturalHeight, imageNaturalWidth, parentClientHeight, parentClientWidth]
   );
 
   useEffect(() => {
-    imageStateRef?.addEventListener('load', forceUpdate);
-    return () => imageStateRef?.removeEventListener('load', forceUpdate);
-  }, [forceUpdate, imageStateRef]);
+    setImageLoaded(false);
+  }, [src]);
 
   return (
     <div className='image-hotspots' style={rootAndImageStyle}>
-      <img ref={imageCallbackRef} src={src} alt={alt} style={rootAndImageStyle} />
+      <img
+        ref={imageCallbackRef}
+        src={src}
+        alt={alt}
+        style={rootAndImageStyle}
+        onLoad={() => setImageLoaded(true)}
+      />
       {imageHotspots.map((hotspot, index) => (
         <ImageHotspot key={`image-hotspot-${index}`} {...hotspot} />
       ))}

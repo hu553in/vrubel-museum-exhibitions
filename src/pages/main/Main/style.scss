@@ -24,7 +24,6 @@
 .main__link {
   color: #fff;
   font-family: Lighthaus, sans-serif;
-  text-decoration: none;
   position: absolute;
   font-size: max(4.58vmin, 16.5px);
 
@@ -36,6 +35,10 @@
     width: 100%;
     height: 0;
     border-bottom: 1px solid #fff;
+  }
+
+  &[href] {
+    text-decoration: none;
   }
 
   @media (hover: hover) {
@@ -61,6 +64,16 @@
     cursor: not-allowed;
     right: 10%;
     top: calc(50% - 30vmin);
+
+    @media (hover: hover) {
+      &:hover {
+        opacity: 1;
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
 
     @media (width <= 360px) {
       top: calc(50% - 108px);

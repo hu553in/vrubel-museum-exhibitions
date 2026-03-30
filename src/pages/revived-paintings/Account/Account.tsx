@@ -56,19 +56,33 @@ const Account: React.FC = () => {
         </section>
       </section>
       <form className='account__sign-in-form'>
+        <label className='account__field-label' htmlFor='account-email'>
+          Email
+        </label>
         <TextField
+          id='account-email'
           type='email'
-          placeholder='E-mail'
+          placeholder='Email'
+          name='email'
+          autoComplete='email'
+          required
           value={email}
           onChange={onEmailChange}
           onBlur={validateEmail}
           error={emailError}
         />
         <div className='account__sign-in-password-field-wrapper'>
+          <label className='account__field-label' htmlFor='account-password'>
+            Пароль
+          </label>
           <TextField
+            id='account-password'
             className='account__sign-in-password-text-field'
             type={passwordShown ? 'text' : 'password'}
             placeholder='Пароль'
+            name='password'
+            autoComplete='current-password'
+            required
             value={password}
             onChange={onPasswordChange}
             onBlur={validatePassword}
@@ -77,6 +91,8 @@ const Account: React.FC = () => {
           <button
             type='button'
             className='account__sign-in-password-toggle'
+            aria-label={passwordShown ? 'Скрыть пароль' : 'Показать пароль'}
+            aria-pressed={passwordShown}
             onClick={togglePasswordShown}
           >
             {passwordShown ? 'Скрыть' : 'Показать'}
@@ -93,7 +109,12 @@ const Account: React.FC = () => {
         <span className='account__sign-in-link'>Забыли пароль?</span>
         <span className='account__sign-in-link'>Регистрация</span>
       </section>
-      <RoundedButton backgroundImage={signIn} label='Войти' className='account__sign-in-button' />
+      <RoundedButton
+        backgroundImage={signIn}
+        label='Войти'
+        className='account__sign-in-button'
+        disabled
+      />
     </main>
   );
 };

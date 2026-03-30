@@ -7,10 +7,23 @@ interface Props {
   label: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
+  href?: string;
+  target?: React.HTMLAttributeAnchorTarget;
+  rel?: string;
+  disabled?: boolean;
 }
 
 const RoundedButton: React.FC<Props> = props => {
-  const { backgroundImage, label, className = '', onClick } = props;
+  const {
+    backgroundImage,
+    label,
+    className = '',
+    onClick,
+    href,
+    target,
+    rel,
+    disabled = false,
+  } = props;
 
   const buttonStyle = useMemo(
     () => ({
@@ -27,8 +40,18 @@ const RoundedButton: React.FC<Props> = props => {
     [className]
   );
 
-  return (
-    <button className={classNameToUse} style={buttonStyle} onClick={onClick}>
+  return href ? (
+    <a className={classNameToUse} href={href} style={buttonStyle} target={target} rel={rel}>
+      {label}
+    </a>
+  ) : (
+    <button
+      type='button'
+      className={classNameToUse}
+      style={buttonStyle}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {label}
     </button>
   );

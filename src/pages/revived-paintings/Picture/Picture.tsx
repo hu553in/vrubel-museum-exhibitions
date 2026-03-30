@@ -4,7 +4,6 @@ import ImageHotspots from '@/components/common/ImageHotspots/ImageHotspots';
 import Magnifier from '@/components/common/Magnifier/Magnifier';
 import SideInfoPanel from '@/components/common/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '@/constants';
-import useUpdateOnResize from '@/hooks/useUpdateOnResize';
 import getAppRootElement from '@/utils/getAppRootElement';
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -58,7 +57,6 @@ const Picture: React.FC = () => {
   const { id } = useParams<'id'>();
   const navigate = useNavigate();
   const location = useLocation();
-  useUpdateOnResize();
 
   const openedFrom = useMemo(
     () => new URLSearchParams(location.search).get('from'),
@@ -131,7 +129,9 @@ const Picture: React.FC = () => {
       return (
         <button
           key={`sound-button-${index}`}
-          aria-label={item.name}
+          type='button'
+          aria-label={`${playingSound ? 'Остановить' : 'Включить'} аудиофрагмент «${item.name}»`}
+          aria-pressed={playingSound}
           className='picture__sound-button'
           style={{
             backgroundImage: `url('${playingSound ? pause : item.icon}')`,
@@ -214,7 +214,9 @@ const Picture: React.FC = () => {
       return (
         <button
           key={`animated-variation-button-${index}`}
-          aria-label={item.name}
+          type='button'
+          aria-label={`Показать анимацию «${item.name}»`}
+          aria-pressed={playingAnimatedVariation}
           className={classNameToUse}
           style={{
             backgroundImage: `url('${item.icon}')`,
@@ -300,7 +302,8 @@ const Picture: React.FC = () => {
             y: imageHotspot.positionPercentage.y * 100,
             content: (
               <button
-                aria-label={imageHotspot.name}
+                type='button'
+                aria-label={`Открыть видеофрагмент «${imageHotspot.name}»`}
                 className='picture__image-hotspot-button'
                 onClick={() => openImageHotspotVideo(imageHotspot)}
               />
@@ -366,12 +369,16 @@ const Picture: React.FC = () => {
         )}
         <section className='picture__control-buttons'>
           <button
-            aria-label='Вернуться назад'
+            type='button'
+            aria-label='Вернуться на предыдущую страницу'
             className='picture__control-button picture__control-button_return'
             onClick={onReturnClick}
           />
           <button
-            aria-label='Информация о картине'
+            type='button'
+            aria-label='Открыть информацию о картине'
+            aria-haspopup='dialog'
+            aria-expanded={infoPanelOpen}
             className='picture__control-button picture__control-button_info'
             onClick={openInfoPanel}
           />
@@ -397,9 +404,11 @@ const Picture: React.FC = () => {
           onRequestClose={closeImageHotspotVideo}
           style={imageHotspotVideoStyle}
           appElement={rootElement}
+          contentLabel='Диалог с видеофрагментом картины'
         >
           <button
-            aria-label='Закрыть видео'
+            type='button'
+            aria-label='Закрыть диалог с видеофрагментом'
             className='picture__image-hotspot-video-close-button'
             onClick={closeImageHotspotVideo}
           />

@@ -43,7 +43,14 @@ const Header: React.FC<Props> = props => {
       <NavLink to={ROUTES.DEFAULT} className='header__homepage-link'>
         <img className='header__logo' src={logo} alt='Логотип музея' />
       </NavLink>
-      <button aria-label='Открыть меню' className='header__menu-button' onClick={openMenu} />
+      <button
+        type='button'
+        aria-label='Открыть навигационное меню'
+        aria-haspopup='dialog'
+        aria-expanded={menuOpen}
+        className='header__menu-button'
+        onClick={openMenu}
+      />
       <SideMenu open={menuOpen} onClose={closeMenu} links={sideMenuLinks} />
     </animated.header>
   );

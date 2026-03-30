@@ -3,6 +3,7 @@
   "description": "Omsk regional M. A. Vrubel museum of fine arts exhibitions.",
   "version": "1.0.0",
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.15",
     "classnames": "^2.5.1",
     "normalize.css": "^8.0.1",
     "react": "^19.2.4",
@@ -17,7 +18,8 @@
     "react-router-dom": "^7.13.2",
     "react-sound": "^1.2.0",
     "react-spring": "^10.0.3",
-    "soundmanager2": "^2.97.20170602"
+    "soundmanager2": "^2.97.20170602",
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

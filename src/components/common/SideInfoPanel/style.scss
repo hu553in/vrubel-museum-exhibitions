@@ -97,6 +97,9 @@
   height: 100vh;
   background-color: transparent;
   z-index: 10000;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .side-info-panel__collapse-button {
@@ -112,7 +115,9 @@
   background-size: 19.9px 29.7px;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.7;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s linear 0.25s;
   z-index: 10002;
 
   @media (width <= 1200px) {
@@ -125,4 +130,15 @@
       opacity: 1;
     }
   }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+}
+
+.side-info-panel_open .side-info-panel__collapse-button {
+  opacity: 0.7;
+  pointer-events: auto;
 }

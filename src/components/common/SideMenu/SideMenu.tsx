@@ -1,7 +1,6 @@
-import Portal from '@/components/common/Portal/Portal';
+import Dialog from '@/components/common/Dialog/Dialog';
 import cn from 'classnames';
-import React, { useMemo } from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
+import React, { useId, useMemo, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
 
@@ -20,6 +19,8 @@ interface Props {
 const SideMenu: React.FC<Props> = props => {
   const { open, onClose, links } = props;
   const location = useLocation();
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const titleId = useId();
 
   const linkElements = useMemo(
     () =>
@@ -56,21 +57,26 @@ const SideMenu: React.FC<Props> = props => {
   );
 
   return (
-    <Portal>
-      <>
-        <RemoveScroll enabled={open} removeScrollBar>
-          <aside className={classNameToUse}>
-            {linkElements}
-            <button
-              aria-label='Закрыть меню'
-              className='side-menu__close-button'
-              onClick={onClose}
-            />
-          </aside>
-        </RemoveScroll>
-        {open && <div className='side-menu-overlay' onClick={onClose} />}
-      </>
-    </Portal>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      panelClassName={classNameToUse}
+      overlayClassName='side-menu-overlay'
+      labelledBy={titleId}
+      initialFocusRef={closeButtonRef}
+    >
+      <h2 className='side-menu__title' id={titleId}>
+        Навигационное меню
+      </h2>
+      {linkElements}
+      <button
+        type='button'
+        ref={closeButtonRef}
+        aria-label='Закрыть навигационное меню'
+        className='side-menu__close-button'
+        onClick={onClose}
+      />
+    </Dialog>
   );
 };
 

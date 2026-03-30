@@ -5,11 +5,16 @@ import './style.scss';
 type Type = 'text' | 'email' | 'password';
 
 interface Props {
+  id?: string;
   value: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   className?: string;
   placeholder?: string;
+  name?: string;
+  autoComplete?: string;
+  ariaLabel?: string;
+  required?: boolean;
   type?: Type;
   error?: boolean;
 }
@@ -17,11 +22,16 @@ interface Props {
 const TextField: React.FC<Props> = props => {
   const {
     type = 'text',
+    id,
     value,
     onChange,
     onBlur,
     placeholder,
     className = '',
+    name,
+    autoComplete,
+    ariaLabel,
+    required = false,
     error = false,
   } = props;
 
@@ -34,10 +44,15 @@ const TextField: React.FC<Props> = props => {
     <input
       onChange={onChange}
       onBlur={onBlur}
+      id={id}
       className={classNameToUse}
       placeholder={placeholder}
       value={value}
+      name={name}
+      autoComplete={autoComplete}
+      required={required}
       type={type}
+      aria-label={ariaLabel}
       aria-invalid={error}
     />
   );

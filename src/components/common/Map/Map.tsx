@@ -29,7 +29,13 @@ const Map: React.FC<Props> = props => {
 
   return (
     <div className={wrapperClassNameToUse}>
-      <iframe title='map' src={src} loading='lazy' className={classNameToUse} frameBorder='0' />
+      <iframe
+        title='Интерактивная карта музея'
+        src={src}
+        loading='lazy'
+        className={classNameToUse}
+        frameBorder='0'
+      />
     </div>
   );
 };

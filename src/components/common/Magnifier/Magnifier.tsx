@@ -1,5 +1,4 @@
 import Loading from '@/components/common/Loading/Loading';
-import useForceUpdate from '@/hooks/useForceUpdate';
 import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
 import getAppRootElement from '@/utils/getAppRootElement';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -20,7 +19,6 @@ const TypedExternalMagnifier =
 
 const Magnifier: React.FC<Props> = props => {
   const { name, magnifier, parentElement } = props;
-  const forceUpdate = useForceUpdate();
   const [stateRef, setStateRef] = useState<MagnifierStateRef | null>(null);
   const callbackRef = useCallback((node: MagnifierStateRef | null) => setStateRef(node), []);
 
@@ -54,7 +52,6 @@ const Magnifier: React.FC<Props> = props => {
 
   useEffect(() => {
     const stopLoading = () => {
-      forceUpdate();
       setLoading(false);
     };
 
@@ -65,7 +62,7 @@ const Magnifier: React.FC<Props> = props => {
       stateRef?.img?.removeEventListener('error', stopLoading);
       stateRef?.img?.removeEventListener('load', stopLoading);
     };
-  }, [forceUpdate, stateRef?.img]);
+  }, [stateRef?.img]);
 
   const rootElement = getAppRootElement();
 

@@ -24,6 +24,18 @@
   }
 }
 
+.side-menu__title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .side-menu__link {
   font-size: 16px;
   color: #d2d2d2;
@@ -54,6 +66,12 @@
       color: #fff;
     }
   }
+
+  &:focus-visible {
+    color: #fff;
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
 }
 
 .side-menu-overlay {
@@ -63,6 +81,9 @@
   background-color: #000;
   opacity: 0.5;
   z-index: 10000;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .side-menu__close-button {
@@ -78,4 +99,10 @@
   background-size: 16px 16px;
   background-position: center;
   background-repeat: no-repeat;
+
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
 }

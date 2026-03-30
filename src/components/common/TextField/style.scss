@@ -14,9 +14,21 @@
   &::placeholder {
     color: #d2d2d2;
   }
+
+  &:focus-visible {
+    border-color: #fff;
+    box-shadow: 0 0 0 3px rgb(255 255 255 / 35%);
+  }
+
+  &:disabled {
+    border-color: #8f8f8f;
+    color: #b8b8b8;
+    background-color: #161616;
+    cursor: not-allowed;
+  }
 }
 
 .text-field_error {
-  border-color: #d85b5b;
-  box-shadow: 0 0 0 1px rgb(216 91 91 / 25%);
+  border-color: #ff8f8f;
+  box-shadow: 0 0 0 2px rgb(255 143 143 / 30%);
 }

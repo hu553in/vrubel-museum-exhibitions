@@ -128,6 +128,13 @@
       color: #fff;
     }
   }
+
+  &:focus-visible {
+    color: #fff;
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+    text-decoration: underline;
+  }
 }
 
 .footer__personal-data-processing-policy-link {

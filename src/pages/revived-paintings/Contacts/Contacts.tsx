@@ -79,12 +79,12 @@ const Contacts: React.FC = () => {
         <p className='contacts__schedule-text'>10:00-19:00 (касса до 18:00), пн — выходной</p>
       </section>
       <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
-      <a
-        href='https://vrubel.ru/ticket/czentr-ermitazh-sibir'
+      <RoundedButton
+        label='Купить билет'
+        backgroundImage={buyTicket}
         className='contacts__buy-ticket-button-link'
-      >
-        <RoundedButton label='Купить билет' backgroundImage={buyTicket} />
-      </a>
+        href='https://vrubel.ru/ticket/czentr-ermitazh-sibir'
+      />
     </main>
   );
 };

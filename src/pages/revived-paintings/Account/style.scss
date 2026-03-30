@@ -51,10 +51,14 @@
   height: 37px;
   margin-right: 40px;
   display: inline-block;
-  cursor: pointer;
+  cursor: not-allowed;
 
   &:last-child {
     margin-right: 0;
+  }
+
+  & .social-network-icon:hover {
+    fill: #fff;
   }
 
   @media (width <= 1250px) {
@@ -74,6 +78,18 @@
   @media (width <= 400px) {
     width: 100%;
   }
+}
+
+.account__field-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .account__sign-in-password-field-wrapper,
@@ -108,6 +124,13 @@
       color: #fff;
     }
   }
+
+  &:focus-visible {
+    color: #fff;
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+    border-radius: 6px;
+  }
 }
 
 .account__sign-in-links {
@@ -124,13 +147,7 @@
   text-decoration: none;
   color: #d2d2d2;
   font-size: 14px;
-  cursor: pointer;
-
-  @media (hover: hover) {
-    &:hover {
-      color: #fff;
-    }
-  }
+  cursor: not-allowed;
 }
 
 .account__sign-in-button {

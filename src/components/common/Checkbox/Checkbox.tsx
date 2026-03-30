@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React from 'react';
+import React, { useId } from 'react';
 import './style.scss';
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 
 const Checkbox: React.FC<Props> = props => {
   const { className = '', value, label, toggle } = props;
+  const inputId = useId();
 
   const classNameToUse = cn('checkbox', {
     [className]: className.length > 0,
@@ -21,10 +22,17 @@ const Checkbox: React.FC<Props> = props => {
   });
 
   return (
-    <span className={classNameToUse} onClick={toggle}>
+    <label className={classNameToUse} htmlFor={inputId}>
+      <input
+        id={inputId}
+        className='checkbox__input'
+        type='checkbox'
+        checked={value}
+        onChange={toggle}
+      />
       <span className={innerElementClassName} />
       <span className='checkbox__label'>{label}</span>
-    </span>
+    </label>
   );
 };
 

@@ -25,29 +25,40 @@ const socialLinkElements = [
   {
     href: 'https://vk.com/club7412186',
     socialNetwork: 'vk',
+    ariaLabel: 'Страница музея в VK',
   },
   {
     href: 'https://www.facebook.com/Омский-областной-музей-изобразительных-искусств-имени-МА-Врубеля-358420747675784/',
     socialNetwork: 'facebook',
+    ariaLabel: 'Страница музея в Facebook',
   },
   {
     href: 'https://www.instagram.com/vrubelmuseum',
     socialNetwork: 'instagram',
+    ariaLabel: 'Страница музея в Instagram',
   },
   {
     href: 'https://www.tiktok.com/@vrubelmuseum',
     socialNetwork: 'tiktok',
+    ariaLabel: 'Страница музея в TikTok',
   },
   {
     href: 'https://ok.ru/muzeyimeni',
     socialNetwork: 'ok',
+    ariaLabel: 'Страница музея в Одноклассниках',
   },
   {
     href: 'https://www.youtube.com/channel/UCP91mcNT5-iftKg7vLx3G9w',
     socialNetwork: 'youtube',
+    ariaLabel: 'Канал музея на YouTube',
   },
 ].map((socialLink, index) => (
-  <a key={`social-link-${index}`} className='footer__social-link' href={socialLink.href}>
+  <a
+    key={`social-link-${index}`}
+    className='footer__social-link'
+    href={socialLink.href}
+    aria-label={socialLink.ariaLabel}
+  >
     <SocialNetworkIcon socialNetwork={socialLink.socialNetwork as SocialNetwork} />
   </a>
 ));
@@ -60,7 +71,7 @@ const Footer: React.FC = () => {
   return (
     <footer className='footer'>
       {loading && <Loading />}
-      <a className='footer__logo' href='https://vrubel.ru'>
+      <a className='footer__logo' href='https://vrubel.ru' aria-label='Официальный сайт музея'>
         <img src={logo} alt='Логотип музея' onLoad={stopLoading} onError={stopLoading} />
       </a>
       <nav className='footer__nav-bar'>{navBarLinkElements}</nav>

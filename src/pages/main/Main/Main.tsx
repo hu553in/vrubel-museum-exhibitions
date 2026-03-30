@@ -1,10 +1,10 @@
 import Loading from '@/components/common/Loading/Loading';
 import Title from '@/components/main/Title/Title';
 import { ROUTES } from '@/constants';
-import useDeviceOrientation, { DeviceOrientation } from '@/hooks/useDeviceOrientation';
 import cn from 'classnames';
 import React, { useCallback, useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useWindowSize } from 'usehooks-ts';
 import first from './assets/images/first.webp';
 import second from './assets/images/second.webp';
 import './style.scss';
@@ -12,7 +12,7 @@ import './style.scss';
 const initialLoadingArray = Array(2).fill(true);
 
 const Main: React.FC = () => {
-  const deviceOrientation = useDeviceOrientation();
+  const { width = 0, height = 0 } = useWindowSize();
   const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
 
   const loading = useMemo(
@@ -31,9 +31,9 @@ const Main: React.FC = () => {
   const classNameToUse = useMemo(
     () =>
       cn('main', {
-        main_portrait: deviceOrientation === DeviceOrientation.PORTRAIT,
+        main_portrait: width <= height,
       }),
-    [deviceOrientation]
+    [height, width]
   );
 
   const imageElements = useMemo(
@@ -66,9 +66,7 @@ const Main: React.FC = () => {
       <NavLink className='main__link main__link_first' to={ROUTES.REVIVED_PAINTINGS}>
         «Ожившие картины»
       </NavLink>
-      <NavLink className='main__link main__link_second' to={ROUTES.DEFAULT}>
-        Гостевые выставки
-      </NavLink>
+      <span className='main__link main__link_second'>Гостевые выставки</span>
     </main>
   );
 };
