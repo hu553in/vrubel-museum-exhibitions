@@ -35,9 +35,6 @@ importers:
       react-modal:
         specifier: ^3.16.3
         version: 3.16.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      react-page-visibility:
-        specifier: ^7.0.0
-        version: 7.0.0(react@19.2.4)
       react-remove-scroll:
         specifier: ^2.7.2
         version: 2.7.2(@types/react@19.2.14)(react@19.2.4)
@@ -90,9 +87,6 @@ importers:
       '@types/react-modal':
         specifier: ^3.16.3
         version: 3.16.3
-      '@types/react-page-visibility':
-        specifier: ^6.4.4
-        version: 6.4.4
       '@types/react-sound':
         specifier: ^1.2.6
         version: 1.2.6
@@ -1194,9 +1188,6 @@ packages:
 
   '@types/react-modal@3.16.3':
     resolution: {integrity: sha512-xXuGavyEGaFQDgBv4UVm8/ZsG+qxeQ7f77yNrW3n+1J6XAstUy5rYHeIHPh1KzsGc6IkCIdu6lQ2xWzu1jBTLg==}
-
-  '@types/react-page-visibility@6.4.4':
-    resolution: {integrity: sha512-qeL/98+LHVp5vQH4RjzyLwJib5ekUmKGURmJEXWwQYasr/vKJsdHUblHVaOUtV2sdrrXo2aBtd/sfMOorxkdoQ==}
 
   '@types/react-reconciler@0.28.9':
     resolution: {integrity: sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg==}
@@ -3138,12 +3129,6 @@ packages:
       '@types/react':
         optional: true
 
-  react-page-visibility@7.0.0:
-    resolution: {integrity: sha512-d4Kq/8TtJSr8dQc8EJeAZcSKTrGzC5OPTm6UrMur9BnwP0fgTawI9+Nd+ZGB7vwCfn2yZS0qDF9DR3/QYTGazw==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.0 || ^18.0.0
-
   react-reconciler@0.29.2:
     resolution: {integrity: sha512-zZQqIiYgDCTP/f1N/mAR10nJGrPD2ZR+jDSEsKWJHYC7Cm2wodlwbR3upZRdC3cjIjSlTLNVyO7Iu0Yy7t2AYg==}
     engines: {node: '>=0.10.0'}
@@ -5020,10 +5005,6 @@ snapshots:
       '@types/react': 19.2.14
 
   '@types/react-modal@3.16.3':
-    dependencies:
-      '@types/react': 19.2.14
-
-  '@types/react-page-visibility@6.4.4':
     dependencies:
       '@types/react': 19.2.14
 
@@ -7300,11 +7281,6 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
-
-  react-page-visibility@7.0.0(react@19.2.4):
-    dependencies:
-      prop-types: 15.8.1
-      react: 19.2.4
 
   react-reconciler@0.29.2(react@19.2.4):
     dependencies:

@@ -1,4 +1,5 @@
 import Loading from '@/components/common/Loading/Loading';
+import usePageVisibility from '@/hooks/usePageVisibility';
 import getAppRootElement from '@/utils/getAppRootElement';
 import {
   CSSProperties,
@@ -10,7 +11,6 @@ import {
   useState,
 } from 'react';
 import { mergeRefs } from 'react-merge-refs';
-import { usePageVisibility } from 'react-page-visibility';
 import './style.scss';
 
 interface Source {
