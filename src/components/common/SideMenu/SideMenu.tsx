@@ -1,6 +1,6 @@
+import Portal from '@/components/common/Portal/Portal';
 import cn from 'classnames';
 import React, { useMemo } from 'react';
-import ReactDOM from 'react-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.scss';
@@ -14,12 +14,11 @@ interface Link {
 interface Props {
   open: boolean;
   onClose: () => void;
-  parentElement: HTMLElement;
   links: Link[];
 }
 
 const SideMenu: React.FC<Props> = props => {
-  const { open, onClose, links, parentElement } = props;
+  const { open, onClose, links } = props;
   const location = useLocation();
 
   const linkElements = useMemo(
@@ -56,17 +55,22 @@ const SideMenu: React.FC<Props> = props => {
     [open]
   );
 
-  return ReactDOM.createPortal(
-    <>
-      <RemoveScroll enabled={open} removeScrollBar>
-        <aside className={classNameToUse}>
-          {linkElements}
-          <button aria-label='Закрыть меню' className='side-menu__close-button' onClick={onClose} />
-        </aside>
-      </RemoveScroll>
-      {open && <div className='side-menu-overlay' onClick={onClose} />}
-    </>,
-    parentElement
+  return (
+    <Portal>
+      <>
+        <RemoveScroll enabled={open} removeScrollBar>
+          <aside className={classNameToUse}>
+            {linkElements}
+            <button
+              aria-label='Закрыть меню'
+              className='side-menu__close-button'
+              onClick={onClose}
+            />
+          </aside>
+        </RemoveScroll>
+        {open && <div className='side-menu-overlay' onClick={onClose} />}
+      </>
+    </Portal>
   );
 };
 

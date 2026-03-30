@@ -1,21 +1,16 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import Checkbox from '../../../components/common/Checkbox/Checkbox';
-import RoundedButton from '../../../components/common/RoundedButton/RoundedButton';
+import Checkbox from '@/components/common/Checkbox/Checkbox';
+import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
 import SocialNetworkIcon, {
   SocialNetwork,
-} from '../../../components/common/SocialNetworkIcon/SocialNetworkIcon';
-import TextField from '../../../components/common/TextField/TextField';
+} from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
+import TextField from '@/components/common/TextField/TextField';
+import React, { useCallback, useReducer, useState } from 'react';
 import signIn from './assets/images/sign-in.webp';
 import './style.scss';
 
 const Account: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    setEmail('');
-    setPassword('');
-  }, []);
 
   const [rememberMe, toggleRememberMe] = useReducer(value => !value, false);
 

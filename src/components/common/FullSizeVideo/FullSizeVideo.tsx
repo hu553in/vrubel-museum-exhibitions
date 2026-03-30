@@ -1,3 +1,5 @@
+import Loading from '@/components/common/Loading/Loading';
+import getAppRootElement from '@/utils/getAppRootElement';
 import {
   CSSProperties,
   forwardRef,
@@ -9,7 +11,6 @@ import {
 } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 import { usePageVisibility } from 'react-page-visibility';
-import Loading from '../Loading/Loading';
 import './style.scss';
 
 interface Source {
@@ -47,11 +48,6 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setError(false);
-  }, []);
 
   const stopLoading = useCallback(() => setLoading(false), []);
 
@@ -100,7 +96,7 @@ const FullSizeVideo = forwardRef<HTMLVideoElement, Props>((props, ref) => {
     [sources]
   );
 
-  const rootElement = document.getElementById('root');
+  const rootElement = getAppRootElement();
   const { clientHeight: rootElementHeight } = rootElement ?? {};
 
   const styleToUse = useMemo(

@@ -1,6 +1,6 @@
+import Portal from '@/components/common/Portal/Portal';
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import ReactDOM from 'react-dom';
 import './style.scss';
 
 interface Props {
@@ -15,10 +15,6 @@ interface Props {
 const SideInfoPanel: React.FC<Props> = props => {
   const { open, onClose, parentElement, header, subheader, paragraphs } = props;
   const [collapseButtonShown, setCollapseButtonShown] = useState(false);
-
-  useEffect(() => {
-    setCollapseButtonShown(false);
-  }, []);
 
   const [stateRef, setStateRef] = useState<HTMLElement | null>(null);
   const callbackRef = useCallback((node: HTMLElement | null) => setStateRef(node), []);
@@ -67,23 +63,24 @@ const SideInfoPanel: React.FC<Props> = props => {
     [open]
   );
 
-  return ReactDOM.createPortal(
-    <>
-      <aside className={classNameToUse} ref={callbackRef}>
-        <p className='side-info-panel__header'>{header}</p>
-        <p className='side-info-panel__subheader'>{subheader}</p>
-        {paragraphElements}
-      </aside>
-      {open && (
-        <>
-          {collapseButtonShown && (
-            <button className='side-info-panel__collapse-button' onClick={onClose} />
-          )}
-          <div className='side-info-panel-overlay' onClick={onClose} />
-        </>
-      )}
-    </>,
-    parentElement
+  return (
+    <Portal container={parentElement}>
+      <>
+        <aside className={classNameToUse} ref={callbackRef}>
+          <p className='side-info-panel__header'>{header}</p>
+          <p className='side-info-panel__subheader'>{subheader}</p>
+          {paragraphElements}
+        </aside>
+        {open && (
+          <>
+            {collapseButtonShown && (
+              <button className='side-info-panel__collapse-button' onClick={onClose} />
+            )}
+            <div className='side-info-panel-overlay' onClick={onClose} />
+          </>
+        )}
+      </>
+    </Portal>
   );
 };
 

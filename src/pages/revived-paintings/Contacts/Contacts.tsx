@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import Building from '../../../components/common/Building/Building';
-import Loading from '../../../components/common/Loading/Loading';
-import Map from '../../../components/common/Map/Map';
-import RoundedButton from '../../../components/common/RoundedButton/RoundedButton';
+import Building from '@/components/common/Building/Building';
+import Loading from '@/components/common/Loading/Loading';
+import Map from '@/components/common/Map/Map';
+import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
+import React, { useCallback, useMemo, useState } from 'react';
 import buyTicket from './assets/images/buy-ticket.webp';
 import first from './assets/images/first.svg';
 import second from './assets/images/second.svg';
@@ -18,10 +18,6 @@ const mapSrc =
 
 const Contacts: React.FC = () => {
   const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
-
-  useEffect(() => {
-    setLoadingArray(initialLoadingArray);
-  }, []);
 
   const loading = useMemo(
     () => loadingArray.reduce((carry, current) => carry || current, false),

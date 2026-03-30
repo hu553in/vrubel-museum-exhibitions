@@ -11,27 +11,16 @@ The deployed version is available on Vercel: [vrubel-museum-exhibitions.vercel.a
 
 ---
 
-## ⚠️ Build note
+## Development
 
-When building this project with **Node.js 17 or newer**, you may encounter the following error:
+This project uses **Vite** for local development and production builds.
 
+```bash
+pnpm install
+pnpm dev
+pnpm build
+pnpm preview
 ```
-error:0308010C:digital envelope routines::unsupported
-ERR_OSSL_EVP_UNSUPPORTED
-```
-
-This happens because the project relies on older versions of `react-scripts` / `webpack` that are not fully compatible
-with **OpenSSL 3**, which is used in modern Node.js releases.
-
-### How to fix
-
-Before running the build, set the following environment variable:
-
-```
-NODE_OPTIONS=--openssl-legacy-provider
-```
-
-This enables legacy OpenSSL algorithms required by webpack and allows the build to succeed on newer Node.js versions.
 
 ---
 
@@ -44,4 +33,6 @@ This enables legacy OpenSSL algorithms required by webpack and allows the build 
 
 ## Tech stack
 
-- React (TypeScript)
+- React
+- TypeScript
+- Vite

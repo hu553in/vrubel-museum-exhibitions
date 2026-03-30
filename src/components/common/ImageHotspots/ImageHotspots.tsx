@@ -1,8 +1,10 @@
+import ImageHotspot, {
+  Props as ImageHotspotProps,
+} from '@/components/common/ImageHotspot/ImageHotspot';
+import useForceUpdate from '@/hooks/useForceUpdate';
+import useUpdateOnResize from '@/hooks/useUpdateOnResize';
+import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react';
-import useForceUpdate from '../../../hooks/useForceUpdate';
-import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
-import calculateImageSizeByContainerAndNaturalSizes from '../../../utils/calculateImageSizeByContainerAndNaturalSizes';
-import ImageHotspot, { Props as ImageHotspotProps } from '../ImageHotspot/ImageHotspot';
 import './style.scss';
 
 interface Props {

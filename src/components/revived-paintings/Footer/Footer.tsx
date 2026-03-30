@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import Loading from '@/components/common/Loading/Loading';
+import SocialNetworkIcon, {
+  SocialNetwork,
+} from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
+import { ROUTES } from '@/constants';
+import React, { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ROUTES } from '../../../constants';
-import Loading from '../../common/Loading/Loading';
-import SocialNetworkIcon, { SocialNetwork } from '../../common/SocialNetworkIcon/SocialNetworkIcon';
 import logo from './assets/images/logo.svg';
 import './style.scss';
 
@@ -53,10 +55,6 @@ const socialLinkElements = [
 const Footer: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setLoading(true);
-  }, []);
-
   const stopLoading = useCallback(() => setLoading(false), []);
 
   return (
@@ -77,7 +75,7 @@ const Footer: React.FC = () => {
       </div>
       <a
         className='footer__personal-data-processing-policy-link'
-        href={`${process.env.PUBLIC_URL}/personal_data_processing_policy.pdf`}
+        href={`${import.meta.env.BASE_URL}personal_data_processing_policy.pdf`}
       >
         Политика обработки персональных данных
       </a>

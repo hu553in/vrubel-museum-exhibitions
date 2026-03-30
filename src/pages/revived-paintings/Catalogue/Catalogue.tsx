@@ -1,18 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import pictures from '@/assets/revived-paintings/pictures';
+import Loading from '@/components/common/Loading/Loading';
+import { ROUTES } from '@/constants';
+import React, { useMemo, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import pictures from '../../../assets/revived-paintings/pictures';
-import Loading from '../../../components/common/Loading/Loading';
-import { ROUTES } from '../../../constants';
 import './style.scss';
 
 const initialLoadingArray = Array(pictures.length).fill(true);
 
 const Catalogue: React.FC = () => {
   const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
-
-  useEffect(() => {
-    setLoadingArray(initialLoadingArray);
-  }, []);
 
   const catalogueLinkElements = useMemo(
     () =>

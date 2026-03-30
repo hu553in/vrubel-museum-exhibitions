@@ -1,9 +1,9 @@
+import SideMenu from '@/components/common/SideMenu/SideMenu';
+import { ROUTES } from '@/constants';
 import cn from 'classnames';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { animated, SpringValue } from 'react-spring';
-import { ROUTES } from '../../../constants';
-import SideMenu from '../../common/SideMenu/SideMenu';
 import './style.scss';
 
 const logo =
@@ -31,17 +31,8 @@ const Header: React.FC<Props> = props => {
   const { className = '', style } = props;
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, []);
-
   const openMenu = useCallback(() => setMenuOpen(true), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-
-  const rootElement = document.getElementById('root');
-  if (!rootElement) {
-    return null;
-  }
 
   const classNameToUse = cn('header', {
     [className]: className.length > 0,
@@ -53,12 +44,7 @@ const Header: React.FC<Props> = props => {
         <img className='header__logo' src={logo} alt='Логотип музея' />
       </NavLink>
       <button aria-label='Открыть меню' className='header__menu-button' onClick={openMenu} />
-      <SideMenu
-        open={menuOpen}
-        onClose={closeMenu}
-        links={sideMenuLinks}
-        parentElement={rootElement}
-      />
+      <SideMenu open={menuOpen} onClose={closeMenu} links={sideMenuLinks} />
     </animated.header>
   );
 };

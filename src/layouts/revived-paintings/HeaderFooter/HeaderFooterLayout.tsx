@@ -1,6 +1,6 @@
+import Footer from '@/components/revived-paintings/Footer/Footer';
+import Header from '@/components/revived-paintings/Header/Header';
 import React from 'react';
-import Footer from '../../../components/revived-paintings/Footer/Footer';
-import Header from '../../../components/revived-paintings/Header/Header';
 import './style.scss';
 
 interface Props {

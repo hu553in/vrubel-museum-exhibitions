@@ -1,16 +1,16 @@
+import RevivedPaintings from '@/components/revived-paintings/RevivedPaintings/RevivedPaintings';
+import { ROUTES } from '@/constants';
+import Main from '@/pages/main/Main/Main';
+import getAppRootElement from '@/utils/getAppRootElement';
 import 'normalize.css';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-// @ts-ignore
 import { soundManager } from 'soundmanager2';
-import RevivedPaintings from './components/revived-paintings/RevivedPaintings/RevivedPaintings';
-import { ROUTES } from './constants';
-import Main from './pages/main/Main/Main';
 import './style.scss';
 
 soundManager.setup({ debugMode: false });
 
-const rootElement = document.getElementById('root');
+const rootElement = getAppRootElement();
 
 if (!rootElement) {
   throw new Error('Root element was not found');

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import Loading from '@/components/common/Loading/Loading';
+import React, { useCallback, useMemo, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
-import Loading from '../../common/Loading/Loading';
 import left from './assets/images/left.webp';
 import middle from './assets/images/middle.webp';
 import right from './assets/images/right.webp';
@@ -15,10 +15,6 @@ const initialLoadingArray = Array(3).fill(true);
 const Triptih: React.FC<Props> = props => {
   const { open } = props;
   const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
-
-  useEffect(() => {
-    setLoadingArray(initialLoadingArray);
-  }, []);
 
   const loading = useMemo(
     () => loadingArray.reduce((carry, current) => carry || current, false),

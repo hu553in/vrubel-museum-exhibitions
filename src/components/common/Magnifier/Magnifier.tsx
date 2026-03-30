@@ -1,8 +1,9 @@
+import Loading from '@/components/common/Loading/Loading';
+import useForceUpdate from '@/hooks/useForceUpdate';
+import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
+import getAppRootElement from '@/utils/getAppRootElement';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import ExternalMagnifier from 'react-magnifier';
-import useForceUpdate from '../../../hooks/useForceUpdate';
-import calculateImageSizeByContainerAndNaturalSizes from '../../../utils/calculateImageSizeByContainerAndNaturalSizes';
-import Loading from '../Loading/Loading';
+import ExternalMagnifier, { MagnifierProps as ExternalMagnifierProps } from 'react-magnifier';
 
 interface Props {
   parentElement: HTMLElement | null;
@@ -13,6 +14,9 @@ interface Props {
 type MagnifierStateRef = React.Component & {
   img?: HTMLImageElement | null;
 };
+
+const TypedExternalMagnifier =
+  ExternalMagnifier as unknown as React.ComponentClass<ExternalMagnifierProps>;
 
 const Magnifier: React.FC<Props> = props => {
   const { name, magnifier, parentElement } = props;
@@ -63,7 +67,7 @@ const Magnifier: React.FC<Props> = props => {
     };
   }, [forceUpdate, stateRef?.img]);
 
-  const rootElement = document.getElementById('root');
+  const rootElement = getAppRootElement();
 
   if (!rootElement) {
     return null;
@@ -73,18 +77,19 @@ const Magnifier: React.FC<Props> = props => {
     <>
       {loading && <Loading />}
       {magnifierPresent && (
-        <ExternalMagnifier
-          src={magnifier!}
-          mgWidth={200}
-          mgHeight={200}
-          mgTouchOffsetX={0}
-          mgTouchOffsetY={0}
-          mgShowOverflow={false}
-          ref={callbackRef}
-          {...size}
-          // @ts-ignore
-          style={size}
-          alt={name}
+        <TypedExternalMagnifier
+          {...{
+            src: magnifier!,
+            mgWidth: 200,
+            mgHeight: 200,
+            mgTouchOffsetX: 0,
+            mgTouchOffsetY: 0,
+            mgShowOverflow: false,
+            ref: callbackRef,
+            ...size,
+            style: size,
+            alt: name,
+          }}
         />
       )}
     </>

@@ -1,15 +1,16 @@
+import pictures from '@/assets/revived-paintings/pictures';
+import FullSizeVideo from '@/components/common/FullSizeVideo/FullSizeVideo';
+import ImageHotspots from '@/components/common/ImageHotspots/ImageHotspots';
+import Magnifier from '@/components/common/Magnifier/Magnifier';
+import SideInfoPanel from '@/components/common/SideInfoPanel/SideInfoPanel';
+import { ROUTES } from '@/constants';
+import useUpdateOnResize from '@/hooks/useUpdateOnResize';
+import getAppRootElement from '@/utils/getAppRootElement';
 import cn from 'classnames';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
 import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Sound from 'react-sound';
-import pictures from '../../../assets/revived-paintings/pictures';
-import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
-import ImageHotspots from '../../../components/common/ImageHotspots/ImageHotspots';
-import Magnifier from '../../../components/common/Magnifier/Magnifier';
-import SideInfoPanel from '../../../components/common/SideInfoPanel/SideInfoPanel';
-import { ROUTES } from '../../../constants';
-import useUpdateOnResize from '../../../hooks/useUpdateOnResize';
 import './style.scss';
 
 const pause =
@@ -346,7 +347,7 @@ const Picture: React.FC = () => {
     [animatedVariationButtonElements, soundButtonElements]
   );
 
-  const rootElement = document.getElementById('root');
+  const rootElement = getAppRootElement();
 
   if (!rootElement) {
     return null;

@@ -1,13 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import pictures from '@/assets/revived-paintings/pictures';
+import Loading from '@/components/common/Loading/Loading';
+import Header from '@/components/revived-paintings/Header/Header';
+import { ROUTES } from '@/constants';
+import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
+import React, { useMemo, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
-import pictures from '../../../assets/revived-paintings/pictures';
-import Loading from '../../../components/common/Loading/Loading';
-import Header from '../../../components/revived-paintings/Header/Header';
-import { ROUTES } from '../../../constants';
-import useScrollToHashOnComponentMount from '../../../hooks/useScrollToHashOnComponentMount';
 import './style.scss';
 
 const initialLoadingArray = Array(pictures.length).fill(true);
@@ -17,12 +17,6 @@ const Galos: React.FC = () => {
   const [name, setName] = useState('');
   const [authorAndYear, setAuthorAndYear] = useState('');
   const [loadingArray, setLoadingArray] = useState(initialLoadingArray);
-
-  useEffect(() => {
-    setName('');
-    setAuthorAndYear('');
-    setLoadingArray(initialLoadingArray);
-  }, []);
 
   useScrollToHashOnComponentMount();
   const { width, height, ref } = useResizeDetector();

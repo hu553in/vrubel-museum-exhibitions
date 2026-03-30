@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import FullSizeVideo from '@/components/common/FullSizeVideo/FullSizeVideo';
+import Title from '@/components/revived-paintings/Title/Title';
+import Triptih from '@/components/revived-paintings/Triptih/Triptih';
+import { ROUTES } from '@/constants';
+import useEventListener from '@/hooks/useEventListener';
+import React, { useCallback, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import FullSizeVideo from '../../../components/common/FullSizeVideo/FullSizeVideo';
-import Title from '../../../components/revived-paintings/Title/Title';
-import Triptih from '../../../components/revived-paintings/Triptih/Triptih';
-import { ROUTES } from '../../../constants';
-import useEventListener from '../../../hooks/useEventListener';
 import triptihMp4 from './assets/videos/triptih.mp4';
 import triptihWebm from './assets/videos/triptih.webm';
 import './style.scss';
@@ -27,12 +27,6 @@ const Intro: React.FC = () => {
   const [shouldRedirectToGalos, setShouldRedirectToGalos] = useState(false);
 
   const [shouldNotFadeOutTriptihAndTitle, setShouldNotFadeOutTriptihAndTitle] = useState(true);
-
-  useEffect(() => {
-    setShouldShowTriptihVideo(true);
-    setShouldRedirectToGalos(false);
-    setShouldNotFadeOutTriptihAndTitle(true);
-  }, []);
 
   const onVideoEnded = useCallback(() => {
     setShouldShowTriptihVideo(false);
