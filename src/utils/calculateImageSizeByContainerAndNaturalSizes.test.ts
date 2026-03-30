@@ -29,4 +29,26 @@ describe('calculateImageSizeByContainerAndNaturalSizes', () => {
     expect(result.height).toBeLessThanOrEqual(180);
     expect(result.width / result.height).toBeCloseTo(4, 5);
   });
+
+  it('returns zero size when container dimensions are non-positive', () => {
+    expect(calculateImageSizeByContainerAndNaturalSizes(0, 180, 2000, 500)).toEqual({
+      width: 0,
+      height: 0,
+    });
+    expect(calculateImageSizeByContainerAndNaturalSizes(320, -1, 2000, 500)).toEqual({
+      width: 0,
+      height: 0,
+    });
+  });
+
+  it('returns zero size when natural image dimensions are non-positive', () => {
+    expect(calculateImageSizeByContainerAndNaturalSizes(320, 180, 0, 500)).toEqual({
+      width: 0,
+      height: 0,
+    });
+    expect(calculateImageSizeByContainerAndNaturalSizes(320, 180, 2000, -1)).toEqual({
+      width: 0,
+      height: 0,
+    });
+  });
 });

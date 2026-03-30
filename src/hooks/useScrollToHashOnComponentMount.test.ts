@@ -63,4 +63,23 @@ describe('useScrollToHashOnComponentMount', () => {
     expect(requestAnimationFrameSpy).toHaveBeenCalledTimes(1);
     expect(scrollIntoViewSpy).toHaveBeenCalledTimes(1);
   });
+
+  it('does not schedule another scroll on rerender', () => {
+    window.history.replaceState(null, '', `${window.location.pathname}#target`);
+    const requestAnimationFrameSpy = vi.fn();
+
+    window.requestAnimationFrame = requestAnimationFrameSpy;
+
+    const element = document.createElement('div');
+    element.id = 'target';
+    document.body.appendChild(element);
+
+    const { rerender } = renderHook(() => {
+      useScrollToHashOnComponentMount();
+    });
+
+    rerender();
+
+    expect(requestAnimationFrameSpy).toHaveBeenCalledTimes(1);
+  });
 });

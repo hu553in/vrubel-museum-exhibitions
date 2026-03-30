@@ -6,10 +6,7 @@ import 'normalize.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { soundManager } from 'soundmanager2';
 import './style.scss';
-
-soundManager.setup({ debugMode: false });
 
 const rootElement = getAppRootElement();
 

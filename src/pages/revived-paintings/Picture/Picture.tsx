@@ -7,11 +7,11 @@ import ImageHotspots from '@/components/common/ImageHotspots/ImageHotspots';
 import Magnifier from '@/components/common/Magnifier/Magnifier';
 import SideInfoPanel from '@/components/common/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '@/constants';
+import useAudioFragments from '@/hooks/useAudioFragments';
 import getAppRootElement from '@/utils/getAppRootElement';
 import cn from 'classnames';
 import { useRef, useState } from 'react';
 import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
-import Sound from 'react-sound';
 import './style.scss';
 
 const videoCallbackRef = (node: HTMLVideoElement | null) => node?.focus();
@@ -71,8 +71,9 @@ function Picture() {
   } = picture ?? {};
 
   const animatedSources = createVideoSources(animated);
+  const soundSources = sounds?.map(sound => sound.mp3) ?? [];
 
-  const [playingSoundIndex, setPlayingSoundIndex] = useState(-1);
+  const { playingIndex: playingSoundIndex, toggle: toggleSound } = useAudioFragments(soundSources);
   const [requestedAnimatedVariationIndex, setRequestedAnimatedVariationIndex] = useState(0);
 
   const activeAnimatedVariation = !animatedVariations?.length
@@ -147,15 +148,6 @@ function Picture() {
 
   return (
     <main className='picture' ref={setPictureStateRef}>
-      {sounds?.map((item, index) => (
-        <Sound
-          key={item.mp3}
-          url={item.mp3}
-          playStatus={playingSoundIndex === index ? 'PLAYING' : 'STOPPED'}
-          volume={100}
-          loop
-        />
-      ))}
       <header className='picture__header'>
         <NavLink to={ROUTES.DEFAULT} className='picture__homepage-link'>
           <img className='picture__logo' src={logo} alt='Логотип музея' />
@@ -199,7 +191,7 @@ function Picture() {
                     backgroundImage: `url('${playingSound ? pause : item.icon}')`,
                   }}
                   onClick={() => {
-                    setPlayingSoundIndex(playingSound ? -1 : index);
+                    toggleSound(index);
                   }}
                 />
               );

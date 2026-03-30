@@ -86,4 +86,36 @@ describe('useImageLoadingState', () => {
 
     expect(result.current.loading).toBe(false);
   });
+
+  it('returns loading=false after rerendering with zero tracked items', () => {
+    const { result, rerender } = renderHook(({ itemsCount }) => useImageLoadingState(itemsCount), {
+      initialProps: { itemsCount: 2 },
+    });
+
+    act(() => {
+      result.current.markImageAsLoaded(0);
+    });
+
+    expect(result.current.loading).toBe(true);
+
+    rerender({ itemsCount: 0 });
+
+    expect(result.current.loading).toBe(false);
+  });
+
+  it('does not reset state when rerendered with the same tracked items count', () => {
+    const { result, rerender } = renderHook(({ itemsCount }) => useImageLoadingState(itemsCount), {
+      initialProps: { itemsCount: 1 },
+    });
+
+    act(() => {
+      result.current.markImageAsLoaded(0);
+    });
+
+    expect(result.current.loading).toBe(false);
+
+    rerender({ itemsCount: 1 });
+
+    expect(result.current.loading).toBe(false);
+  });
 });

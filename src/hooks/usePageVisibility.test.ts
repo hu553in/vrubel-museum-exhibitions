@@ -52,6 +52,14 @@ describe('usePageVisibility', () => {
     expect(result.current).toBe(true);
   });
 
+  it('treats non-hidden visibility states as visible', () => {
+    setDocumentVisibilityState('prerender' as unknown as DocumentVisibilityState);
+
+    const { result } = renderHook(() => usePageVisibility());
+
+    expect(result.current).toBe(true);
+  });
+
   it('removes the visibilitychange listener on unmount', () => {
     const addEventListenerSpy = vi.spyOn(document, 'addEventListener');
     const removeEventListenerSpy = vi.spyOn(document, 'removeEventListener');

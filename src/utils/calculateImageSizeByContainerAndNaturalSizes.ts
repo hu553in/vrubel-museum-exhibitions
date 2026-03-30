@@ -4,6 +4,10 @@ const calculateImageSizeByContainerAndNaturalSizes = (
   naturalWidth: number,
   naturalHeight: number
 ) => {
+  if (containerWidth <= 0 || containerHeight <= 0 || naturalWidth <= 0 || naturalHeight <= 0) {
+    return { width: 0, height: 0 };
+  }
+
   const naturalWidthToNaturalHeight = naturalWidth / naturalHeight;
   const naturalHeightToNaturalWidth = 1 / naturalWidthToNaturalHeight;
 

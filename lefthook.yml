@@ -46,6 +46,9 @@ check:
     - name: typecheck
       run: pnpm exec tsc --noEmit
 
+    - name: test
+      run: pnpm test
+
 check-fix:
   jobs:
     - name: prettier
@@ -65,3 +68,6 @@ check-fix:
 
     - name: typecheck
       run: pnpm exec tsc --noEmit
+
+    - name: test
+      run: pnpm test
