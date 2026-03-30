@@ -1,9 +1,11 @@
+import './style.scss';
+
+import { NavLink } from 'react-router-dom';
+
 import pictures from '@/assets/revived-paintings/pictures';
 import Loading from '@/components/common/Loading/Loading';
-import { ROUTES } from '@/constants';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
-import { NavLink } from 'react-router-dom';
-import './style.scss';
+import { buildPictureRoute } from '@/utils/pictureRoutes';
 
 function Catalogue() {
   const { loading, markImageAsLoaded } = useImageLoadingState(pictures.length);
@@ -22,9 +24,7 @@ function Catalogue() {
             <NavLink
               className='catalogue__picture-link'
               key={picture.id}
-              to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.PICTURE}/${encodeURIComponent(
-                picture.id
-              )}?from=${ROUTES.REVIVED_PAINTINGS}${ROUTES.CATALOGUE}`}
+              to={buildPictureRoute(picture.id, '/revived-paintings/catalogue')}
             >
               <img
                 className='catalogue__picture'

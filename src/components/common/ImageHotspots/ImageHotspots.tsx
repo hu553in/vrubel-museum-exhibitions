@@ -1,10 +1,11 @@
-import type { Props as ImageHotspotProps } from '@/components/common/ImageHotspot/ImageHotspot';
-import ImageHotspot from '@/components/common/ImageHotspot/ImageHotspot';
-import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
+import './style.scss';
+
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
-import { useWindowSize } from 'usehooks-ts';
-import './style.scss';
+
+import type { Props as ImageHotspotProps } from '@/components/common/ImageHotspot/ImageHotspot';
+import ImageHotspot from '@/components/common/ImageHotspot/ImageHotspot';
+import useFittedImageSize from '@/hooks/useFittedImageSize';
 
 interface Props {
   parentElement: HTMLElement | null;
@@ -15,29 +16,18 @@ interface Props {
 
 function ImageHotspots(props: Props) {
   const { parentElement, src, alt, imageHotspots } = props;
-  useWindowSize();
 
   const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(null);
-
-  const { clientWidth: parentClientWidth, clientHeight: parentClientHeight } = parentElement ?? {
-    clientWidth: 0,
-    clientHeight: 0,
-  };
-
   const { naturalWidth: imageNaturalWidth, naturalHeight: imageNaturalHeight } = imageStateRef ?? {
     naturalWidth: 0,
     naturalHeight: 0,
   };
 
-  const rootAndImageStyle: CSSProperties =
-    !parentClientWidth || !parentClientHeight || !imageNaturalWidth || !imageNaturalHeight
-      ? { width: 0, height: 0 }
-      : calculateImageSizeByContainerAndNaturalSizes(
-          parentClientWidth,
-          parentClientHeight,
-          imageNaturalWidth,
-          imageNaturalHeight
-        );
+  const rootAndImageStyle: CSSProperties = useFittedImageSize(
+    parentElement,
+    imageNaturalWidth,
+    imageNaturalHeight
+  );
 
   return (
     <div className='image-hotspots' style={rootAndImageStyle}>

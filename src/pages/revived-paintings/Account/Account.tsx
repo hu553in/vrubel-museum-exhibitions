@@ -1,40 +1,30 @@
+import './style.scss';
+
 import Checkbox from '@/components/common/Checkbox/Checkbox';
 import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
 import SocialNetworkIcon, {
   SocialNetwork,
 } from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
 import TextField from '@/components/common/TextField/TextField';
-import type { ChangeEvent, FocusEvent } from 'react';
-import { useReducer, useState } from 'react';
+import useAccountForm from '@/hooks/useAccountForm';
+
 import signIn from './assets/images/sign-in.webp';
-import './style.scss';
 
 function Account() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-
-  const [rememberMe, toggleRememberMe] = useReducer(value => !value, false);
-
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setEmailError(false);
-  };
-
-  const onPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    setPasswordError(false);
-  };
-
-  const validateEmail = (e: FocusEvent<HTMLInputElement>) => {
-    setEmailError(!e.target.validity.valid);
-  };
-
-  const validatePassword = () => {
-    setPasswordError(password.trim().length === 0);
-  };
+  const {
+    email,
+    password,
+    passwordShown,
+    emailError,
+    passwordError,
+    rememberMe,
+    onEmailChange,
+    onPasswordChange,
+    validateEmail,
+    validatePassword,
+    toggleRememberMe,
+    togglePasswordShown,
+  } = useAccountForm();
 
   return (
     <main className='account'>
@@ -93,9 +83,7 @@ function Account() {
             className='account__sign-in-password-toggle'
             aria-label={passwordShown ? 'Скрыть пароль' : 'Показать пароль'}
             aria-pressed={passwordShown}
-            onClick={() => {
-              setPasswordShown(value => !value);
-            }}
+            onClick={togglePasswordShown}
           >
             {passwordShown ? 'Скрыть' : 'Показать'}
           </button>

@@ -1,6 +1,9 @@
+import './style.scss';
+
 import cn from 'classnames';
 import type { HTMLAttributeAnchorTarget, MouseEventHandler } from 'react';
-import './style.scss';
+
+import { createBackgroundImageStyle } from '@/utils/backgroundImageStyle';
 
 interface Props {
   backgroundImage: string;
@@ -31,7 +34,7 @@ function RoundedButton(props: Props) {
         [className]: className.length > 0,
       })}
       href={href}
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={createBackgroundImageStyle(backgroundImage)}
       target={target}
       rel={rel}
     >
@@ -43,7 +46,7 @@ function RoundedButton(props: Props) {
       className={cn('rounded-button', {
         [className]: className.length > 0,
       })}
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={createBackgroundImageStyle(backgroundImage)}
       onClick={onClick}
       disabled={disabled}
     >

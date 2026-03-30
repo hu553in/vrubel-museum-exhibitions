@@ -14,7 +14,7 @@ pre-commit:
       stage_fixed: true
 
     - name: stylelint
-      glob: '*.{css,sass,scss}'
+      glob: '**/*.{css,sass,scss}'
       run: pnpm exec stylelint --max-warnings=0 --fix {staged_files}
       stage_fixed: true
 
@@ -32,16 +32,13 @@ pre-commit:
 check:
   jobs:
     - name: eslint
-      glob: '*.{js,jsx,ts,tsx}'
-      run: pnpm exec eslint --max-warnings=0 {all_files}
+      run: pnpm exec eslint . --max-warnings=0
 
     - name: stylelint
-      glob: '*.{css,sass,scss}'
-      run: pnpm exec stylelint --max-warnings=0 {all_files}
+      run: pnpm exec stylelint "**/*.{css,sass,scss}" --max-warnings=0
 
     - name: svg-check
-      glob: '*.svg'
-      run: bash -lc 'for f in "$@"; do xmllint --noout "$f"; done' -- {all_files}
+      run: bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -n 1 xmllint --noout'
 
     - name: typecheck
       run: pnpm exec tsc --noEmit
@@ -55,16 +52,13 @@ check-fix:
       run: pnpm exec prettier --write .
 
     - name: eslint
-      glob: '*.{js,jsx,ts,tsx}'
-      run: pnpm exec eslint --max-warnings=0 --fix {all_files}
+      run: pnpm exec eslint . --max-warnings=0 --fix
 
     - name: stylelint
-      glob: '*.{css,sass,scss}'
-      run: pnpm exec stylelint --max-warnings=0 --fix {all_files}
+      run: pnpm exec stylelint "**/*.{css,sass,scss}" --max-warnings=0 --fix
 
     - name: svg-format
-      glob: '*.svg'
-      run: bash -lc 'for f in "$@"; do xmllint --format "$f" -o "$f"; done' -- {all_files}
+      run: bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -I {} xmllint --format "{}" -o "{}"'
 
     - name: typecheck
       run: pnpm exec tsc --noEmit

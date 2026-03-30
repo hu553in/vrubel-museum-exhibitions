@@ -1,5 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { vi } from 'vitest';
+
 import usePageVisibility from './usePageVisibility';
 
 const setDocumentVisibilityState = (visibilityState: DocumentVisibilityState) => {

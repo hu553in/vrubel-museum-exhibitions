@@ -1,5 +1,6 @@
-import cn from 'classnames';
 import './style.scss';
+
+import cn from 'classnames';
 
 interface Props {
   wrapperClassName?: string;

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
+    "@react-spring/web": "^10.0.3",
     "classnames": "^2.5.1",
     "normalize.css": "^8.0.1",
     "react": "^19.2.4",
@@ -13,7 +14,6 @@
     "react-remove-scroll": "^2.7.2",
     "react-resize-detector": "^12.3.0",
     "react-router-dom": "^7.13.2",
-    "@react-spring/web": "^10.0.3",
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
@@ -22,7 +22,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
@@ -32,9 +31,11 @@
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^17.4.0",
     "jsdom": "^29.0.1",
     "lefthook": "^2.1.4",

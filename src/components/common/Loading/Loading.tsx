@@ -1,6 +1,8 @@
-import Portal from '@/components/common/Portal/Portal';
-import { RemoveScroll } from 'react-remove-scroll';
 import './style.scss';
+
+import { RemoveScroll } from 'react-remove-scroll';
+
+import Portal from '@/components/common/Portal/Portal';
 
 function Loading() {
   return (

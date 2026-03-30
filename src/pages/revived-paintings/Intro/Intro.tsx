@@ -1,13 +1,16 @@
+import './style.scss';
+
+import { Navigate } from 'react-router-dom';
+import { useEventListener } from 'usehooks-ts';
+
 import FullSizeVideo from '@/components/common/FullSizeVideo/FullSizeVideo';
 import Title from '@/components/revived-paintings/Title/Title';
 import Triptih from '@/components/revived-paintings/Triptih/Triptih';
 import { ROUTES } from '@/constants';
-import { useEffect, useRef, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useEventListener } from 'usehooks-ts';
+import useIntroFlow from '@/hooks/useIntroFlow';
+
 import triptihMp4 from './assets/videos/triptih.mp4';
 import triptihWebm from './assets/videos/triptih.webm';
-import './style.scss';
 
 const triptihVideoSources = [
   {
@@ -23,43 +26,13 @@ const triptihVideoSources = [
 ];
 
 function Intro() {
-  const [shouldShowTriptihVideo, setShouldShowTriptihVideo] = useState(true);
-  const [shouldRedirectToGalos, setShouldRedirectToGalos] = useState(false);
-  const [shouldNotFadeOutTriptihAndTitle, setShouldNotFadeOutTriptihAndTitle] = useState(true);
-  const timeoutsRef = useRef<number[]>([]);
-
-  const onVideoEnded = () => {
-    if (!shouldShowTriptihVideo) {
-      return;
-    }
-
-    setShouldShowTriptihVideo(false);
-    timeoutsRef.current.push(
-      window.setTimeout(() => {
-        setShouldNotFadeOutTriptihAndTitle(false);
-      }, 2750)
-    );
-    timeoutsRef.current.push(
-      window.setTimeout(() => {
-        setShouldRedirectToGalos(true);
-      }, 5000)
-    );
-  };
-
-  useEffect(
-    () => () => {
-      timeoutsRef.current.forEach(timeoutId => {
-        window.clearTimeout(timeoutId);
-      });
-    },
-    []
-  );
-
-  const handleWindowKeyDown = (event: KeyboardEvent) => {
-    if (event.key === ' ' && event.code === 'Space' && shouldShowTriptihVideo) {
-      onVideoEnded();
-    }
-  };
+  const {
+    shouldShowTriptihVideo,
+    shouldRedirectToGalos,
+    shouldNotFadeOutTriptihAndTitle,
+    onVideoEnded,
+    handleWindowKeyDown,
+  } = useIntroFlow();
 
   useEventListener('keydown', handleWindowKeyDown);
 

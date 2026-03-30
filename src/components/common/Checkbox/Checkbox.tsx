@@ -1,6 +1,7 @@
+import './style.scss';
+
 import cn from 'classnames';
 import { useId } from 'react';
-import './style.scss';
 
 interface Props {
   label: string;

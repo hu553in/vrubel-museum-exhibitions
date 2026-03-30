@@ -1,9 +1,10 @@
-import Loading from '@/components/common/Loading/Loading';
-import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
-import getAppRootElement from '@/utils/getAppRootElement';
 import { type Component, type ComponentClass, useEffect, useState } from 'react';
 import type { MagnifierProps as ExternalMagnifierProps } from 'react-magnifier';
 import ExternalMagnifier from 'react-magnifier';
+
+import Loading from '@/components/common/Loading/Loading';
+import useFittedImageSize from '@/hooks/useFittedImageSize';
+import getAppRootElement from '@/utils/getAppRootElement';
 
 interface Props {
   parentElement: HTMLElement | null;
@@ -22,25 +23,12 @@ function Magnifier(props: Props) {
   const { name, magnifier, parentElement } = props;
   const [stateRef, setStateRef] = useState<MagnifierStateRef | null>(null);
 
-  const { clientWidth: parentWidth, clientHeight: parentHeight } = parentElement ?? {
-    clientWidth: 0,
-    clientHeight: 0,
-  };
-
   const { naturalWidth, naturalHeight } = stateRef?.img ?? {
     naturalWidth: 0,
     naturalHeight: 0,
   };
 
-  const size =
-    !parentWidth || !parentHeight || !naturalWidth || !naturalHeight
-      ? { width: 0, height: 0 }
-      : calculateImageSizeByContainerAndNaturalSizes(
-          parentWidth,
-          parentHeight,
-          naturalWidth,
-          naturalHeight
-        );
+  const size = useFittedImageSize(parentElement, naturalWidth, naturalHeight);
 
   const [loadedMagnifier, setLoadedMagnifier] = useState<string | null>(null);
   const loading = Boolean(magnifier) && loadedMagnifier !== magnifier;

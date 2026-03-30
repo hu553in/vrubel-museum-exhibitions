@@ -1,5 +1,6 @@
-import cn from 'classnames';
 import './style.scss';
+
+import cn from 'classnames';
 
 export interface Props {
   logo: string;
@@ -7,8 +8,8 @@ export interface Props {
   onLogoError: () => unknown;
   name: string;
   address: string;
-  busStops: string[];
-  contacts: string[];
+  busStops: readonly string[];
+  contacts: readonly string[];
   className?: string;
 }
 

@@ -1,3 +1,9 @@
+import './style.scss';
+
+import cn from 'classnames';
+import { useRef, useState } from 'react';
+import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+
 import pause from '@/assets/common/icons/control-pause.svg';
 import logo from '@/assets/common/icons/museum-mark.svg';
 import pictures from '@/assets/revived-paintings/pictures';
@@ -8,54 +14,24 @@ import Magnifier from '@/components/common/Magnifier/Magnifier';
 import SideInfoPanel from '@/components/common/SideInfoPanel/SideInfoPanel';
 import { ROUTES } from '@/constants';
 import useAudioFragments from '@/hooks/useAudioFragments';
+import { createBackgroundImageStyle } from '@/utils/backgroundImageStyle';
 import getAppRootElement from '@/utils/getAppRootElement';
-import cn from 'classnames';
-import { useRef, useState } from 'react';
-import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
-import './style.scss';
+import { getPictureOpenedFrom } from '@/utils/pictureRoutes';
+import {
+  createPictureHotspotViewModels,
+  createVideoSources,
+  getActiveAnimatedVariation,
+  getPictureCapabilities,
+  type VideoSource,
+} from '@/utils/pictureScene';
 
 const videoCallbackRef = (node: HTMLVideoElement | null) => node?.focus();
-
-interface VideoSource {
-  src: string;
-  mimeType: string;
-  mimeTypeUserReadable: string;
-}
-
-const createVideoSources = (
-  sourceSet:
-    | {
-        mp4?: string;
-        webm?: string;
-      }
-    | undefined
-) => {
-  const result: VideoSource[] = [];
-
-  if (sourceSet?.mp4) {
-    result.push({
-      src: sourceSet.mp4,
-      mimeType: 'video/mp4',
-      mimeTypeUserReadable: 'MP4',
-    });
-  }
-
-  if (sourceSet?.webm) {
-    result.push({
-      src: sourceSet.webm,
-      mimeType: 'video/webm',
-      mimeTypeUserReadable: 'WebM',
-    });
-  }
-
-  return result;
-};
 
 function Picture() {
   const { id } = useParams<'id'>();
   const navigate = useNavigate();
   const location = useLocation();
-  const openedFrom = new URLSearchParams(location.search).get('from');
+  const openedFrom = getPictureOpenedFrom(location.search);
   const picture = pictures.find(item => item.id === id);
 
   const {
@@ -70,15 +46,34 @@ function Picture() {
     animatedVariations,
   } = picture ?? {};
 
-  const animatedSources = createVideoSources(animated);
+  const {
+    animatedSources,
+    hasAnimatedVariations,
+    hasAnimatedVideo,
+    hasMagnifier,
+    hasImageHotspots,
+    hasDynamicButtons,
+    hasPictureContent,
+  } = getPictureCapabilities({
+    preview,
+    name,
+    authorAndYear,
+    descriptionParagraphs,
+    animated,
+    sounds,
+    magnifier,
+    animatedVariations,
+    imageHotspots,
+  });
   const soundSources = sounds?.map(sound => sound.mp3) ?? [];
 
   const { playingIndex: playingSoundIndex, toggle: toggleSound } = useAudioFragments(soundSources);
   const [requestedAnimatedVariationIndex, setRequestedAnimatedVariationIndex] = useState(0);
 
-  const activeAnimatedVariation = !animatedVariations?.length
-    ? undefined
-    : animatedVariations[Math.min(requestedAnimatedVariationIndex, animatedVariations.length - 1)];
+  const activeAnimatedVariation = getActiveAnimatedVariation(
+    animatedVariations,
+    requestedAnimatedVariationIndex
+  );
   const animatedVariationSources = createVideoSources(activeAnimatedVariation);
   const animatedVariationVideoElement =
     activeAnimatedVariation?.name && animatedVariationSources.length > 0 ? (
@@ -106,34 +101,21 @@ function Picture() {
   const [playingImageHotspotVideoSources, setPlayingImageHotspotVideoSources] = useState<
     VideoSource[] | undefined
   >();
-  const modifiedImageHotspots = imageHotspots?.map(imageHotspot => ({
-    x: imageHotspot.positionPercentage.x * 100,
-    y: imageHotspot.positionPercentage.y * 100,
+  const modifiedImageHotspots = createPictureHotspotViewModels(imageHotspots).map(imageHotspot => ({
+    x: imageHotspot.x,
+    y: imageHotspot.y,
     content: (
       <button
         type='button'
         aria-label={`Открыть видеофрагмент «${imageHotspot.name}»`}
         className='picture__image-hotspot-button'
         onClick={() => {
-          setPlayingImageHotspotVideoSources(createVideoSources(imageHotspot));
+          setPlayingImageHotspotVideoSources(imageHotspot.videoSources);
         }}
       />
     ),
   }));
-  const hasAnimatedVariations = Boolean(animatedVariations?.length);
-  const hasAnimatedVideo = animatedSources.length > 0;
-  const hasMagnifier = Boolean(name && magnifier);
-  const hasImageHotspots = Boolean(preview && name && imageHotspots?.length);
   const hasHotspotVideoOpen = Boolean(playingImageHotspotVideoSources?.length);
-  const hasDynamicButtons = Boolean((animatedVariations?.length ?? 0) || (sounds?.length ?? 0));
-  const hasPictureContent = Boolean(
-    picture &&
-    preview &&
-    name &&
-    authorAndYear &&
-    descriptionParagraphs &&
-    (hasAnimatedVideo || hasMagnifier || hasImageHotspots || hasAnimatedVariations)
-  );
 
   const rootElement = getAppRootElement();
   const imageHotspotVideoCloseButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -166,9 +148,7 @@ function Picture() {
                   className={cn('picture__animated-variation-button', {
                     'picture__animated-variation-button_active': playingAnimatedVariation,
                   })}
-                  style={{
-                    backgroundImage: `url('${item.icon}')`,
-                  }}
+                  style={createBackgroundImageStyle(item.icon)}
                   onClick={() => {
                     if (!playingAnimatedVariation) {
                       setRequestedAnimatedVariationIndex(index);
@@ -187,9 +167,7 @@ function Picture() {
                   aria-label={`${playingSound ? 'Остановить' : 'Включить'} аудиофрагмент «${item.name}»`}
                   aria-pressed={playingSound}
                   className='picture__sound-button'
-                  style={{
-                    backgroundImage: `url('${playingSound ? pause : item.icon}')`,
-                  }}
+                  style={createBackgroundImageStyle(playingSound ? pause : item.icon)}
                   onClick={() => {
                     toggleSound(index);
                   }}
@@ -228,7 +206,7 @@ function Picture() {
           parentElement={pictureStateRef}
           src={preview ?? ''}
           alt={name ?? ''}
-          imageHotspots={modifiedImageHotspots ?? []}
+          imageHotspots={modifiedImageHotspots}
         />
       )}
       {hasHotspotVideoOpen && (

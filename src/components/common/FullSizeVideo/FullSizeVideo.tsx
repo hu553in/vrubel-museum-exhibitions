@@ -1,9 +1,12 @@
+import './style.scss';
+
+import { type CSSProperties, type Ref, useRef } from 'react';
+import { mergeRefs } from 'react-merge-refs';
+
 import Loading from '@/components/common/Loading/Loading';
 import usePageVisibility from '@/hooks/usePageVisibility';
+import useVideoPlaybackState from '@/hooks/useVideoPlaybackState';
 import getAppRootElement from '@/utils/getAppRootElement';
-import { type CSSProperties, type Ref, useEffect, useRef, useState } from 'react';
-import { mergeRefs } from 'react-merge-refs';
-import './style.scss';
 
 interface Source {
   src: string;
@@ -40,41 +43,17 @@ function FullSizeVideo(props: Props) {
     style,
   } = props;
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const stopLoading = () => {
-    setLoading(false);
-  };
-  const onError = () => {
-    setLoading(false);
-    setError(true);
-  };
-
   const localRef = useRef<HTMLVideoElement | null>(null);
   const isVisible = usePageVisibility();
-  const playPromise = useRef<Promise<void> | undefined>(undefined);
-
-  useEffect(() => {
-    if (!loading) {
-      if (isVisible) {
-        playPromise.current = localRef.current?.play();
-      } else {
-        if (playPromise.current) {
-          void playPromise.current
-            .then(() => {
-              localRef.current?.pause();
-            })
-            .catch(() => undefined);
-        } else {
-          localRef.current?.pause();
-        }
-      }
-    }
-  }, [localRef, isVisible, loading]);
+  const { loading, error, handleError, handlePlaybackReady, handleMetadataReady } =
+    useVideoPlaybackState({
+      autoPlay,
+      isVisible,
+      videoRef: localRef,
+    });
 
   const rootElement = getAppRootElement();
   const { clientHeight: rootElementHeight } = rootElement ?? {};
-  const onLoadedMetadataDataCanPlayEvents = autoPlay ? undefined : stopLoading;
 
   if (!rootElement || sources.length === 0) {
     return null;
@@ -104,12 +83,12 @@ function FullSizeVideo(props: Props) {
         disablePictureInPicture
         controlsList='nodownload nofullscreen'
         preload='metadata'
-        onLoadedMetadata={onLoadedMetadataDataCanPlayEvents}
-        onLoadedData={onLoadedMetadataDataCanPlayEvents}
-        onCanPlay={onLoadedMetadataDataCanPlayEvents}
-        onCanPlayThrough={stopLoading}
-        onError={onError}
-        onPlay={stopLoading}
+        onLoadedMetadata={handleMetadataReady}
+        onLoadedData={handleMetadataReady}
+        onCanPlay={handleMetadataReady}
+        onCanPlayThrough={handlePlaybackReady}
+        onError={handleError}
+        onPlay={handlePlaybackReady}
         style={{
           objectFit,
           maxHeight: rootElementHeight,

@@ -1,5 +1,6 @@
-import type { CSSProperties, ReactNode } from 'react';
 import './style.scss';
+
+import type { CSSProperties, ReactNode } from 'react';
 
 export interface Props {
   x: number;

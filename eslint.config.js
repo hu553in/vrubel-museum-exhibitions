@@ -1,10 +1,11 @@
-const { defineConfig } = require('eslint/config');
+const { defineConfig, globalIgnores } = require('eslint/config');
 const js = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const jsxA11yPlugin = require('eslint-plugin-jsx-a11y');
 const reactPlugin = require('eslint-plugin-react');
 const reactHooksPlugin = require('eslint-plugin-react-hooks');
 const prettierPlugin = require('eslint-plugin-prettier');
+const simpleImportSortPlugin = require('eslint-plugin-simple-import-sort');
 const globals = require('globals');
 
 const sharedGlobals = {
@@ -13,8 +14,8 @@ const sharedGlobals = {
 };
 
 module.exports = defineConfig(
+  globalIgnores(['**/build/**', '**/node_modules/**', '**/target/**']),
   {
-    ignores: ['**/build/**', '**/node_modules/**', '**/target/**'],
     linterOptions: {
       reportUnusedDisableDirectives: 'error',
     },
@@ -32,12 +33,15 @@ module.exports = defineConfig(
     },
     plugins: {
       prettier: prettierPlugin,
+      'simple-import-sort': simpleImportSortPlugin,
     },
     rules: {
       'prettier/prettier': 'error',
       'no-alert': 'error',
       'no-console': ['error', { allow: ['error'] }],
       'prefer-const': 'error',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
     },
   },
   {
@@ -60,12 +64,15 @@ module.exports = defineConfig(
     },
     plugins: {
       prettier: prettierPlugin,
+      'simple-import-sort': simpleImportSortPlugin,
     },
     rules: {
       'prettier/prettier': 'error',
       'no-alert': 'error',
       'no-console': ['error', { allow: ['error'] }],
       'prefer-const': 'error',
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
       '@typescript-eslint/ban-ts-comment': [
         'error',
         {

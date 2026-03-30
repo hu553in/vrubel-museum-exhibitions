@@ -1,12 +1,14 @@
+import 'normalize.css';
+import './style.scss';
+
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+
 import RevivedPaintings from '@/components/revived-paintings/RevivedPaintings/RevivedPaintings';
 import { ROUTES } from '@/constants';
 import Main from '@/pages/main/Main/Main';
 import getAppRootElement from '@/utils/getAppRootElement';
-import 'normalize.css';
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import './style.scss';
 
 const rootElement = getAppRootElement();
 

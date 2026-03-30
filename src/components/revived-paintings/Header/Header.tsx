@@ -1,21 +1,15 @@
-import logo from '@/assets/common/icons/museum-mark.svg';
-import SideMenu from '@/components/common/SideMenu/SideMenu';
-import { ROUTES } from '@/constants';
+import './style.scss';
+
 import { animated, SpringValue } from '@react-spring/web';
 import cn from 'classnames';
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import './style.scss';
 
-const sideMenuLinks = [
-  { label: 'Главная', route: ROUTES.DEFAULT },
-  { label: 'Галос', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}` },
-  { label: 'Контакты', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.CONTACTS}` },
-  { label: 'Каталог', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.CATALOGUE}` },
-  { label: 'Аккаунт', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.ACCOUNT}` },
-  { label: 'О проекте', route: `${ROUTES.REVIVED_PAINTINGS}${ROUTES.ABOUT}` },
-];
+import logo from '@/assets/common/icons/museum-mark.svg';
+import SideMenu from '@/components/common/SideMenu/SideMenu';
+import { ROUTES } from '@/constants';
+import { revivedPaintingsNavLinks } from '@/data/revivedPaintingsNavLinks';
 
 interface Props {
   className?: string;
@@ -55,7 +49,7 @@ function Header(props: Props) {
         onClose={() => {
           setMenuOpen(false);
         }}
-        links={sideMenuLinks}
+        links={revivedPaintingsNavLinks}
       />
     </animated.header>
   );

@@ -1,15 +1,18 @@
-import pictures from '@/assets/revived-paintings/pictures';
-import Loading from '@/components/common/Loading/Loading';
-import Header from '@/components/revived-paintings/Header/Header';
-import { ROUTES } from '@/constants';
-import useImageLoadingState from '@/hooks/useImageLoadingState';
-import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
+import './style.scss';
+
 import { animated, useSpring } from '@react-spring/web';
 import { useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useIntersectionObserver } from 'usehooks-ts';
-import './style.scss';
+
+import pictures from '@/assets/revived-paintings/pictures';
+import Loading from '@/components/common/Loading/Loading';
+import Header from '@/components/revived-paintings/Header/Header';
+import useImageLoadingState from '@/hooks/useImageLoadingState';
+import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
+import getGalosLayout from '@/utils/galosLayout';
+import { buildPictureRoute } from '@/utils/pictureRoutes';
 
 interface PictureWrapperProps {
   animationStyle: object;
@@ -44,9 +47,7 @@ function PictureWrapper({
     >
       <NavLink
         className='galos__picture-link'
-        to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.PICTURE}/${encodeURIComponent(
-          picture.id
-        )}?from=${encodeURIComponent(`${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}#${picture.id}`)}`}
+        to={buildPictureRoute(picture.id, `/revived-paintings/galos#${picture.id}`)}
       >
         <img
           style={pictureStyle}
@@ -87,6 +88,7 @@ function Galos() {
       duration: 1500,
     },
   });
+  const galosLayout = getGalosLayout(width, height);
 
   return (
     <main className='galos' ref={ref}>
@@ -95,7 +97,7 @@ function Galos() {
         className='galos__overlay-header'
         style={{
           ...animationStyle,
-          ...(width !== undefined && { width }),
+          ...(galosLayout.headerWidth !== undefined && { width: galosLayout.headerWidth }),
         }}
       />
       {pictures.map((picture, index) => (
@@ -109,19 +111,15 @@ function Galos() {
           }}
           picture={picture}
           pictureStyle={
-            width === undefined || height === undefined
+            galosLayout.pictureSize === undefined
               ? {}
-              : (() => {
-                  const minDimension = Math.min(width, height);
-
-                  return {
-                    ...animationStyle,
-                    minWidth: minDimension,
-                    minHeight: minDimension,
-                    maxWidth: minDimension,
-                    maxHeight: minDimension,
-                  };
-                })()
+              : {
+                  ...animationStyle,
+                  minWidth: galosLayout.pictureSize,
+                  minHeight: galosLayout.pictureSize,
+                  maxWidth: galosLayout.pictureSize,
+                  maxHeight: galosLayout.pictureSize,
+                }
           }
           stopLoading={() => {
             markImageAsLoaded(index);
@@ -131,42 +129,11 @@ function Galos() {
       <div
         className='galos__overlay-main'
         style={{
-          ...(width !== undefined && { width }),
-          ...(height !== undefined && { minHeight: height }),
+          ...(galosLayout.main ?? {}),
         }}
       />
-      <div
-        className='galos__overlay-circle'
-        style={
-          width === undefined || height === undefined
-            ? {}
-            : (() => {
-                const minDimension40Percent = Math.min(width, height) * 0.4;
-
-                return {
-                  minWidth: minDimension40Percent,
-                  minHeight: minDimension40Percent,
-                  maxWidth: minDimension40Percent,
-                  maxHeight: minDimension40Percent,
-                  top: height / 2.0,
-                  left: width / 2.0,
-                };
-              })()
-        }
-      />
-      <div
-        className='galos__overlay-info-block'
-        style={
-          width === undefined || height === undefined
-            ? {}
-            : {
-                maxWidth: width * 0.35,
-                top: height / 2.0,
-                left: width * 0.55,
-                gap: Math.min(width, height) * 0.05,
-              }
-        }
-      >
+      <div className='galos__overlay-circle' style={galosLayout.circle ?? {}} />
+      <div className='galos__overlay-info-block' style={galosLayout.infoBlock ?? {}}>
         <animated.p className='galos__overlay-title' style={textAnimationStyle}>
           {name}
         </animated.p>

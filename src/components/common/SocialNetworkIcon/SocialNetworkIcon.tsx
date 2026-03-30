@@ -1,3 +1,7 @@
+import './style.scss';
+
+import cn from 'classnames';
+
 import facebookIcon from '@/assets/common/icons/social/facebook.svg';
 import googlePlusIcon from '@/assets/common/icons/social/google-plus.svg';
 import instagramIcon from '@/assets/common/icons/social/instagram.svg';
@@ -5,8 +9,6 @@ import okIcon from '@/assets/common/icons/social/ok.svg';
 import tiktokIcon from '@/assets/common/icons/social/tiktok.svg';
 import vkIcon from '@/assets/common/icons/social/vk.svg';
 import youtubeIcon from '@/assets/common/icons/social/youtube.svg';
-import cn from 'classnames';
-import './style.scss';
 
 export enum SocialNetwork {
   FACEBOOK = 'facebook',

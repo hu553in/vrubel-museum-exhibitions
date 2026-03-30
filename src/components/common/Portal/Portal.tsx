@@ -1,6 +1,7 @@
-import getAppRootElement from '@/utils/getAppRootElement';
-import { createPortal } from 'react-dom';
 import type { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
+
+import getAppRootElement from '@/utils/getAppRootElement';
 
 interface Props {
   children: ReactNode;

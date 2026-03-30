@@ -1,5 +1,6 @@
-import { animated, useSpring } from '@react-spring/web';
 import './style.scss';
+
+import { animated, useSpring } from '@react-spring/web';
 
 interface Props {
   open: boolean;

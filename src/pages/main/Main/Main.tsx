@@ -1,13 +1,16 @@
+import './style.scss';
+
+import cn from 'classnames';
+import { NavLink } from 'react-router-dom';
+import { useWindowSize } from 'usehooks-ts';
+
 import Loading from '@/components/common/Loading/Loading';
 import Title from '@/components/main/Title/Title';
 import { ROUTES } from '@/constants';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
-import cn from 'classnames';
-import { NavLink } from 'react-router-dom';
-import { useWindowSize } from 'usehooks-ts';
+
 import first from './assets/images/first.webp';
 import second from './assets/images/second.webp';
-import './style.scss';
 
 function Main() {
   const { width, height } = useWindowSize();

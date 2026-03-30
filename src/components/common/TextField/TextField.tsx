@@ -1,6 +1,7 @@
+import './style.scss';
+
 import cn from 'classnames';
 import type { ChangeEventHandler, FocusEventHandler } from 'react';
-import './style.scss';
 
 type Type = 'text' | 'email' | 'password';
 

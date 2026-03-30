@@ -1,13 +1,13 @@
+import './style.scss';
+
 import Building, { type Props as BuildingProps } from '@/components/common/Building/Building';
 import Loading from '@/components/common/Loading/Loading';
 import Map from '@/components/common/Map/Map';
 import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
+import { contactBuildings } from '@/data/contactBuildings';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
+
 import buyTicket from './assets/images/buy-ticket.webp';
-import first from './assets/images/first.svg';
-import second from './assets/images/second.svg';
-import third from './assets/images/third.svg';
-import './style.scss';
 
 const mapSrc =
   'https://yandex.ru/map-widget/v1/?um=constructor' +
@@ -18,48 +18,23 @@ type BuildingInfo = Omit<BuildingProps, 'className'>;
 
 function Contacts() {
   const { loading, markImageAsLoaded } = useImageLoadingState(3);
-  const buildings = [
-    {
-      logo: first,
-      onLogoLoad: () => {
-        markImageAsLoaded(0);
-      },
-      onLogoError: () => {
-        markImageAsLoaded(0);
-      },
-      name: 'Генерал-губернаторский дворец',
-      address: '644024, Омск, ул. Ленина, 23',
-      busStops: ['«Площадь Ленина»', '«Краеведческий музей»'],
-      contacts: ['+7 (3812) 31-36-77', '+7 (3812) 31-00-17'],
+  const createBuildingInfo = (
+    building: (typeof contactBuildings)[number],
+    index: number
+  ): BuildingInfo => ({
+    ...building,
+    onLogoLoad: () => {
+      markImageAsLoaded(index);
     },
-    {
-      logo: second,
-      onLogoLoad: () => {
-        markImageAsLoaded(1);
-      },
-      onLogoError: () => {
-        markImageAsLoaded(1);
-      },
-      name: 'Врубелевский корпус',
-      address: '644043, Омск, ул. Ленина, 3',
-      busStops: ['«Площадь Победы»', '«Торговый Центр»', '«Драмтеатр»', '«Госпиталь»'],
-      contacts: ['+7 (3812) 24-15-64', '+7 (3812) 20-00-47'],
+    onLogoError: () => {
+      markImageAsLoaded(index);
     },
-    {
-      logo: third,
-      onLogoLoad: () => {
-        markImageAsLoaded(2);
-      },
-      onLogoError: () => {
-        markImageAsLoaded(2);
-      },
-      name: 'Центр «Эрмитаж-Сибирь»',
-      address: '644099, Омск, ул. Музейная, 4',
-      busStops: ['«Драмтеатр»', '«Любинский проспект»', '«Площадь Победы»', '«Госпиталь»'],
-      contacts: ['+7 (3812) 95-12-25', '+7 958-854-0590'],
-    },
+  });
+  const [firstBuilding, secondBuilding, thirdBuilding] = [
+    createBuildingInfo(contactBuildings[0], 0),
+    createBuildingInfo(contactBuildings[1], 1),
+    createBuildingInfo(contactBuildings[2], 2),
   ] satisfies [BuildingInfo, BuildingInfo, BuildingInfo];
-  const [firstBuilding, secondBuilding, thirdBuilding] = buildings;
 
   return (
     <main className='contacts'>

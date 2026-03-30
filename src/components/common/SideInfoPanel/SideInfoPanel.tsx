@@ -1,7 +1,9 @@
-import Dialog from '@/components/common/Dialog/Dialog';
-import cn from 'classnames';
-import { useId } from 'react';
 import './style.scss';
+
+import cn from 'classnames';
+
+import Dialog from '@/components/common/Dialog/Dialog';
+import useDialogAccessibility from '@/hooks/useDialogAccessibility';
 
 interface Props {
   open: boolean;
@@ -14,8 +16,7 @@ interface Props {
 
 function SideInfoPanel(props: Props) {
   const { open, onClose, parentElement, header, subheader, paragraphs } = props;
-  const headerId = useId();
-  const subheaderId = useId();
+  const { labelledBy: headerId, describedBy: subheaderId } = useDialogAccessibility(true);
 
   return (
     <Dialog
@@ -27,7 +28,7 @@ function SideInfoPanel(props: Props) {
       })}
       overlayClassName='side-info-panel-overlay'
       labelledBy={headerId}
-      describedBy={subheaderId}
+      {...(subheaderId ? { describedBy: subheaderId } : {})}
     >
       <p className='side-info-panel__header' id={headerId}>
         {header}
