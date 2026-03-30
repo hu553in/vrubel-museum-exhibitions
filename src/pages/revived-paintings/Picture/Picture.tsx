@@ -1,17 +1,15 @@
 import './style.scss';
 
 import cn from 'classnames';
-import { useRef, useState } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import pause from '@/assets/common/icons/control-pause.svg';
 import logo from '@/assets/common/icons/museum-mark.svg';
 import pictures from '@/assets/revived-paintings/pictures';
-import Dialog from '@/components/common/Dialog/Dialog';
 import FullSizeVideo from '@/components/common/FullSizeVideo/FullSizeVideo';
 import ImageHotspots from '@/components/common/ImageHotspots/ImageHotspots';
-import Magnifier from '@/components/common/Magnifier/Magnifier';
-import SideInfoPanel from '@/components/common/SideInfoPanel/SideInfoPanel';
+import Loading from '@/components/common/Loading/Loading';
 import { ROUTES } from '@/constants';
 import useAudioFragments from '@/hooks/useAudioFragments';
 import { createBackgroundImageStyle } from '@/utils/backgroundImageStyle';
@@ -26,6 +24,9 @@ import {
 } from '@/utils/pictureScene';
 
 const videoCallbackRef = (node: HTMLVideoElement | null) => node?.focus();
+const Dialog = lazy(async () => import('@/components/common/Dialog/Dialog'));
+const Magnifier = lazy(async () => import('@/components/common/Magnifier/Magnifier'));
+const SideInfoPanel = lazy(async () => import('@/components/common/SideInfoPanel/SideInfoPanel'));
 
 function Picture() {
   const { id } = useParams<'id'>();
@@ -199,7 +200,9 @@ function Picture() {
         <FullSizeVideo sources={animatedSources} objectFit='contain' ref={videoCallbackRef} loop />
       )}
       {hasMagnifier && name && magnifier && (
-        <Magnifier parentElement={pictureStateRef} name={name} magnifier={magnifier} />
+        <Suspense fallback={<Loading />}>
+          <Magnifier parentElement={pictureStateRef} name={name} magnifier={magnifier} />
+        </Suspense>
       )}
       {hasImageHotspots && (
         <ImageHotspots
@@ -210,45 +213,51 @@ function Picture() {
         />
       )}
       {hasHotspotVideoOpen && (
-        <Dialog
-          open={hasHotspotVideoOpen}
-          onClose={() => {
-            setPlayingImageHotspotVideoSources(undefined);
-          }}
-          container={rootElement}
-          panelClassName='picture__image-hotspot-video-panel'
-          overlayClassName='picture__image-hotspot-video-overlay'
-          initialFocusRef={imageHotspotVideoCloseButtonRef}
-        >
-          <button
-            type='button'
-            ref={imageHotspotVideoCloseButtonRef}
-            aria-label='Закрыть диалог с видеофрагментом'
-            className='picture__image-hotspot-video-close-button'
-            onClick={() => {
+        <Suspense fallback={<Loading />}>
+          <Dialog
+            open={hasHotspotVideoOpen}
+            onClose={() => {
               setPlayingImageHotspotVideoSources(undefined);
             }}
-          />
-          <FullSizeVideo
-            sources={playingImageHotspotVideoSources ?? []}
-            objectFit='contain'
-            ref={videoCallbackRef}
-            loop
-          />
-        </Dialog>
+            container={rootElement}
+            panelClassName='picture__image-hotspot-video-panel'
+            overlayClassName='picture__image-hotspot-video-overlay'
+            initialFocusRef={imageHotspotVideoCloseButtonRef}
+          >
+            <button
+              type='button'
+              ref={imageHotspotVideoCloseButtonRef}
+              aria-label='Закрыть диалог с видеофрагментом'
+              className='picture__image-hotspot-video-close-button'
+              onClick={() => {
+                setPlayingImageHotspotVideoSources(undefined);
+              }}
+            />
+            <FullSizeVideo
+              sources={playingImageHotspotVideoSources ?? []}
+              objectFit='contain'
+              ref={videoCallbackRef}
+              loop
+            />
+          </Dialog>
+        </Suspense>
       )}
       {hasAnimatedVariations && animatedVariationVideoElement}
       {name && authorAndYear && descriptionParagraphs && (
-        <SideInfoPanel
-          open={infoPanelOpen}
-          onClose={() => {
-            setInfoPanelOpen(false);
-          }}
-          header={name}
-          subheader={authorAndYear}
-          paragraphs={descriptionParagraphs}
-          parentElement={rootElement}
-        />
+        <Suspense fallback={infoPanelOpen ? <Loading /> : null}>
+          {infoPanelOpen && (
+            <SideInfoPanel
+              open={infoPanelOpen}
+              onClose={() => {
+                setInfoPanelOpen(false);
+              }}
+              header={name}
+              subheader={authorAndYear}
+              paragraphs={descriptionParagraphs}
+              parentElement={rootElement}
+            />
+          )}
+        </Suspense>
       )}
     </main>
   );

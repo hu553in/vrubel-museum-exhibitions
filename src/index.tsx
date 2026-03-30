@@ -1,14 +1,18 @@
 import 'normalize.css';
 import './style.scss';
 
-import { StrictMode } from 'react';
+import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
-import RevivedPaintings from '@/components/revived-paintings/RevivedPaintings/RevivedPaintings';
+import Loading from '@/components/common/Loading/Loading';
 import { ROUTES } from '@/constants';
-import Main from '@/pages/main/Main/Main';
 import getAppRootElement from '@/utils/getAppRootElement';
+
+const Main = lazy(async () => import('@/pages/main/Main/Main'));
+const RevivedPaintings = lazy(
+  async () => import('@/components/revived-paintings/RevivedPaintings/RevivedPaintings')
+);
 
 const rootElement = getAppRootElement();
 
@@ -19,11 +23,13 @@ if (!rootElement) {
 createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path={ROUTES.DEFAULT} element={<Main />} />
-        <Route path={`${ROUTES.REVIVED_PAINTINGS}/*`} element={<RevivedPaintings />} />
-        <Route path='*' element={<Navigate to={ROUTES.DEFAULT} replace />} />
-      </Routes>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path={ROUTES.DEFAULT} element={<Main />} />
+          <Route path={`${ROUTES.REVIVED_PAINTINGS}/*`} element={<RevivedPaintings />} />
+          <Route path='*' element={<Navigate to={ROUTES.DEFAULT} replace />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   </StrictMode>
 );
