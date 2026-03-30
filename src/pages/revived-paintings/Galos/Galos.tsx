@@ -4,13 +4,63 @@ import Header from '@/components/revived-paintings/Header/Header';
 import { ROUTES } from '@/constants';
 import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentMount';
 import React, { useMemo, useState } from 'react';
-import { InView } from 'react-intersection-observer';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { animated, useSpring } from 'react-spring';
+import { useIntersectionObserver } from 'usehooks-ts';
 import './style.scss';
 
 const initialLoadingArray = Array(pictures.length).fill(true);
+
+type PictureWrapperProps = {
+  animationStyle: object;
+  onVisible: (pictureId: string) => void;
+  picture: (typeof pictures)[number];
+  pictureStyle: object;
+  stopLoading: () => void;
+};
+
+const PictureWrapper: React.FC<PictureWrapperProps> = ({
+  animationStyle,
+  onVisible,
+  picture,
+  pictureStyle,
+  stopLoading,
+}) => {
+  const { ref } = useIntersectionObserver({
+    threshold: 0.5,
+    onChange: isIntersecting => {
+      if (isIntersecting) {
+        onVisible(picture.id);
+      }
+    },
+  });
+
+  return (
+    <animated.div
+      id={picture.id}
+      className='galos__picture-wrapper'
+      ref={ref}
+      style={animationStyle}
+    >
+      <NavLink
+        className='galos__picture-link'
+        to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.PICTURE}/${encodeURIComponent(
+          picture.id
+        )}?from=${encodeURIComponent(`${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}#${picture.id}`)}`}
+      >
+        <img
+          style={pictureStyle}
+          className='galos__picture'
+          src={picture.preview}
+          alt={picture.name}
+          onLoad={stopLoading}
+          onError={stopLoading}
+        />
+      </NavLink>
+    </animated.div>
+  );
+};
 
 const Galos: React.FC = () => {
   const navigate = useNavigate();
@@ -104,6 +154,12 @@ const Galos: React.FC = () => {
   const pictureWrapperElements = useMemo(
     () =>
       pictures.map((picture, index) => {
+        const onVisible = (pictureId: string) => {
+          setName(picture.name);
+          setAuthorAndYear(picture.authorAndYear);
+          navigate({ hash: `#${pictureId}` });
+        };
+
         const stopLoading = () =>
           setLoadingArray(loadingArray => {
             let clonedLoadingArray = [...loadingArray];
@@ -112,44 +168,14 @@ const Galos: React.FC = () => {
           });
 
         return (
-          <InView
+          <PictureWrapper
             key={`picture-${index}`}
-            threshold={0.5}
-            onChange={(_, entry) => {
-              if (entry.isIntersecting) {
-                setName(picture.name);
-                setAuthorAndYear(picture.authorAndYear);
-                navigate({ hash: `#${entry.target.id}` });
-              }
-            }}
-          >
-            {({ ref }) => (
-              <animated.div
-                id={picture.id}
-                className='galos__picture-wrapper'
-                ref={ref}
-                style={animationStyle}
-              >
-                <NavLink
-                  className='galos__picture-link'
-                  to={`${ROUTES.REVIVED_PAINTINGS}${ROUTES.PICTURE}/${encodeURIComponent(
-                    picture.id
-                  )}?from=${ROUTES.REVIVED_PAINTINGS}${ROUTES.GALOS}%23${encodeURIComponent(
-                    picture.id
-                  )}`}
-                >
-                  <img
-                    style={pictureStyle}
-                    className='galos__picture'
-                    src={picture.preview}
-                    alt={picture.name}
-                    onLoad={stopLoading}
-                    onError={stopLoading}
-                  />
-                </NavLink>
-              </animated.div>
-            )}
-          </InView>
+            animationStyle={animationStyle}
+            onVisible={onVisible}
+            picture={picture}
+            pictureStyle={pictureStyle}
+            stopLoading={stopLoading}
+          />
         );
       }),
     [navigate, pictureStyle, animationStyle]
