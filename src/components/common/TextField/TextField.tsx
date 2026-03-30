@@ -1,7 +1,7 @@
-import './style.scss';
-
 import cn from 'classnames';
 import type { ChangeEventHandler, FocusEventHandler } from 'react';
+
+import styles from './style.module.css';
 
 type Type = 'text' | 'email' | 'password';
 
@@ -41,10 +41,7 @@ function TextField(props: Props) {
       onChange={onChange}
       onBlur={onBlur}
       id={id}
-      className={cn('text-field', {
-        'text-field_error': error,
-        [className]: className.length > 0,
-      })}
+      className={cn(styles['textField'], error ? styles['error'] : null, className)}
       placeholder={placeholder}
       value={value}
       name={name}

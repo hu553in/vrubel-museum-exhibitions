@@ -1,5 +1,3 @@
-import './style.scss';
-
 import cn from 'classnames';
 import { lazy, Suspense, useRef, useState } from 'react';
 import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -22,6 +20,8 @@ import {
   getPictureCapabilities,
   type VideoSource,
 } from '@/utils/pictureScene';
+
+import styles from './style.module.css';
 
 const videoCallbackRef = (node: HTMLVideoElement | null) => node?.focus();
 const Dialog = lazy(async () => import('@/components/common/Dialog/Dialog'));
@@ -109,7 +109,7 @@ function Picture() {
       <button
         type='button'
         aria-label={`Открыть видеофрагмент «${imageHotspot.name}»`}
-        className='picture__image-hotspot-button'
+        className={styles['imageHotspotButton']}
         onClick={() => {
           setPlayingImageHotspotVideoSources(imageHotspot.videoSources);
         }}
@@ -130,13 +130,13 @@ function Picture() {
   }
 
   return (
-    <main className='picture' ref={setPictureStateRef}>
-      <header className='picture__header'>
-        <NavLink to={ROUTES.DEFAULT} className='picture__homepage-link'>
-          <img className='picture__logo' src={logo} alt='Логотип музея' />
+    <main className={styles['picture']} ref={setPictureStateRef}>
+      <header className={styles['header']}>
+        <NavLink to={ROUTES.DEFAULT} className='brandLink'>
+          <img className={cn('brandLogo', styles['logo'])} src={logo} alt='Логотип музея' />
         </NavLink>
         {hasDynamicButtons && (
-          <section className='picture__dynamic-buttons'>
+          <section className={styles['dynamicButtons']}>
             {animatedVariations?.map((item, index) => {
               const playingAnimatedVariation = activeAnimatedVariation?.name === item.name;
 
@@ -146,9 +146,10 @@ function Picture() {
                   type='button'
                   aria-label={`Показать анимацию «${item.name}»`}
                   aria-pressed={playingAnimatedVariation}
-                  className={cn('picture__animated-variation-button', {
-                    'picture__animated-variation-button_active': playingAnimatedVariation,
-                  })}
+                  className={cn(
+                    styles['animatedVariationButton'],
+                    playingAnimatedVariation ? styles['animatedVariationButtonActive'] : null
+                  )}
                   style={createBackgroundImageStyle(item.icon)}
                   onClick={() => {
                     if (!playingAnimatedVariation) {
@@ -167,7 +168,7 @@ function Picture() {
                   type='button'
                   aria-label={`${playingSound ? 'Остановить' : 'Включить'} аудиофрагмент «${item.name}»`}
                   aria-pressed={playingSound}
-                  className='picture__sound-button'
+                  className={styles['soundButton']}
                   style={createBackgroundImageStyle(playingSound ? pause : item.icon)}
                   onClick={() => {
                     toggleSound(index);
@@ -177,13 +178,13 @@ function Picture() {
             })}
           </section>
         )}
-        <section className='picture__control-buttons'>
+        <section className={styles['controlButtons']}>
           <button
             type='button'
             aria-label='Открыть информацию о картине'
             aria-haspopup='dialog'
             aria-expanded={infoPanelOpen}
-            className='picture__control-button picture__control-button_info'
+            className={cn(styles['controlButton'], styles['controlButtonInfo'])}
             onClick={() => {
               setInfoPanelOpen(true);
             }}
@@ -191,7 +192,7 @@ function Picture() {
           <button
             type='button'
             aria-label='Вернуться на предыдущую страницу'
-            className='picture__control-button picture__control-button_return'
+            className={cn(styles['controlButton'], styles['controlButtonReturn'])}
             onClick={onReturnClick}
           />
         </section>
@@ -220,15 +221,15 @@ function Picture() {
               setPlayingImageHotspotVideoSources(undefined);
             }}
             container={rootElement}
-            panelClassName='picture__image-hotspot-video-panel'
-            overlayClassName='picture__image-hotspot-video-overlay'
+            panelClassName={styles['imageHotspotVideoPanel'] ?? ''}
+            overlayClassName={styles['imageHotspotVideoOverlay'] ?? ''}
             initialFocusRef={imageHotspotVideoCloseButtonRef}
           >
             <button
               type='button'
               ref={imageHotspotVideoCloseButtonRef}
               aria-label='Закрыть диалог с видеофрагментом'
-              className='picture__image-hotspot-video-close-button'
+              className={styles['imageHotspotVideoCloseButton']}
               onClick={() => {
                 setPlayingImageHotspotVideoSources(undefined);
               }}

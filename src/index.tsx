@@ -1,5 +1,5 @@
 import 'normalize.css';
-import './style.scss';
+import './style.css';
 
 import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';

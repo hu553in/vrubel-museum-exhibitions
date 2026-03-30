@@ -14,7 +14,7 @@ pre-commit:
       stage_fixed: true
 
     - name: stylelint
-      glob: '**/*.{css,sass,scss}'
+      glob: '**/*.css'
       run: pnpm exec stylelint --max-warnings=0 --fix {staged_files}
       stage_fixed: true
 
@@ -35,7 +35,7 @@ check:
       run: pnpm exec eslint . --max-warnings=0
 
     - name: stylelint
-      run: pnpm exec stylelint "**/*.{css,sass,scss}" --max-warnings=0
+      run: pnpm exec stylelint "**/*.css" --max-warnings=0
 
     - name: svg-check
       run: bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -n 1 xmllint --noout'
@@ -55,7 +55,7 @@ check-fix:
       run: pnpm exec eslint . --max-warnings=0 --fix
 
     - name: stylelint
-      run: pnpm exec stylelint "**/*.{css,sass,scss}" --max-warnings=0 --fix
+      run: pnpm exec stylelint "**/*.css" --max-warnings=0 --fix
 
     - name: svg-format
       run: bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -I {} xmllint --format "{}" -o "{}"'

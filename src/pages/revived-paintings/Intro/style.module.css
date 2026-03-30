@@ -8,7 +8,7 @@
   position: relative;
 }
 
-.intro__controls {
+.controls {
   position: absolute;
   bottom: 32px;
   left: 50%;
@@ -20,7 +20,7 @@
   z-index: 1;
 }
 
-.intro__hint {
+.hint {
   margin: 0;
   color: #d2d2d2;
   font-family: Montserrat, sans-serif;
@@ -29,7 +29,7 @@
   text-shadow: 0 1px 3px rgb(0 0 0 / 80%);
 }
 
-.intro__skip-button {
+.skipButton {
   border: 1px solid #fff;
   border-radius: 999px;
   padding: 10px 18px;
@@ -39,13 +39,13 @@
   font-size: 14px;
   cursor: pointer;
 
-  @media (hover: hover) {
-    &:hover {
-      background: rgb(255 255 255 / 12%);
-    }
-  }
-
   @media (width <= 600px) {
     width: max-content;
+  }
+}
+
+@media (hover: hover) {
+  .skipButton:hover {
+    background: rgb(255 255 255 / 12%);
   }
 }

@@ -1,4 +1,4 @@
-.main-title {
+.mainTitle {
   width: calc(100% - 80px);
   position: absolute;
   display: flex;
@@ -9,8 +9,8 @@
   padding-right: 40px;
 }
 
-.main-title__first-line,
-.main-title__second-line {
+.firstLine,
+.secondLine {
   color: #fff;
   font-family: Lighthaus, sans-serif;
   text-align: center;
@@ -18,13 +18,13 @@
   background-color: #000;
 }
 
-.main-title__first-line {
+.firstLine {
   font-size: max(13.95vmin, 50.2px);
   padding-left: max(5vmin, 18px);
   padding-right: max(5vmin, 18px);
 }
 
-.main-title__second-line {
+.secondLine {
   margin-top: max(6.5vmin, 23.4px);
   line-height: max(6.5vmin, 23.4px);
   font-size: max(4.58vmin, 16.5px);

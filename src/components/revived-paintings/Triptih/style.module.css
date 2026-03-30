@@ -4,25 +4,25 @@
   justify-content: center;
 }
 
-.triptih__left,
-.triptih__middle,
-.triptih__right {
+.left,
+.middle,
+.right {
   opacity: 0.35;
 }
 
-.triptih__left,
-.triptih__right {
+.left,
+.right {
   width: max(26vmin, 93.6px);
 }
 
-.triptih__middle {
+.middle {
   width: max(30.59vmin, 110.1px);
 }
 
-.triptih__left {
+.left {
   margin-right: max(4.34vmin, 15.6px);
 }
 
-.triptih__right {
+.right {
   margin-left: max(4.34vmin, 15.6px);
 }

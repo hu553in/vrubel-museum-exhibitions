@@ -1,0 +1,22 @@
+.body {
+  width: 80%;
+  margin-bottom: 50px;
+}
+
+.bodyParagraph {
+  margin: 0 0 20px;
+  color: #d2d2d2;
+  font-size: 20px;
+  line-height: 29px;
+}
+
+@media (width <= 1250px) {
+  .bodyParagraph {
+    font-size: 16px;
+    line-height: 25px;
+  }
+}
+
+.bodyParagraph:last-child {
+  margin-bottom: 0;
+}

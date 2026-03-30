@@ -11,26 +11,7 @@
   }
 }
 
-.header__homepage-link {
-  margin-left: 45px;
-  font-size: 0;
-
-  @media (width <= 1250px) {
-    margin-left: 40px;
-  }
-}
-
-.header__logo {
-  width: 60px;
-  height: 60px;
-
-  @media (width <= 1250px) {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-.header__menu-button {
+.menuButton {
   margin-right: 45px;
   cursor: pointer;
   border: 0;
@@ -42,16 +23,16 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  &:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 4px;
-    border-radius: 6px;
-  }
-
   @media (width <= 1250px) {
     margin-right: 40px;
     width: 23.5px;
     height: 23.5px;
     background-size: 23.5px 23.5px;
   }
+}
+
+.menuButton:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 6px;
 }

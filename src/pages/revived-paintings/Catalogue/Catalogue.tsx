@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { NavLink } from 'react-router-dom';
 
 import pictures from '@/assets/revived-paintings/pictures';
@@ -7,30 +5,32 @@ import Loading from '@/components/common/Loading/Loading';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
 import { buildPictureRoute } from '@/utils/pictureRoutes';
 
+import styles from './style.module.css';
+
 function Catalogue() {
   const { loading, getImageLoadHandlers } = useImageLoadingState(pictures.length);
 
   return (
-    <main className='catalogue'>
+    <main className='pageMain'>
       {loading && <Loading />}
-      <p className='catalogue__title'>«Ожившие картины»</p>
-      <section className='catalogue__body'>
+      <p className='pageTitle'>«Ожившие картины»</p>
+      <section className={styles['body']}>
         {pictures.map((picture, index) => {
           return (
             <NavLink
-              className='catalogue__picture-link'
+              className={styles['pictureLink'] ?? ''}
               key={picture.id}
               to={buildPictureRoute(picture.id, '/revived-paintings/catalogue')}
             >
               <img
-                className='catalogue__picture'
+                className={styles['picture']}
                 src={picture.preview}
                 alt={picture.name}
                 {...getImageLoadHandlers(index)}
               />
-              <p className='catalogue__picture-info'>
-                <span className='catalogue__picture-name'>{picture.name}</span>
-                <span className='catalogue__picture-author-and-year'>{picture.authorAndYear}</span>
+              <p className={styles['pictureInfo']}>
+                <span className={styles['pictureName']}>{picture.name}</span>
+                <span className={styles['pictureAuthorAndYear']}>{picture.authorAndYear}</span>
               </p>
             </NavLink>
           );

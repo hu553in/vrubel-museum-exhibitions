@@ -1,8 +1,8 @@
-import './style.scss';
-
 import type { ReactNode } from 'react';
 
 import { createImageHotspotStyle } from '@/utils/imageHotspot';
+
+import styles from './style.module.css';
 
 export interface Props {
   x: number;
@@ -14,7 +14,7 @@ function ImageHotspot(props: Props) {
   const { x, y, content } = props;
 
   return (
-    <div className='image-hotspot' style={createImageHotspotStyle(x, y)}>
+    <div className={styles['imageHotspot']} style={createImageHotspotStyle(x, y)}>
       {content}
     </div>
   );

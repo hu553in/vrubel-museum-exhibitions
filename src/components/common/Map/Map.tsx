@@ -1,6 +1,6 @@
-import './style.scss';
-
 import cn from 'classnames';
+
+import styles from './style.module.css';
 
 interface Props {
   wrapperClassName?: string;
@@ -12,18 +12,12 @@ function Map(props: Props) {
   const { className = '', wrapperClassName = '', src } = props;
 
   return (
-    <div
-      className={cn('map-wrapper', {
-        [wrapperClassName]: wrapperClassName.length > 0,
-      })}
-    >
+    <div className={cn(styles['mapWrapper'], wrapperClassName)}>
       <iframe
         title='Интерактивная карта музея'
         src={src}
         loading='lazy'
-        className={cn('map', {
-          [className]: className.length > 0,
-        })}
+        className={cn(styles['map'], className)}
         style={{ border: 0 }}
       />
     </div>

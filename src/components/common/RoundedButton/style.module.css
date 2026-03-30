@@ -1,4 +1,4 @@
-.rounded-button {
+.roundedButton {
   width: 285px;
   height: 64px;
   display: inline-flex;
@@ -17,26 +17,6 @@
   text-decoration: none;
   padding: 0;
 
-  @media (hover: hover) {
-    &:not(:disabled):hover {
-      color: #fff;
-      box-shadow: inset 0 0 0 1px #fff;
-    }
-  }
-
-  &:disabled {
-    border-color: #8f8f8f;
-    color: #b8b8b8;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-
-  &:not(:disabled):focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 4px;
-    border-color: #fff;
-  }
-
   @media (width <= 1250px) {
     width: 230px;
     height: 51.65px;
@@ -44,4 +24,24 @@
     background-size: 230px 51.65px;
     font-size: 25px;
   }
+}
+
+@media (hover: hover) {
+  .roundedButton:not(:disabled):hover {
+    color: #fff;
+    box-shadow: inset 0 0 0 1px #fff;
+  }
+}
+
+.roundedButton:disabled {
+  border-color: #8f8f8f;
+  color: #b8b8b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.roundedButton:not(:disabled):focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-color: #fff;
 }

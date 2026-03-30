@@ -1,5 +1,3 @@
-import './style.scss';
-
 import type { CSSProperties } from 'react';
 import { useState } from 'react';
 
@@ -7,6 +5,8 @@ import type { Props as ImageHotspotProps } from '@/components/common/ImageHotspo
 import ImageHotspot from '@/components/common/ImageHotspot/ImageHotspot';
 import useFittedImageSize from '@/hooks/useFittedImageSize';
 import { getImageHotspotKey } from '@/utils/imageHotspot';
+
+import styles from './style.module.css';
 
 interface Props {
   parentElement: HTMLElement | null;
@@ -31,7 +31,7 @@ function ImageHotspots(props: Props) {
   );
 
   return (
-    <div className='image-hotspots' style={rootAndImageStyle}>
+    <div className={styles['imageHotspots']} style={rootAndImageStyle}>
       <img ref={setImageStateRef} src={src} alt={alt} style={rootAndImageStyle} />
       {imageHotspots.map((hotspot, index) => (
         <ImageHotspot key={getImageHotspotKey(hotspot.x, hotspot.y, index)} {...hotspot} />

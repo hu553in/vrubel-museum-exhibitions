@@ -1,0 +1,39 @@
+.fullSizeVideo {
+  width: 100%;
+}
+
+.errorMessage {
+  width: 100%;
+  max-width: 330px;
+  min-width: 200px;
+  text-align: center;
+  color: #fff;
+  line-height: 24px;
+}
+
+.videoLink {
+  text-decoration: none;
+  color: #fff;
+  position: relative;
+  line-height: 30px;
+}
+
+.videoLink::after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #fff;
+}
+
+@media (hover: hover) {
+  .videoLink:hover {
+    color: #d2d2d2;
+  }
+
+  .videoLink:hover::after {
+    border-bottom-color: #d2d2d2;
+  }
+}

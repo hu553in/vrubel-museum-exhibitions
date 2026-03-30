@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { animated, SpringValue } from '@react-spring/web';
 import cn from 'classnames';
 import type { CSSProperties } from 'react';
@@ -10,6 +8,8 @@ import logo from '@/assets/common/icons/museum-mark.svg';
 import Loading from '@/components/common/Loading/Loading';
 import { ROUTES } from '@/constants';
 import { revivedPaintingsNavLinks } from '@/data/revivedPaintingsNavLinks';
+
+import styles from './style.module.css';
 
 const SideMenu = lazy(async () => import('@/components/common/SideMenu/SideMenu'));
 
@@ -27,21 +27,16 @@ function Header(props: Props) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <animated.header
-      style={style}
-      className={cn('header', {
-        [className]: className.length > 0,
-      })}
-    >
-      <NavLink to={ROUTES.DEFAULT} className='header__homepage-link'>
-        <img className='header__logo' src={logo} alt='Логотип музея' />
+    <animated.header style={style} className={cn(styles['header'], className)}>
+      <NavLink to={ROUTES.DEFAULT} className='brandLink'>
+        <img className='brandLogo' src={logo} alt='Логотип музея' />
       </NavLink>
       <button
         type='button'
         aria-label='Открыть навигационное меню'
         aria-haspopup='dialog'
         aria-expanded={menuOpen}
-        className='header__menu-button'
+        className={styles['menuButton']}
         onClick={() => {
           setMenuOpen(true);
         }}

@@ -1,5 +1,3 @@
-import './style.scss';
-
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { useWindowSize } from 'usehooks-ts';
@@ -11,35 +9,35 @@ import useImageLoadingState from '@/hooks/useImageLoadingState';
 
 import first from './assets/images/first.webp';
 import second from './assets/images/second.webp';
+import styles from './style.module.css';
 
 function Main() {
   const { width, height } = useWindowSize();
   const { loading, getImageLoadHandlers } = useImageLoadingState(2);
 
   return (
-    <main
-      className={cn('main', {
-        main_portrait: width <= height,
-      })}
-    >
+    <main className={cn(styles['main'], width <= height ? styles['portrait'] : null)}>
       {loading && <Loading />}
       <img
-        className='main__background'
+        className={styles['mainBackground']}
         src={first}
         alt='Первая часть фона'
         {...getImageLoadHandlers(0)}
       />
       <img
-        className='main__background'
+        className={styles['mainBackground']}
         src={second}
         alt='Вторая часть фона'
         {...getImageLoadHandlers(1)}
       />
       <Title />
-      <NavLink className='main__link main__link_first' to={ROUTES.REVIVED_PAINTINGS}>
+      <NavLink
+        className={cn(styles['mainLink'], styles['linkFirst'])}
+        to={ROUTES.REVIVED_PAINTINGS}
+      >
         «Ожившие картины»
       </NavLink>
-      <span className='main__link main__link_second'>Гостевые выставки</span>
+      <span className={cn(styles['mainLink'], styles['linkSecond'])}>Гостевые выставки</span>
     </main>
   );
 }

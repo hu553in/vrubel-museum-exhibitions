@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { Navigate } from 'react-router-dom';
 import { useEventListener } from 'usehooks-ts';
 
@@ -11,6 +9,7 @@ import useIntroFlow from '@/hooks/useIntroFlow';
 
 import triptihMp4 from './assets/videos/triptih.mp4';
 import triptihWebm from './assets/videos/triptih.webm';
+import styles from './style.module.css';
 
 const triptihVideoSources = [
   {
@@ -41,13 +40,13 @@ function Intro() {
   }
 
   return (
-    <main className='intro'>
+    <main className={styles['intro']}>
       {shouldShowTriptihVideo ? (
         <>
           <FullSizeVideo sources={triptihVideoSources} onEnded={onVideoEnded} />
-          <div className='intro__controls'>
-            <p className='intro__hint'>Нажмите пробел для пропуска</p>
-            <button type='button' className='intro__skip-button' onClick={onVideoEnded}>
+          <div className={styles['controls']}>
+            <p className={styles['hint']}>Нажмите пробел для пропуска</p>
+            <button type='button' className={styles['skipButton']} onClick={onVideoEnded}>
               Пропустить
             </button>
           </div>

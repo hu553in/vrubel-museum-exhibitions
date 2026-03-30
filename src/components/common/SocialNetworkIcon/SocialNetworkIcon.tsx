@@ -1,5 +1,3 @@
-import './style.scss';
-
 import cn from 'classnames';
 
 import facebookIcon from '@/assets/common/icons/social/facebook.svg';
@@ -9,6 +7,8 @@ import okIcon from '@/assets/common/icons/social/ok.svg';
 import tiktokIcon from '@/assets/common/icons/social/tiktok.svg';
 import vkIcon from '@/assets/common/icons/social/vk.svg';
 import youtubeIcon from '@/assets/common/icons/social/youtube.svg';
+
+import styles from './style.module.css';
 
 export enum SocialNetwork {
   FACEBOOK = 'facebook',
@@ -60,7 +60,9 @@ function SocialNetworkIcon(props: Props) {
   const { className = '', socialNetwork } = props;
   const icon = socialNetworkIcons[socialNetwork];
 
-  return <img src={icon.src} alt={icon.alt} className={cn('social-network-icon', className)} />;
+  return (
+    <img src={icon.src} alt={icon.alt} className={cn(styles['socialNetworkIcon'], className)} />
+  );
 }
 
 export default SocialNetworkIcon;

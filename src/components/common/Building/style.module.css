@@ -4,11 +4,11 @@
   grid-template-rows: repeat(3, max-content);
 }
 
-.building__logo {
+.logo {
   margin: 0 auto;
 }
 
-.building__name {
+.name {
   margin: 30px 0 0;
   color: #fff;
   font-family: Lighthaus, sans-serif;
@@ -20,12 +20,12 @@
   }
 }
 
-.building__address-label,
-.building__bus-stops-label,
-.building__contacts-label,
-.building__address,
-.building__bus-stop,
-.building__contact {
+.addressLabel,
+.busStopsLabel,
+.contactsLabel,
+.address,
+.busStop,
+.contact {
   color: #fff;
   font-size: 20px;
   text-align: center;
@@ -34,15 +34,15 @@
   margin-bottom: 0;
 }
 
-.building__address,
-.building__bus-stop,
-.building__contact {
+.address,
+.busStop,
+.contact {
   margin-top: 6px;
 }
 
-.building__address-label,
-.building__bus-stops-label,
-.building__contacts-label {
+.addressLabel,
+.busStopsLabel,
+.contactsLabel {
   margin-top: 30px;
   font-weight: 700;
 }

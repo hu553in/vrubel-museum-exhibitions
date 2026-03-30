@@ -7,7 +7,7 @@
   width: fit-content;
 }
 
-.checkbox__input {
+.input {
   position: absolute;
   opacity: 0;
   inset: 0;
@@ -15,25 +15,25 @@
   cursor: pointer;
 }
 
-.checkbox__inner-element {
+.innerElement {
   display: inline-block;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: #000;
   border: 1px solid #fff;
-
-  &_checked {
-    background-color: #fff;
-  }
 }
 
-.checkbox__input:focus-visible + .checkbox__inner-element {
+.checked {
+  background-color: #fff;
+}
+
+.input:focus-visible + .innerElement {
   outline: 2px solid #fff;
   outline-offset: 4px;
 }
 
-.checkbox__label {
+.label {
   font-family: Montserrat, sans-serif;
   color: #f2f2f2;
 }

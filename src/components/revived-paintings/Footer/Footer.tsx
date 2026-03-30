@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { NavLink } from 'react-router-dom';
 
 import Loading from '@/components/common/Loading/Loading';
@@ -9,28 +7,33 @@ import { revivedPaintingsNavLinks } from '@/data/revivedPaintingsNavLinks';
 import useMediaLoadState from '@/hooks/useMediaLoadState';
 
 import logo from './assets/images/logo.svg';
+import styles from './style.module.css';
 
 function Footer() {
   const { loading, handleLoad, handleError } = useMediaLoadState(logo);
 
   return (
-    <footer className='footer'>
+    <footer className={styles['footer']}>
       {loading && <Loading />}
-      <a className='footer__logo' href='https://vrubel.ru' aria-label='Официальный сайт музея'>
+      <a className={styles['logo']} href='https://vrubel.ru' aria-label='Официальный сайт музея'>
         <img src={logo} alt='Логотип музея' onLoad={handleLoad} onError={handleError} />
       </a>
-      <nav className='footer__nav-bar'>
+      <nav className={styles['navBar']}>
         {revivedPaintingsNavLinks.map(navBarLink => (
-          <NavLink key={navBarLink.route} className='footer__nav-bar-link' to={navBarLink.route}>
+          <NavLink
+            key={navBarLink.route}
+            className={styles['navBarLink'] ?? ''}
+            to={navBarLink.route}
+          >
             {navBarLink.label}
           </NavLink>
         ))}
       </nav>
-      <nav className='footer__social-links'>
+      <nav className={styles['socialLinks']}>
         {footerSocialLinks.map(socialLink => (
           <a
             key={socialLink.href}
-            className='footer__social-link'
+            className={styles['socialLink']}
             href={socialLink.href}
             aria-label={socialLink.ariaLabel}
           >
@@ -38,16 +41,16 @@ function Footer() {
           </a>
         ))}
       </nav>
-      <div className='footer__copyright'>
-        <span className='footer__copyright-text'>
+      <div className={styles['copyright']}>
+        <span className={styles['copyrightText']}>
           © Омский областной музей изобразительных искусств имени М. А. Врубеля
         </span>
-        <a className='footer__copyright-link' href='https://vrubel.ru'>
+        <a className={styles['copyrightLink']} href='https://vrubel.ru'>
           vrubel.ru
         </a>
       </div>
       <a
-        className='footer__personal-data-processing-policy-link'
+        className={styles['personalDataProcessingPolicyLink']}
         href={`${import.meta.env.BASE_URL}personal_data_processing_policy.pdf`}
       >
         Политика обработки персональных данных

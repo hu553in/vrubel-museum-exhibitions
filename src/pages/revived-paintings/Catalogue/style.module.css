@@ -1,28 +1,4 @@
-.catalogue {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.catalogue__title {
-  font-family: Lighthaus, sans-serif;
-  font-size: 70px;
-  color: #fff;
-  margin: 30px 0 50px;
-  text-align: center;
-
-  @media (width <= 1250px) {
-    font-size: 50px;
-  }
-
-  @media (width <= 400px) {
-    font-size: 45px;
-  }
-}
-
-.catalogue__body {
+.body {
   display: grid;
   grid-template-columns: repeat(3, 25vw);
   gap: max(1.5vw, 5.4px);
@@ -34,7 +10,7 @@
   }
 }
 
-.catalogue__picture-link {
+.pictureLink {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -49,22 +25,16 @@
     width: max(75vw, 270px);
     height: max(60vw, 216px);
   }
-
-  @media (hover: hover) {
-    &:hover .catalogue__picture {
-      filter: opacity(0.7);
-    }
-  }
 }
 
-.catalogue__picture {
+.picture {
   position: absolute;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.catalogue__picture-info {
+.pictureInfo {
   display: grid;
   grid-template-rows: repeat(2, minmax(0, max-content));
   grid-template-columns: 1fr;
@@ -84,15 +54,9 @@
     visibility: visible;
     background-color: rgb(0 0 0 / 70%);
   }
-
-  @media (hover: hover) {
-    .catalogue__picture-link:hover & {
-      visibility: visible;
-    }
-  }
 }
 
-.catalogue__picture-name {
+.pictureName {
   margin-top: 10px;
   font-size: 1.7vw;
   line-height: 2.55vw;
@@ -103,7 +67,7 @@
   }
 }
 
-.catalogue__picture-author-and-year {
+.pictureAuthorAndYear {
   font-size: 1.2vw;
   line-height: 1.8vw;
   margin-bottom: 10px;
@@ -111,5 +75,15 @@
   @media (width <= 1250px) {
     font-size: max(4.5vw, 16.2px);
     line-height: max(6.75vw, 24.3px);
+  }
+}
+
+@media (hover: hover) {
+  .pictureLink:hover .picture {
+    filter: opacity(0.7);
+  }
+
+  .pictureLink:hover .pictureInfo {
+    visibility: visible;
   }
 }

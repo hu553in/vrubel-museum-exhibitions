@@ -1,9 +1,9 @@
-import './style.scss';
-
 import cn from 'classnames';
 
 import Dialog from '@/components/common/Dialog/Dialog';
 import useDialogAccessibility from '@/hooks/useDialogAccessibility';
+
+import styles from './style.module.css';
 
 interface Props {
   open: boolean;
@@ -23,28 +23,26 @@ function SideInfoPanel(props: Props) {
       open={open}
       onClose={onClose}
       container={parentElement}
-      panelClassName={cn('side-info-panel', {
-        'side-info-panel_open': open,
-      })}
-      overlayClassName='side-info-panel-overlay'
+      panelClassName={cn(styles['sideInfoPanel'], open ? styles['open'] : null)}
+      overlayClassName={styles['overlay'] ?? ''}
       labelledBy={headerId}
       {...(subheaderId ? { describedBy: subheaderId } : {})}
     >
-      <p className='side-info-panel__header' id={headerId}>
+      <p className={styles['header']} id={headerId}>
         {header}
       </p>
-      <p className='side-info-panel__subheader' id={subheaderId}>
+      <p className={styles['subheader']} id={subheaderId}>
         {subheader}
       </p>
       {paragraphs.map(paragraph => (
-        <p className='side-info-panel__paragraph' key={paragraph}>
+        <p className={styles['paragraph']} key={paragraph}>
           {paragraph}
         </p>
       ))}
       <button
         type='button'
         aria-label='Закрыть панель с информацией о картине'
-        className='side-info-panel__collapse-button'
+        className={styles['collapseButton']}
         onClick={onClose}
       />
     </Dialog>

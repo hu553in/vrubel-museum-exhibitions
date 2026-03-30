@@ -1,5 +1,3 @@
-import './style.scss';
-
 import Checkbox from '@/components/common/Checkbox/Checkbox';
 import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
 import SocialNetworkIcon, {
@@ -9,6 +7,7 @@ import TextField from '@/components/common/TextField/TextField';
 import useAccountForm from '@/hooks/useAccountForm';
 
 import signIn from './assets/images/sign-in.webp';
+import styles from './style.module.css';
 
 function Account() {
   const {
@@ -27,26 +26,33 @@ function Account() {
   } = useAccountForm();
 
   return (
-    <main className='account'>
-      <p className='account__title'>Аккаунт</p>
-      <section className='account__social-sign-in'>
-        <p className='account__social-sign-in-label'>
-          Войти, используя аккаунты в социальных сетях:
-        </p>
-        <section className='account__social-sign-in-links'>
-          <span className='account__social-sign-in-link'>
-            <SocialNetworkIcon socialNetwork={SocialNetwork.FACEBOOK} />
+    <main className={styles['account']}>
+      <p className={styles['title']}>Аккаунт</p>
+      <section>
+        <p className={styles['socialSignInLabel']}>Войти, используя аккаунты в социальных сетях:</p>
+        <section className={styles['socialSignInLinks']}>
+          <span className={styles['socialSignInLink']}>
+            <SocialNetworkIcon
+              socialNetwork={SocialNetwork.FACEBOOK}
+              className={styles['socialSignInIcon'] ?? ''}
+            />
           </span>
-          <span className='account__social-sign-in-link'>
-            <SocialNetworkIcon socialNetwork={SocialNetwork.GOOGLE_PLUS} />
+          <span className={styles['socialSignInLink']}>
+            <SocialNetworkIcon
+              socialNetwork={SocialNetwork.GOOGLE_PLUS}
+              className={styles['socialSignInIcon'] ?? ''}
+            />
           </span>
-          <span className='account__social-sign-in-link'>
-            <SocialNetworkIcon socialNetwork={SocialNetwork.VK} />
+          <span className={styles['socialSignInLink']}>
+            <SocialNetworkIcon
+              socialNetwork={SocialNetwork.VK}
+              className={styles['socialSignInIcon'] ?? ''}
+            />
           </span>
         </section>
       </section>
-      <form className='account__sign-in-form'>
-        <label className='account__field-label' htmlFor='account-email'>
+      <form className={styles['signInForm']}>
+        <label className='srOnly' htmlFor='account-email'>
           Email
         </label>
         <TextField
@@ -61,13 +67,13 @@ function Account() {
           onBlur={validateEmail}
           error={emailError}
         />
-        <div className='account__sign-in-password-field-wrapper'>
-          <label className='account__field-label' htmlFor='account-password'>
+        <div className={styles['signInPasswordFieldWrapper']}>
+          <label className='srOnly' htmlFor='account-password'>
             Пароль
           </label>
           <TextField
             id='account-password'
-            className='account__sign-in-password-text-field'
+            className={styles['signInPasswordTextField'] ?? ''}
             type={passwordShown ? 'text' : 'password'}
             placeholder='Пароль'
             name='password'
@@ -80,7 +86,7 @@ function Account() {
           />
           <button
             type='button'
-            className='account__sign-in-password-toggle'
+            className={styles['signInPasswordToggle']}
             aria-label={passwordShown ? 'Скрыть пароль' : 'Показать пароль'}
             aria-pressed={passwordShown}
             onClick={togglePasswordShown}
@@ -91,18 +97,18 @@ function Account() {
         <Checkbox
           toggle={toggleRememberMe}
           value={rememberMe}
-          className='account__sign-in-remember-me-checkbox'
+          className={styles['signInRememberMeCheckbox'] ?? ''}
           label='Запомнить меня'
         />
       </form>
-      <section className='account__sign-in-links'>
-        <span className='account__sign-in-link'>Забыли пароль?</span>
-        <span className='account__sign-in-link'>Регистрация</span>
+      <section className={styles['signInLinks']}>
+        <span className={styles['signInLink']}>Забыли пароль?</span>
+        <span className={styles['signInLink']}>Регистрация</span>
       </section>
       <RoundedButton
         backgroundImage={signIn}
         label='Войти'
-        className='account__sign-in-button'
+        className={styles['signInButton'] ?? ''}
         disabled
       />
     </main>

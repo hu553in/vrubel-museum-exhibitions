@@ -1,5 +1,3 @@
-import './style.scss';
-
 import cn from 'classnames';
 import { useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
@@ -7,6 +5,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import Dialog from '@/components/common/Dialog/Dialog';
 import useDialogAccessibility from '@/hooks/useDialogAccessibility';
 import { getSideMenuLinkKey, isSideMenuLinkActive } from '@/utils/sideMenuLinks';
+
+import styles from './style.module.css';
 
 interface Link {
   label: string;
@@ -30,21 +30,20 @@ function SideMenu(props: Props) {
     <Dialog
       open={open}
       onClose={onClose}
-      panelClassName={cn('side-menu', {
-        'side-menu_open': open,
-      })}
-      overlayClassName='side-menu-overlay'
+      panelClassName={cn(styles['sideMenu'], open ? styles['open'] : null)}
+      overlayClassName={styles['overlay'] ?? ''}
       labelledBy={titleId}
       initialFocusRef={closeButtonRef}
     >
-      <h2 className='side-menu__title' id={titleId}>
+      <h2 className='srOnly' id={titleId}>
         Навигационное меню
       </h2>
       {links.map(link => {
         const { label, route, external = false } = link;
-        const className = cn('side-menu__link', {
-          'side-menu__link_active': isSideMenuLinkActive(route, location.pathname, external),
-        });
+        const className = cn(
+          styles['link'],
+          isSideMenuLinkActive(route, location.pathname, external) ? styles['active'] : null
+        );
 
         return external ? (
           <a key={getSideMenuLinkKey(link)} className={className} href={route} onClick={onClose}>
@@ -65,7 +64,7 @@ function SideMenu(props: Props) {
         type='button'
         ref={closeButtonRef}
         aria-label='Закрыть навигационное меню'
-        className='side-menu__close-button'
+        className={styles['closeButton']}
         onClick={onClose}
       />
     </Dialog>

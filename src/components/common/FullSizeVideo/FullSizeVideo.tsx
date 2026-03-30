@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { type CSSProperties, type Ref, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 
@@ -7,6 +5,8 @@ import Loading from '@/components/common/Loading/Loading';
 import usePageVisibility from '@/hooks/usePageVisibility';
 import useVideoPlaybackState from '@/hooks/useVideoPlaybackState';
 import getAppRootElement from '@/utils/getAppRootElement';
+
+import styles from './style.module.css';
 
 interface Source {
   src: string;
@@ -60,12 +60,12 @@ function FullSizeVideo(props: Props) {
   }
 
   return error ? (
-    <p className='full-size-video__error-message'>
+    <p className={styles['errorMessage']}>
       Невозможно воспроизвести видео, но вы можете попробовать его скачать:
       {sources.map(source => (
         <span key={source.src}>
           <br />
-          <a href={source.src} className='full-size-video__video-link'>
+          <a href={source.src} className={styles['videoLink']}>
             {source.mimeTypeUserReadable}
           </a>
         </span>
@@ -75,7 +75,7 @@ function FullSizeVideo(props: Props) {
     <>
       {loading && <Loading />}
       <video
-        className='full-size-video'
+        className={styles['fullSizeVideo']}
         autoPlay={autoPlay}
         muted={autoPlay || muted}
         onEnded={onEnded}

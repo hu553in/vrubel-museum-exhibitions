@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { animated, useSpring } from '@react-spring/web';
 
 import Loading from '@/components/common/Loading/Loading';
@@ -8,6 +6,7 @@ import useImageLoadingState from '@/hooks/useImageLoadingState';
 import left from './assets/images/left.webp';
 import middle from './assets/images/middle.webp';
 import right from './assets/images/right.webp';
+import styles from './style.module.css';
 
 interface Props {
   open: boolean;
@@ -29,21 +28,21 @@ function Triptih(props: Props) {
   return (
     <>
       {loading && <Loading />}
-      <animated.div style={style} className='triptih'>
+      <animated.div style={style} className={styles['triptih']}>
         <img
-          className='triptih__left'
+          className={styles['left']}
           src={left}
           alt='Триптих — левая часть'
           {...getImageLoadHandlers(0)}
         />
         <img
-          className='triptih__middle'
+          className={styles['middle']}
           src={middle}
           alt='Триптих — средняя часть'
           {...getImageLoadHandlers(1)}
         />
         <img
-          className='triptih__right'
+          className={styles['right']}
           src={right}
           alt='Триптих — правая часть'
           {...getImageLoadHandlers(2)}

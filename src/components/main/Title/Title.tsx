@@ -1,10 +1,10 @@
-import './style.scss';
+import styles from './style.module.css';
 
 function Title() {
   return (
-    <div className='main-title'>
-      <p className='main-title__first-line'>Выставки</p>
-      <p className='main-title__second-line'>Музея им. М. А. Врубеля</p>
+    <div className={styles['mainTitle']}>
+      <p className={styles['firstLine']}>Выставки</p>
+      <p className={styles['secondLine']}>Музея им. М. А. Врубеля</p>
     </div>
   );
 }

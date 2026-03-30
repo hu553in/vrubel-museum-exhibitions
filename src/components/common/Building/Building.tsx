@@ -1,6 +1,6 @@
-import './style.scss';
-
 import cn from 'classnames';
+
+import styles from './style.module.css';
 
 export interface Props {
   logo: string;
@@ -26,31 +26,27 @@ function Building(props: Props) {
   } = props;
 
   return (
-    <div
-      className={cn('building', {
-        [className]: className.length > 0,
-      })}
-    >
+    <div className={cn(styles['building'], className)}>
       <img
-        className='building__logo'
+        className={styles['logo']}
         src={logo}
         alt='Логотип строения'
         onLoad={onLogoLoad}
         onError={onLogoError}
       />
-      <p className='building__name'>{name}</p>
+      <p className={styles['name']}>{name}</p>
       <div>
-        <p className='building__address-label'>Адрес:</p>
-        <p className='building__address'>{address}</p>
-        <p className='building__bus-stops-label'>Остановки:</p>
+        <p className={styles['addressLabel']}>Адрес:</p>
+        <p className={styles['address']}>{address}</p>
+        <p className={styles['busStopsLabel']}>Остановки:</p>
         {busStops.map(busStop => (
-          <p key={busStop} className='building__bus-stop'>
+          <p key={busStop} className={styles['busStop']}>
             {busStop}
           </p>
         ))}
-        <p className='building__contacts-label'>Контакты:</p>
+        <p className={styles['contactsLabel']}>Контакты:</p>
         {contacts.map(contact => (
-          <p key={contact} className='building__contact'>
+          <p key={contact} className={styles['contact']}>
             {contact}
           </p>
         ))}

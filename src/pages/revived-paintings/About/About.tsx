@@ -1,4 +1,4 @@
-import './style.scss';
+import styles from './style.module.css';
 
 const bodyParagraphs = [
   '«Ожившие картины» — выставка Омского областного музея изобразительных искусств им. М. А. Врубеля, созданная с использованием технологий интерактивной анимации. Она призвана вдохнуть жизнь в известные произведения искусства и раскрыть их с различных сторон.',
@@ -8,11 +8,11 @@ const bodyParagraphs = [
 
 function About() {
   return (
-    <main className='about'>
-      <p className='about__title'>О проекте</p>
-      <section className='about__body'>
+    <main className='pageMain'>
+      <p className='pageTitle'>О проекте</p>
+      <section className={styles['body']}>
         {bodyParagraphs.map(bodyParagraph => (
-          <p key={bodyParagraph} className='about__body-paragraph'>
+          <p key={bodyParagraph} className={styles['bodyParagraph']}>
             {bodyParagraph}
           </p>
         ))}

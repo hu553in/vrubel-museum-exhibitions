@@ -1,28 +1,4 @@
-.contacts {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.contacts__title {
-  font-family: Lighthaus, sans-serif;
-  font-size: 70px;
-  color: #fff;
-  margin: 30px 0 50px;
-  text-align: center;
-
-  @media (width <= 1250px) {
-    font-size: 50px;
-  }
-
-  @media (width <= 400px) {
-    font-size: 45px;
-  }
-}
-
-.contacts__buildings {
+.buildings {
   display: grid;
   grid-template-columns: repeat(3, minmax(330px, 450px));
   grid-template-rows: 1fr;
@@ -35,7 +11,7 @@
   }
 }
 
-.contacts__building_second {
+.buildingSecond {
   margin-top: 99px;
 
   @media (width <= 1250px) {
@@ -43,7 +19,7 @@
   }
 }
 
-.contacts__building_third {
+.buildingThird {
   margin-top: 40.86px;
 
   @media (width <= 1250px) {
@@ -51,7 +27,7 @@
   }
 }
 
-.contacts__schedule {
+.schedule {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,14 +36,14 @@
   margin-bottom: 50px;
 }
 
-.contacts__schedule-title,
-.contacts__schedule-text {
+.scheduleTitle,
+.scheduleText {
   margin: 0;
   color: #d2d2d2;
   text-align: center;
 }
 
-.contacts__schedule-title {
+.scheduleTitle {
   font-size: 30px;
   font-weight: 800;
 
@@ -76,7 +52,7 @@
   }
 }
 
-.contacts__schedule-text {
+.scheduleText {
   font-size: 28px;
   margin-top: 10px;
 
@@ -85,7 +61,7 @@
   }
 }
 
-.contacts__map-wrapper,
-.contacts__buy-ticket-button-link {
+.mapWrapper,
+.buyTicketButtonLink {
   margin-bottom: 50px;
 }

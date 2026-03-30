@@ -1,5 +1,3 @@
-import './style.scss';
-
 import Building, { type Props as BuildingProps } from '@/components/common/Building/Building';
 import Loading from '@/components/common/Loading/Loading';
 import Map from '@/components/common/Map/Map';
@@ -8,6 +6,7 @@ import { contactBuildings } from '@/data/contactBuildings';
 import useImageLoadingState from '@/hooks/useImageLoadingState';
 
 import buyTicket from './assets/images/buy-ticket.webp';
+import styles from './style.module.css';
 
 const mapSrc =
   'https://yandex.ru/map-widget/v1/?um=constructor' +
@@ -37,23 +36,23 @@ function Contacts() {
   ] satisfies [BuildingInfo, BuildingInfo, BuildingInfo];
 
   return (
-    <main className='contacts'>
+    <main className='pageMain'>
       {loading && <Loading />}
-      <p className='contacts__title'>Музей</p>
-      <section className='contacts__buildings'>
-        <Building className='contacts__building_first' {...firstBuilding} />
-        <Building className='contacts__building_second' {...secondBuilding} />
-        <Building className='contacts__building_third' {...thirdBuilding} />
+      <p className='pageTitle'>Музей</p>
+      <section className={styles['buildings']}>
+        <Building {...firstBuilding} />
+        <Building className={styles['buildingSecond'] ?? ''} {...secondBuilding} />
+        <Building className={styles['buildingThird'] ?? ''} {...thirdBuilding} />
       </section>
-      <section className='contacts__schedule'>
-        <p className='contacts__schedule-title'>Режим работы музея:</p>
-        <p className='contacts__schedule-text'>10:00-19:00 (касса до 18:00), пн — выходной</p>
+      <section className={styles['schedule']}>
+        <p className={styles['scheduleTitle']}>Режим работы музея:</p>
+        <p className={styles['scheduleText']}>10:00-19:00 (касса до 18:00), пн — выходной</p>
       </section>
-      <Map src={mapSrc} wrapperClassName='contacts__map-wrapper' />
+      <Map src={mapSrc} wrapperClassName={styles['mapWrapper'] ?? ''} />
       <RoundedButton
         label='Купить билет'
         backgroundImage={buyTicket}
-        className='contacts__buy-ticket-button-link'
+        className={styles['buyTicketButtonLink'] ?? ''}
         href='https://vrubel.ru/ticket/czentr-ermitazh-sibir'
       />
     </main>

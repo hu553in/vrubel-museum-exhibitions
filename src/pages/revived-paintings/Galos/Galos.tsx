@@ -1,5 +1,3 @@
-import './style.scss';
-
 import { animated, useSpring } from '@react-spring/web';
 import { useResizeDetector } from 'react-resize-detector';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -14,6 +12,8 @@ import useScrollToHashOnComponentMount from '@/hooks/useScrollToHashOnComponentM
 import getGalosLayout from '@/utils/galosLayout';
 import getGalosPictureStyle from '@/utils/galosPictureStyle';
 import { buildPictureRoute } from '@/utils/pictureRoutes';
+
+import styles from './style.module.css';
 
 interface PictureWrapperProps {
   animationStyle: object;
@@ -42,17 +42,17 @@ function PictureWrapper({
   return (
     <animated.div
       id={picture.id}
-      className='galos__picture-wrapper'
+      className={styles['pictureWrapper']}
       ref={ref}
       style={animationStyle}
     >
       <NavLink
-        className='galos__picture-link'
+        className={styles['pictureLink'] ?? ''}
         to={buildPictureRoute(picture.id, `/revived-paintings/galos#${picture.id}`)}
       >
         <img
           style={pictureStyle}
-          className='galos__picture'
+          className={styles['picture']}
           src={picture.preview}
           alt={picture.name}
           onLoad={stopLoading}
@@ -91,10 +91,10 @@ function Galos() {
   const galosLayout = getGalosLayout(width, height);
 
   return (
-    <main className='galos' ref={ref}>
+    <main className={styles['galos']} ref={ref}>
       {loading && <Loading />}
       <Header
-        className='galos__overlay-header'
+        className={styles['overlayHeader'] ?? ''}
         style={{
           ...animationStyle,
           ...(galosLayout.headerWidth !== undefined && { width: galosLayout.headerWidth }),
@@ -115,17 +115,17 @@ function Galos() {
         />
       ))}
       <div
-        className='galos__overlay-main'
+        className={styles['overlayMain']}
         style={{
           ...(galosLayout.main ?? {}),
         }}
       />
-      <div className='galos__overlay-circle' style={galosLayout.circle ?? {}} />
-      <div className='galos__overlay-info-block' style={galosLayout.infoBlock ?? {}}>
-        <animated.p className='galos__overlay-title' style={textAnimationStyle}>
+      <div className={styles['overlayCircle']} style={galosLayout.circle ?? {}} />
+      <div className={styles['overlayInfoBlock']} style={galosLayout.infoBlock ?? {}}>
+        <animated.p className={styles['overlayTitle']} style={textAnimationStyle}>
           {activePicture.name}
         </animated.p>
-        <animated.p className='galos__overlay-author-and-year' style={textAnimationStyle}>
+        <animated.p className={styles['overlayAuthorAndYear']} style={textAnimationStyle}>
           {activePicture.authorAndYear}
         </animated.p>
       </div>

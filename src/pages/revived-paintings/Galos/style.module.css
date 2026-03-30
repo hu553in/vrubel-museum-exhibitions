@@ -10,7 +10,7 @@
   overflow-y: auto;
 }
 
-.galos__overlay-main {
+.overlayMain {
   background: radial-gradient(
     max(75vmin, 270px) max(75vmin, 270px) at center,
     transparent 50%,
@@ -23,7 +23,7 @@
   pointer-events: none;
 }
 
-.galos__picture-wrapper {
+.pictureWrapper {
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -33,13 +33,13 @@
   min-height: 100%;
 }
 
-.galos__picture {
+.picture {
   object-fit: cover;
   width: max(100vmin, 360px);
   height: max(100vmin, 360px);
 }
 
-.galos__overlay-circle {
+.overlayCircle {
   background-color: #000;
   border-radius: 50%;
   position: absolute;
@@ -48,7 +48,7 @@
   pointer-events: none;
 }
 
-.galos__overlay-info-block {
+.overlayInfoBlock {
   display: grid;
   grid-template-rows: repeat(2, minmax(0, max-content));
   grid-template-columns: 1fr;
@@ -60,8 +60,8 @@
   pointer-events: none;
 }
 
-.galos__overlay-title,
-.galos__overlay-author-and-year {
+.overlayTitle,
+.overlayAuthorAndYear {
   font-family: Lighthaus, sans-serif;
   font-size: max(4vmin, 14.4px);
   color: #fff;
@@ -71,12 +71,12 @@
   background-color: #000;
 }
 
-.galos__overlay-header {
+.overlayHeader {
   z-index: 9999;
   position: absolute;
   top: 0;
 }
 
-.galos__picture-link {
+.pictureLink {
   font-size: 0;
 }

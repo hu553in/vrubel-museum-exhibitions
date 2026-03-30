@@ -1,6 +1,6 @@
-import './style.scss';
-
 import { animated, useSpring } from '@react-spring/web';
+
+import styles from './style.module.css';
 
 interface Props {
   open: boolean;
@@ -19,10 +19,10 @@ function Title(props: Props) {
   });
 
   return (
-    <animated.div style={style} className='revived-paintings-title'>
-      <p className='revived-paintings-title__first-line'>Выставка</p>
-      <p className='revived-paintings-title__second-line'>«Ожившие картины»</p>
-      <p className='revived-paintings-title__third-line'>Музей им. М. А. Врубеля</p>
+    <animated.div style={style} className={styles['revivedPaintingsTitle']}>
+      <p className={styles['firstLine']}>Выставка</p>
+      <p className={styles['secondLine']}>«Ожившие картины»</p>
+      <p className={styles['thirdLine']}>Музей им. М. А. Врубеля</p>
     </animated.div>
   );
 }
