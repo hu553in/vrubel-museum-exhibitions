@@ -1,10 +1,12 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import type { ReactNode, RefObject } from 'react';
+import { type ReactNode, type RefObject, useId } from 'react';
 
 interface Props {
   open: boolean;
   onClose: () => void;
   children: ReactNode;
+  title: string;
+  description?: string;
   panelClassName: string;
   overlayClassName: string;
   container?: Element | DocumentFragment | null;
@@ -18,6 +20,8 @@ function Dialog(props: Props) {
     open,
     onClose,
     children,
+    title,
+    description,
     panelClassName,
     overlayClassName,
     container,
@@ -25,6 +29,10 @@ function Dialog(props: Props) {
     describedBy,
     initialFocusRef,
   } = props;
+  const hiddenTitleId = useId();
+  const hiddenDescriptionId = useId();
+  const dialogLabelledBy = labelledBy ?? hiddenTitleId;
+  const dialogDescribedBy = describedBy ?? (description ? hiddenDescriptionId : undefined);
 
   return (
     <DialogPrimitive.Root
@@ -39,8 +47,8 @@ function Dialog(props: Props) {
         <DialogPrimitive.Overlay className={overlayClassName} />
         <DialogPrimitive.Content
           asChild
-          aria-labelledby={labelledBy}
-          aria-describedby={describedBy}
+          aria-labelledby={dialogLabelledBy}
+          aria-describedby={dialogDescribedBy}
           onOpenAutoFocus={event => {
             if (!initialFocusRef?.current) {
               return;
@@ -50,7 +58,23 @@ function Dialog(props: Props) {
             initialFocusRef.current.focus();
           }}
         >
-          <aside className={panelClassName}>{children}</aside>
+          <aside className={panelClassName}>
+            <DialogPrimitive.Title
+              className='srOnly'
+              {...(!labelledBy ? { id: hiddenTitleId } : {})}
+            >
+              {title}
+            </DialogPrimitive.Title>
+            {description ? (
+              <DialogPrimitive.Description
+                className='srOnly'
+                {...(!describedBy ? { id: hiddenDescriptionId } : {})}
+              >
+                {description}
+              </DialogPrimitive.Description>
+            ) : null}
+            {children}
+          </aside>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

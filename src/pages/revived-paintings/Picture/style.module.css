@@ -115,7 +115,7 @@
   height: 40px;
   top: 32px;
   right: 32px;
-  z-index: 2;
+  z-index: 10002;
   background-image: url('../../../assets/common/icons/control-close-circle.svg');
   background-color: rgb(128 128 128);
   background-size: 40px 40px;
@@ -124,16 +124,13 @@
 .imageHotspotVideoOverlay {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 10000;
   background-color: rgb(0 0 0 / 50%);
 }
 
 .imageHotspotVideoPanel {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  width: calc(100% - 100px);
-  height: calc(100% - 100px);
+  inset: 30px;
   min-width: 260px;
   display: flex;
   align-items: center;
@@ -141,6 +138,7 @@
   overflow: hidden;
   border: 1px solid #d2d2d2;
   background-color: #000;
+  z-index: 10001;
 }
 
 .dynamicButtons {

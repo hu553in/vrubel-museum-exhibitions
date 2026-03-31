@@ -23,6 +23,8 @@ function SideInfoPanel(props: Props) {
       open={open}
       onClose={onClose}
       container={parentElement}
+      title={header}
+      description={subheader}
       panelClassName={cn(styles['sideInfoPanel'], open ? styles['open'] : null)}
       overlayClassName={styles['overlay'] ?? ''}
       labelledBy={headerId}

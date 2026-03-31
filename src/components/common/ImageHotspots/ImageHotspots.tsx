@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import type { Props as ImageHotspotProps } from '@/components/common/ImageHotspot/ImageHotspot';
 import ImageHotspot from '@/components/common/ImageHotspot/ImageHotspot';
@@ -18,21 +18,43 @@ interface Props {
 function ImageHotspots(props: Props) {
   const { parentElement, src, alt, imageHotspots } = props;
 
-  const [imageStateRef, setImageStateRef] = useState<HTMLImageElement | null>(null);
-  const { naturalWidth: imageNaturalWidth, naturalHeight: imageNaturalHeight } = imageStateRef ?? {
-    naturalWidth: 0,
-    naturalHeight: 0,
-  };
+  const [imageNaturalSize, setImageNaturalSize] = useState({ width: 0, height: 0 });
+  const syncImageNaturalSize = useCallback((imageElement: HTMLImageElement | null) => {
+    const nextSize = {
+      width: imageElement?.naturalWidth ?? 0,
+      height: imageElement?.naturalHeight ?? 0,
+    };
+
+    setImageNaturalSize(previousSize => {
+      if (previousSize.width === nextSize.width && previousSize.height === nextSize.height) {
+        return previousSize;
+      }
+
+      return nextSize;
+    });
+  }, []);
 
   const rootAndImageStyle: CSSProperties = useFittedImageSize(
     parentElement,
-    imageNaturalWidth,
-    imageNaturalHeight
+    imageNaturalSize.width,
+    imageNaturalSize.height
   );
 
   return (
     <div className={styles['imageHotspots']} style={rootAndImageStyle}>
-      <img ref={setImageStateRef} src={src} alt={alt} style={rootAndImageStyle} />
+      <img
+        key={src}
+        ref={syncImageNaturalSize}
+        src={src}
+        alt={alt}
+        style={rootAndImageStyle}
+        onLoad={event => {
+          syncImageNaturalSize(event.currentTarget);
+        }}
+        onError={event => {
+          syncImageNaturalSize(event.currentTarget);
+        }}
+      />
       {imageHotspots.map((hotspot, index) => (
         <ImageHotspot key={getImageHotspotKey(hotspot.x, hotspot.y, index)} {...hotspot} />
       ))}

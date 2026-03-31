@@ -221,6 +221,8 @@ function Picture() {
               setPlayingImageHotspotVideoSources(undefined);
             }}
             container={rootElement}
+            title='Видеофрагмент картины'
+            description='Полноэкранное воспроизведение выбранного видеофрагмента картины.'
             panelClassName={styles['imageHotspotVideoPanel'] ?? ''}
             overlayClassName={styles['imageHotspotVideoOverlay'] ?? ''}
             initialFocusRef={imageHotspotVideoCloseButtonRef}

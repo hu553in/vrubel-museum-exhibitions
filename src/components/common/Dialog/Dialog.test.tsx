@@ -17,6 +17,8 @@ describe('Dialog', () => {
       <Dialog
         open
         onClose={vi.fn()}
+        title='Fallback dialog title'
+        description='Fallback dialog description'
         panelClassName='dialog-panel'
         overlayClassName='dialog-overlay'
         container={container}
@@ -44,6 +46,8 @@ describe('Dialog', () => {
       <Dialog
         open
         onClose={onClose}
+        title='Dismissable dialog'
+        description='Dismissable dialog description'
         panelClassName='dialog-panel'
         overlayClassName='dialog-overlay'
       >
@@ -65,6 +69,8 @@ describe('Dialog', () => {
       <Dialog
         open
         onClose={vi.fn()}
+        title='Focusable dialog'
+        description='Focusable dialog description'
         panelClassName='dialog-panel'
         overlayClassName='dialog-overlay'
         initialFocusRef={focusRef}
@@ -78,5 +84,24 @@ describe('Dialog', () => {
     await waitFor(() => {
       expect(focusRef.current).toHaveFocus();
     });
+  });
+
+  it('renders a hidden dialog title when provided', () => {
+    render(
+      <Dialog
+        open
+        onClose={vi.fn()}
+        title='Hotspot video dialog'
+        description='Hotspot video description'
+        panelClassName='dialog-panel'
+        overlayClassName='dialog-overlay'
+      >
+        <div>Dialog body</div>
+      </Dialog>
+    );
+
+    expect(screen.getByText('Hotspot video dialog')).toHaveClass('srOnly');
+    expect(screen.getByRole('dialog', { name: 'Hotspot video dialog' })).toBeInTheDocument();
+    expect(screen.getByText('Hotspot video description')).toHaveClass('srOnly');
   });
 });

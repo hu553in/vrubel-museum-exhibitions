@@ -2,8 +2,8 @@
   position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   width: 300px;
-  height: calc(100vh - 100px);
   overflow-y: auto;
   transform: translateX(100%);
   background-color: #000;
@@ -12,16 +12,30 @@
   transition: transform 0.25s linear;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 50px 0;
+  align-items: stretch;
+  padding: 24px 24px 50px;
 
   @media (width <= 500px) {
     width: 100%;
+    border-left: 0;
   }
 }
 
 .open {
   transform: translateX(0);
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 26px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .link {
@@ -38,8 +52,7 @@
 
 .overlay {
   position: fixed;
-  width: max(100vw, 360px);
-  height: 100vh;
+  inset: 0;
   background-color: #000;
   opacity: 0.5;
   z-index: 10000;
@@ -51,10 +64,7 @@
 .closeButton {
   width: 16px;
   height: 16px;
-  position: absolute;
   cursor: pointer;
-  top: 24px;
-  right: 24px;
   border: 0;
   background-image: url('../../../assets/common/icons/close.svg');
   background-color: transparent;

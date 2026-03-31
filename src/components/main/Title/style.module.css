@@ -1,5 +1,5 @@
 .mainTitle {
-  width: calc(100% - 80px);
+  width: 100%;
   position: absolute;
   display: flex;
   flex-direction: column;

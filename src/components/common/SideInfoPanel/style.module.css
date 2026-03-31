@@ -1,9 +1,8 @@
 .sideInfoPanel {
   position: fixed;
-  top: 0;
+  inset-block: 0;
   right: 0;
   width: 1000px;
-  height: calc(100% - 100px);
   overflow-y: auto;
   transform: translateX(100%);
   background-color: #000;
@@ -15,7 +14,7 @@
   padding: 50px 100px;
 
   @media (width <= 1200px) {
-    width: calc(100% - 160px);
+    width: 100%;
     padding-left: 80px;
     padding-right: 80px;
   }
@@ -74,8 +73,7 @@
 
 .overlay {
   position: fixed;
-  width: max(100vw, 360px);
-  height: 100vh;
+  inset: 0;
   background-color: transparent;
   z-index: 10000;
   border: 0;
@@ -88,8 +86,9 @@
   height: 29.7px;
   position: absolute;
   cursor: pointer;
-  top: calc(50% - 14.85px);
-  right: 1160.1px;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
   border: 0;
   background-image: url('../../../assets/common/icons/chevron-right.svg');
   background-color: transparent;
@@ -100,11 +99,6 @@
   pointer-events: none;
   transition: opacity 0.15s linear 0.25s;
   z-index: 10002;
-
-  @media (width <= 1200px) {
-    right: unset;
-    left: 20px;
-  }
 }
 
 .subheader::after {

@@ -9,11 +9,19 @@ function useIntroFlow() {
   const [shouldNotFadeOutTriptihAndTitle, setShouldNotFadeOutTriptihAndTitle] = useState(true);
   const timeoutsRef = useRef<number[]>([]);
 
+  const clearScheduledTimeouts = () => {
+    timeoutsRef.current.forEach(timeoutId => {
+      window.clearTimeout(timeoutId);
+    });
+    timeoutsRef.current = [];
+  };
+
   const onVideoEnded = () => {
     if (!shouldShowTriptihVideo) {
       return;
     }
 
+    clearScheduledTimeouts();
     setShouldShowTriptihVideo(false);
     timeoutsRef.current.push(
       window.setTimeout(() => {
@@ -29,9 +37,7 @@ function useIntroFlow() {
 
   useEffect(
     () => () => {
-      timeoutsRef.current.forEach(timeoutId => {
-        window.clearTimeout(timeoutId);
-      });
+      clearScheduledTimeouts();
     },
     []
   );
