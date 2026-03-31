@@ -1,7 +1,7 @@
 import { animated, useSpring } from '@react-spring/web';
-import { useResizeDetector } from 'react-resize-detector';
+import { type RefObject, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useIntersectionObserver } from 'usehooks-ts';
+import { useIntersectionObserver, useResizeObserver } from 'usehooks-ts';
 
 import pictures from '@/assets/revived-paintings/pictures';
 import Loading from '@/components/common/Loading/Loading';
@@ -69,7 +69,10 @@ function Galos() {
   const { loading, getImageLoadHandlers } = useImageLoadingState(pictures.length);
 
   useScrollToHashOnComponentMount();
-  const { width, height, ref } = useResizeDetector();
+  const ref = useRef<HTMLElement>(null);
+  const { width = 0, height = 0 } = useResizeObserver({
+    ref: ref as RefObject<HTMLElement>,
+  });
 
   const animationStyle = useSpring({
     opacity: 1,

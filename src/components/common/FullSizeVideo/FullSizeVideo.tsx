@@ -1,5 +1,4 @@
 import { type CSSProperties, type Ref, useRef } from 'react';
-import { mergeRefs } from 'react-merge-refs';
 
 import Loading from '@/components/common/Loading/Loading';
 import usePageVisibility from '@/hooks/usePageVisibility';
@@ -44,6 +43,19 @@ function FullSizeVideo(props: Props) {
   } = props;
 
   const localRef = useRef<HTMLVideoElement | null>(null);
+  const setVideoRef = (node: HTMLVideoElement | null) => {
+    localRef.current = node;
+
+    if (typeof ref === 'function') {
+      ref(node);
+      return;
+    }
+
+    if (ref) {
+      ref.current = node;
+    }
+  };
+
   const isVisible = usePageVisibility();
   const { loading, error, handleError, handlePlaybackReady, handleMetadataReady } =
     useVideoPlaybackState({
@@ -96,7 +108,7 @@ function FullSizeVideo(props: Props) {
           ...style,
         }}
         playsInline
-        ref={mergeRefs([ref, localRef])}
+        ref={setVideoRef}
         loop={loop}
       >
         {sources.map(source => (
