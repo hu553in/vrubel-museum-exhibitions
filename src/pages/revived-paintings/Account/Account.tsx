@@ -26,8 +26,8 @@ function Account() {
   } = useAccountForm();
 
   return (
-    <main className={styles['account']}>
-      <p className={styles['title']}>Аккаунт</p>
+    <main className={styles['account']} id='main-content'>
+      <h1 className={styles['title']}>Аккаунт</h1>
       <section>
         <p className={styles['socialSignInLabel']}>Войти, используя аккаунты в социальных сетях:</p>
         <section className={styles['socialSignInLinks']}>

@@ -28,6 +28,11 @@ const Dialog = lazy(async () => import('@/components/common/Dialog/Dialog'));
 const Magnifier = lazy(async () => import('@/components/common/Magnifier/Magnifier'));
 const SideInfoPanel = lazy(async () => import('@/components/common/SideInfoPanel/SideInfoPanel'));
 
+interface ActiveImageHotspot {
+  name: string;
+  videoSources: VideoSource[];
+}
+
 function Picture() {
   const { id } = useParams<'id'>();
   const navigate = useNavigate();
@@ -83,6 +88,7 @@ function Picture() {
         sources={animatedVariationSources}
         objectFit='contain'
         ref={videoCallbackRef}
+        ariaLabel={`Анимация картины «${activeAnimatedVariation.name}»`}
         loop
       />
     ) : null;
@@ -99,9 +105,7 @@ function Picture() {
 
   const [pictureStateRef, setPictureStateRef] = useState<HTMLElement | null>(null);
 
-  const [playingImageHotspotVideoSources, setPlayingImageHotspotVideoSources] = useState<
-    VideoSource[] | undefined
-  >();
+  const [playingImageHotspot, setPlayingImageHotspot] = useState<ActiveImageHotspot | undefined>();
   const modifiedImageHotspots = createPictureHotspotViewModels(imageHotspots).map(imageHotspot => ({
     x: imageHotspot.x,
     y: imageHotspot.y,
@@ -109,14 +113,19 @@ function Picture() {
       <button
         type='button'
         aria-label={`Открыть видеофрагмент «${imageHotspot.name}»`}
+        aria-haspopup='dialog'
+        aria-expanded={playingImageHotspot?.name === imageHotspot.name}
         className={styles['imageHotspotButton']}
         onClick={() => {
-          setPlayingImageHotspotVideoSources(imageHotspot.videoSources);
+          setPlayingImageHotspot({
+            name: imageHotspot.name,
+            videoSources: imageHotspot.videoSources,
+          });
         }}
       />
     ),
   }));
-  const hasHotspotVideoOpen = Boolean(playingImageHotspotVideoSources?.length);
+  const hasHotspotVideoOpen = Boolean(playingImageHotspot?.videoSources.length);
 
   const rootElement = getAppRootElement();
   const imageHotspotVideoCloseButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -132,11 +141,15 @@ function Picture() {
   return (
     <main className={styles['picture']} ref={setPictureStateRef}>
       <header className={styles['header']}>
-        <NavLink to={ROUTES.DEFAULT} className='brandLink'>
+        <h1 className='srOnly'>{name}</h1>
+        <NavLink to={ROUTES.DEFAULT} className='brandLink' aria-label='Перейти на главную страницу'>
           <img className={cn('brandLogo', styles['logo'])} src={logo} alt='Логотип музея' />
         </NavLink>
         {hasDynamicButtons && (
-          <section className={styles['dynamicButtons']}>
+          <section
+            className={styles['dynamicButtons']}
+            aria-label='Анимации и аудиофрагменты картины'
+          >
             {animatedVariations?.map((item, index) => {
               const playingAnimatedVariation = activeAnimatedVariation?.name === item.name;
 
@@ -178,7 +191,7 @@ function Picture() {
             })}
           </section>
         )}
-        <section className={styles['controlButtons']}>
+        <section className={styles['controlButtons']} aria-label='Управление страницей картины'>
           <button
             type='button'
             aria-label='Открыть информацию о картине'
@@ -198,7 +211,15 @@ function Picture() {
         </section>
       </header>
       {hasAnimatedVideo && (
-        <FullSizeVideo sources={animatedSources} objectFit='contain' ref={videoCallbackRef} loop />
+        <FullSizeVideo
+          sources={animatedSources}
+          objectFit='contain'
+          ariaLabel={
+            name ? `Анимированная версия картины «${name}»` : 'Анимированная версия картины'
+          }
+          ref={videoCallbackRef}
+          loop
+        />
       )}
       {hasMagnifier && name && magnifier && (
         <Suspense fallback={<Loading />}>
@@ -218,11 +239,15 @@ function Picture() {
           <Dialog
             open={hasHotspotVideoOpen}
             onClose={() => {
-              setPlayingImageHotspotVideoSources(undefined);
+              setPlayingImageHotspot(undefined);
             }}
             container={rootElement}
-            title='Видеофрагмент картины'
-            description='Полноэкранное воспроизведение выбранного видеофрагмента картины.'
+            title={`Видеофрагмент «${playingImageHotspot?.name ?? ''}»`}
+            description={
+              playingImageHotspot?.name
+                ? `Полноэкранное воспроизведение видеофрагмента «${playingImageHotspot.name}».`
+                : 'Полноэкранное воспроизведение выбранного видеофрагмента картины.'
+            }
             panelClassName={styles['imageHotspotVideoPanel'] ?? ''}
             overlayClassName={styles['imageHotspotVideoOverlay'] ?? ''}
             initialFocusRef={imageHotspotVideoCloseButtonRef}
@@ -233,13 +258,18 @@ function Picture() {
               aria-label='Закрыть диалог с видеофрагментом'
               className={styles['imageHotspotVideoCloseButton']}
               onClick={() => {
-                setPlayingImageHotspotVideoSources(undefined);
+                setPlayingImageHotspot(undefined);
               }}
             />
             <FullSizeVideo
-              sources={playingImageHotspotVideoSources ?? []}
+              sources={playingImageHotspot?.videoSources ?? []}
               objectFit='contain'
               ref={videoCallbackRef}
+              ariaLabel={
+                playingImageHotspot?.name
+                  ? `Видео фрагмента «${playingImageHotspot.name}»`
+                  : 'Видео фрагмента картины'
+              }
               loop
             />
           </Dialog>

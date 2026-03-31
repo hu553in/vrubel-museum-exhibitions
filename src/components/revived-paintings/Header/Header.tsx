@@ -28,7 +28,7 @@ function Header(props: Props) {
 
   return (
     <animated.header style={style} className={cn(styles['header'], className)}>
-      <NavLink to={ROUTES.DEFAULT} className='brandLink'>
+      <NavLink to={ROUTES.DEFAULT} className='brandLink' aria-label='Перейти на главную страницу'>
         <img className='brandLogo' src={logo} alt='Логотип музея' />
       </NavLink>
       <button

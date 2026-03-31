@@ -8,8 +8,8 @@ const bodyParagraphs = [
 
 function About() {
   return (
-    <main className='pageMain'>
-      <p className='pageTitle'>О проекте</p>
+    <main className='pageMain' id='main-content'>
+      <h1 className='pageTitle'>О проекте</h1>
       <section className={styles['body']}>
         {bodyParagraphs.map(bodyParagraph => (
           <p key={bodyParagraph} className={styles['bodyParagraph']}>

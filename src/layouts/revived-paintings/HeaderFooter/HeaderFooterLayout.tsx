@@ -12,6 +12,9 @@ interface Props {
 function HeaderFooterLayout({ children }: Props) {
   return (
     <div className={styles['headerFooterLayout']}>
+      <a className='srOnly' href='#main-content'>
+        Перейти к основному содержимому
+      </a>
       <Header />
       {children}
       <Footer />

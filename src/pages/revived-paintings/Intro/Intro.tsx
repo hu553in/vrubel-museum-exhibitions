@@ -45,8 +45,15 @@ function Intro() {
         <>
           <FullSizeVideo sources={triptihVideoSources} onEnded={onVideoEnded} />
           <div className={styles['controls']}>
-            <p className={styles['hint']}>Нажмите пробел для пропуска</p>
-            <button type='button' className={styles['skipButton']} onClick={onVideoEnded}>
+            <p className={styles['hint']} id='intro-skip-hint'>
+              Нажмите пробел для пропуска
+            </p>
+            <button
+              type='button'
+              className={styles['skipButton']}
+              aria-describedby='intro-skip-hint'
+              onClick={onVideoEnded}
+            >
               Пропустить
             </button>
           </div>

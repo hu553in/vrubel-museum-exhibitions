@@ -95,6 +95,7 @@ function Galos() {
 
   return (
     <main className={styles['galos']} ref={ref}>
+      <h1 className='srOnly'>Галерея выставки «Ожившие картины»</h1>
       {loading && <Loading />}
       <Header
         className={styles['overlayHeader'] ?? ''}
@@ -125,9 +126,9 @@ function Galos() {
       />
       <div className={styles['overlayCircle']} style={galosLayout.circle ?? {}} />
       <div className={styles['overlayInfoBlock']} style={galosLayout.infoBlock ?? {}}>
-        <animated.p className={styles['overlayTitle']} style={textAnimationStyle}>
+        <animated.h2 className={styles['overlayTitle']} style={textAnimationStyle}>
           {activePicture.name}
-        </animated.p>
+        </animated.h2>
         <animated.p className={styles['overlayAuthorAndYear']} style={textAnimationStyle}>
           {activePicture.authorAndYear}
         </animated.p>

@@ -2,10 +2,10 @@ import styles from './style.module.css';
 
 function Title() {
   return (
-    <div className={styles['mainTitle']}>
-      <p className={styles['firstLine']}>Выставки</p>
-      <p className={styles['secondLine']}>Музея им. М. А. Врубеля</p>
-    </div>
+    <h1 className={styles['mainTitle']}>
+      <span className={styles['firstLine']}>Выставки</span>
+      <span className={styles['secondLine']}>Музея им. М. А. Врубеля</span>
+    </h1>
   );
 }
 

@@ -19,11 +19,11 @@ function Title(props: Props) {
   });
 
   return (
-    <animated.div style={style} className={styles['revivedPaintingsTitle']}>
-      <p className={styles['firstLine']}>Выставка</p>
-      <p className={styles['secondLine']}>«Ожившие картины»</p>
-      <p className={styles['thirdLine']}>Музей им. М. А. Врубеля</p>
-    </animated.div>
+    <animated.h1 style={style} className={styles['revivedPaintingsTitle']}>
+      <span className={styles['firstLine']}>Выставка</span>
+      <span className={styles['secondLine']}>«Ожившие картины»</span>
+      <span className={styles['thirdLine']}>Музей им. М. А. Врубеля</span>
+    </animated.h1>
   );
 }
 

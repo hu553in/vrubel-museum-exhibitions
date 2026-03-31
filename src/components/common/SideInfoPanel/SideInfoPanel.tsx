@@ -30,9 +30,9 @@ function SideInfoPanel(props: Props) {
       labelledBy={headerId}
       {...(subheaderId ? { describedBy: subheaderId } : {})}
     >
-      <p className={styles['header']} id={headerId}>
+      <h2 className={styles['header']} id={headerId}>
         {header}
-      </p>
+      </h2>
       <p className={styles['subheader']} id={subheaderId}>
         {subheader}
       </p>

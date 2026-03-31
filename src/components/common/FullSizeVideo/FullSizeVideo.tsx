@@ -25,6 +25,7 @@ interface Props {
   loop?: boolean;
   oneHundredPercentHeight?: boolean;
   style?: CSSProperties;
+  ariaLabel?: string;
   ref?: Ref<HTMLVideoElement>;
 }
 
@@ -40,6 +41,7 @@ function FullSizeVideo(props: Props) {
     loop = false,
     oneHundredPercentHeight = true,
     style,
+    ariaLabel,
   } = props;
 
   const localRef = useRef<HTMLVideoElement | null>(null);
@@ -110,6 +112,8 @@ function FullSizeVideo(props: Props) {
         playsInline
         ref={setVideoRef}
         loop={loop}
+        aria-label={ariaLabel}
+        tabIndex={controls ? undefined : -1}
       >
         {sources.map(source => (
           <source key={source.src} src={source.src} type={source.mimeType} />

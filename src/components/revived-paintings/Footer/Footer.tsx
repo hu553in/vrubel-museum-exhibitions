@@ -18,7 +18,7 @@ function Footer() {
       <a className={styles['logo']} href='https://vrubel.ru' aria-label='Официальный сайт музея'>
         <img src={logo} alt='Логотип музея' onLoad={handleLoad} onError={handleError} />
       </a>
-      <nav className={styles['navBar']}>
+      <nav className={styles['navBar']} aria-label='Навигация по разделам выставки'>
         {revivedPaintingsNavLinks.map(navBarLink => (
           <NavLink
             key={navBarLink.route}
@@ -29,7 +29,7 @@ function Footer() {
           </NavLink>
         ))}
       </nav>
-      <nav className={styles['socialLinks']}>
+      <nav className={styles['socialLinks']} aria-label='Социальные сети музея'>
         {footerSocialLinks.map(socialLink => (
           <a
             key={socialLink.href}

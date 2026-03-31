@@ -30,11 +30,11 @@ function Building(props: Props) {
       <img
         className={styles['logo']}
         src={logo}
-        alt='Логотип строения'
+        alt={`Логотип ${name}`}
         onLoad={onLogoLoad}
         onError={onLogoError}
       />
-      <p className={styles['name']}>{name}</p>
+      <h2 className={styles['name']}>{name}</h2>
       <div>
         <p className={styles['addressLabel']}>Адрес:</p>
         <p className={styles['address']}>{address}</p>

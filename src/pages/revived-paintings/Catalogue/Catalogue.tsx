@@ -11,9 +11,9 @@ function Catalogue() {
   const { loading, getImageLoadHandlers } = useImageLoadingState(pictures.length);
 
   return (
-    <main className='pageMain'>
+    <main className='pageMain' id='main-content'>
       {loading && <Loading />}
-      <p className='pageTitle'>«Ожившие картины»</p>
+      <h1 className='pageTitle'>«Ожившие картины»</h1>
       <section className={styles['body']}>
         {pictures.map((picture, index) => {
           return (
@@ -21,6 +21,7 @@ function Catalogue() {
               className={styles['pictureLink'] ?? ''}
               key={picture.id}
               to={buildPictureRoute(picture.id, '/revived-paintings/catalogue')}
+              aria-label={`${picture.name} - ${picture.authorAndYear}`}
             >
               <img
                 className={styles['picture']}

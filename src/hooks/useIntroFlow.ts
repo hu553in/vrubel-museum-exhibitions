@@ -44,6 +44,7 @@ function useIntroFlow() {
 
   const handleWindowKeyDown = (event: KeyboardEvent) => {
     if (event.key === ' ' && event.code === 'Space' && shouldShowTriptihVideo) {
+      event.preventDefault();
       onVideoEnded();
     }
   };

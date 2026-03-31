@@ -36,16 +36,16 @@ function Contacts() {
   ] satisfies [BuildingInfo, BuildingInfo, BuildingInfo];
 
   return (
-    <main className='pageMain'>
+    <main className='pageMain' id='main-content'>
       {loading && <Loading />}
-      <p className='pageTitle'>Музей</p>
+      <h1 className='pageTitle'>Музей</h1>
       <section className={styles['buildings']}>
         <Building {...firstBuilding} />
         <Building className={styles['buildingSecond'] ?? ''} {...secondBuilding} />
         <Building className={styles['buildingThird'] ?? ''} {...thirdBuilding} />
       </section>
       <section className={styles['schedule']}>
-        <p className={styles['scheduleTitle']}>Режим работы музея:</p>
+        <h2 className={styles['scheduleTitle']}>Режим работы музея:</h2>
         <p className={styles['scheduleText']}>10:00-19:00 (касса до 18:00), пн — выходной</p>
       </section>
       <Map src={mapSrc} wrapperClassName={styles['mapWrapper'] ?? ''} />
