@@ -2,6 +2,7 @@
   "name": "vrubel-museum-exhibitions",
   "description": "Omsk regional M. A. Vrubel museum of fine arts exhibitions.",
   "version": "1.0.0",
+  "author": "hu553in",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
     "@react-spring/web": "^10.0.3",
