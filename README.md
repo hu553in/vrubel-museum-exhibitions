@@ -16,7 +16,7 @@ The deployed version is available on Vercel: [vrubel-museum-exhibitions.vercel.a
 This project uses **Vite** for local development and production builds.
 
 ```bash
-pnpm install
+pnpm i
 pnpm dev
 pnpm build
 pnpm preview
