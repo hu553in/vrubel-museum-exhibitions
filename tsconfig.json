@@ -28,9 +28,8 @@
     "moduleDetection": "force",
     "moduleResolution": "Bundler",
     "useDefineForClassFields": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     "resolveJsonModule": true,
     "isolatedModules": true,
