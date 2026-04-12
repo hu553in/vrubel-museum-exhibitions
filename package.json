@@ -1,6 +1,6 @@
 {
   "name": "vrubel-museum-exhibitions",
-  "description": "Omsk regional M. A. Vrubel museum of fine arts exhibitions.",
+  "description": "A website showcasing exhibitions of the Omsk regional M. A. Vrubel museum of fine arts.",
   "version": "1.0.0",
   "author": "hu553in",
   "dependencies": {
