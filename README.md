@@ -17,7 +17,6 @@ This project uses **Vite** for local development and production builds.
 pnpm i
 pnpm dev
 pnpm build
-pnpm preview
 pnpm test
 pnpm check
 pnpm check:fix
