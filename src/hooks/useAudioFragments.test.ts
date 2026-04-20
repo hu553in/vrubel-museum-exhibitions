@@ -39,7 +39,7 @@ const getAudio = (index: number) => {
 describe('useAudioFragments', () => {
   beforeEach(() => {
     MockAudio.instances = [];
-    vi.stubGlobal('Audio', MockAudio as unknown as typeof Audio);
+    vi.stubGlobal('Audio', MockAudio);
   });
 
   afterEach(() => {
