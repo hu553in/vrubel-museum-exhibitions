@@ -1,5 +1,6 @@
 # Omsk regional M. A. Vrubel museum of fine arts exhibitions
 
+[![CI](https://github.com/hu553in/vrubel-museum-exhibitions/actions/workflows/ci.yml/badge.svg)](https://github.com/hu553in/vrubel-museum-exhibitions/actions/workflows/ci.yml)
 [![Vercel Deploy](https://deploy-badge.vercel.app/vercel/vrubel-museum-exhibitions)](https://vrubel-museum-exhibitions.vercel.app/)
 
 A website showcasing exhibitions of [the Omsk regional M. A. Vrubel museum of fine arts](https://vrubel.ru/).
