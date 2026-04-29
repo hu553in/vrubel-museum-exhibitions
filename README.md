@@ -30,6 +30,6 @@ pnpm check:fix
 
 ## Tech stack
 
-- React 19
+- React
 - TypeScript
 - Vite
