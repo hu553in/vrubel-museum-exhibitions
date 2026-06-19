@@ -1,0 +1,80 @@
+.mainBackground {
+  height: 100%;
+  filter: opacity(0.35);
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.portrait {
+  flex-direction: column-reverse;
+}
+
+.mainLink {
+  color: #fff;
+  font-family: Lighthaus, sans-serif;
+  position: absolute;
+  font-size: max(4.58vmin, 16.5px);
+}
+
+.linkFirst {
+  left: 10%;
+  bottom: calc(50% - 30vmin);
+
+  @media (width <= 360px) {
+    bottom: calc(50% - 108px);
+  }
+}
+
+.linkSecond {
+  cursor: not-allowed;
+  right: 10%;
+  top: calc(50% - 30vmin);
+
+  @media (width <= 360px) {
+    top: calc(50% - 108px);
+  }
+}
+
+.portrait .mainBackground {
+  width: 100%;
+  height: unset;
+}
+
+.mainLink::after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #fff;
+}
+
+.mainLink[href] {
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .mainLink:hover {
+    opacity: 0.7;
+  }
+
+  .mainLink:hover::after {
+    opacity: 0.7;
+  }
+
+  .linkSecond:hover {
+    opacity: 1;
+  }
+
+  .linkSecond:hover::after {
+    opacity: 1;
+  }
+}

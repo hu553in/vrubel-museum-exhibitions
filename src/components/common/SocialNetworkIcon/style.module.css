@@ -1,0 +1,13 @@
+.socialNetworkIcon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.15s linear;
+}
+
+@media (hover: hover) {
+  .socialNetworkIcon:hover {
+    opacity: 0.8;
+  }
+}

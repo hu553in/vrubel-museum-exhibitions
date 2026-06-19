@@ -1,0 +1,7 @@
+node_modules/
+build/
+dist/
+out/
+target/
+.vscode/
+pnpm-lock.yaml

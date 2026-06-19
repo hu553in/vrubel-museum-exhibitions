@@ -1,0 +1,28 @@
+.triptih {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.left,
+.middle,
+.right {
+  opacity: 0.35;
+}
+
+.left,
+.right {
+  width: max(26vmin, 93.6px);
+}
+
+.middle {
+  width: max(30.59vmin, 110.1px);
+}
+
+.left {
+  margin-right: max(4.34vmin, 15.6px);
+}
+
+.right {
+  margin-left: max(4.34vmin, 15.6px);
+}

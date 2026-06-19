@@ -1,0 +1,62 @@
+{
+  "name": "vrubel-museum-exhibitions",
+  "description": "Website showcasing exhibitions of the Omsk Regional M. A. Vrubel Museum of Fine Arts.",
+  "version": "1.0.0",
+  "author": "hu553in",
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.16",
+    "@react-spring/web": "^10.1.1",
+    "classnames": "^2.5.1",
+    "normalize.css": "^8.0.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-magnifier": "^3.0.4",
+    "react-remove-scroll": "^2.7.2",
+    "react-router-dom": "^7.17.0",
+    "usehooks-ts": "^3.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^25.9.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.61.0",
+    "@typescript-eslint/parser": "^8.61.0",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.5.6",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "lefthook": "^2.1.9",
+    "prettier": "^3.8.4",
+    "stylelint": "^17.13.0",
+    "stylelint-config-recommended": "^18.0.0",
+    "stylelint-config-standard": "^40.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "8.61.0",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "test": "vitest run --passWithNoTests",
+    "check": "lefthook run check --all-files --force",
+    "check:fix": "lefthook run check-fix --all-files --force",
+    "prepare": "command -v lefthook && lefthook install || true"
+  },
+  "browserslist": [
+    "defaults",
+    "fully supports es6-module"
+  ]
+}

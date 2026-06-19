@@ -1,0 +1,67 @@
+.buildings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(330px, 450px));
+  grid-template-rows: 1fr;
+  gap: 0 65px;
+
+  @media (width <= 1250px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, max-content);
+    gap: 50px 0;
+  }
+}
+
+.buildingSecond {
+  margin-top: 99px;
+
+  @media (width <= 1250px) {
+    margin-top: 0;
+  }
+}
+
+.buildingThird {
+  margin-top: 40.86px;
+
+  @media (width <= 1250px) {
+    margin-top: 0;
+  }
+}
+
+.schedule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 30px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.scheduleTitle,
+.scheduleText {
+  margin: 0;
+  color: #d2d2d2;
+  text-align: center;
+}
+
+.scheduleTitle {
+  font-size: 30px;
+  font-weight: 800;
+
+  @media (width <= 1250px) {
+    font-size: 25px;
+  }
+}
+
+.scheduleText {
+  font-size: 28px;
+  margin-top: 10px;
+
+  @media (width <= 1250px) {
+    font-size: 20px;
+  }
+}
+
+.mapWrapper,
+.buyTicketButtonLink {
+  margin-bottom: 50px;
+}

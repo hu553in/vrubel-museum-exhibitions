@@ -1,0 +1,106 @@
+.sideMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  overflow-y: auto;
+  transform: translateX(100%);
+  background-color: #000;
+  border-left: 1px solid #5c5c5c;
+  z-index: 10001;
+  transition: transform 0.25s linear;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 24px 24px 50px;
+
+  @media (width <= 500px) {
+    width: 100%;
+    border-left: 0;
+  }
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 26px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link {
+  font-size: 16px;
+  color: #d2d2d2;
+  text-decoration: none;
+  margin-bottom: 25px;
+}
+
+.active {
+  color: #fff;
+  position: relative;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 10000;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.closeButton {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  border: 0;
+  background-image: url('../../../assets/common/icons/close.svg');
+  background-color: transparent;
+  background-size: 16px 16px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.link:last-child {
+  margin-bottom: 0;
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: #fff;
+  }
+}
+
+.link:focus-visible {
+  color: #fff;
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.active::after {
+  position: absolute;
+  content: '';
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 0;
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 6px;
+}

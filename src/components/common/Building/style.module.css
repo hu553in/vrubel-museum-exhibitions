@@ -1,0 +1,48 @@
+.building {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, max-content);
+}
+
+.logo {
+  margin: 0 auto;
+}
+
+.name {
+  margin: 30px 0 0;
+  color: #fff;
+  font-family: Lighthaus, sans-serif;
+  font-size: 30px;
+  text-align: center;
+
+  @media (width <= 1250px) {
+    padding: 0 30px;
+  }
+}
+
+.addressLabel,
+.busStopsLabel,
+.contactsLabel,
+.address,
+.busStop,
+.contact {
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.address,
+.busStop,
+.contact {
+  margin-top: 6px;
+}
+
+.addressLabel,
+.busStopsLabel,
+.contactsLabel {
+  margin-top: 30px;
+  font-weight: 700;
+}

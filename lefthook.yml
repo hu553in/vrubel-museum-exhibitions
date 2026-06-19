@@ -1,0 +1,69 @@
+output:
+  - execution
+  - failure
+
+pre-commit:
+  jobs:
+    - name: prettier
+      run: pnpm exec prettier -u --write {staged_files}
+      stage_fixed: true
+
+    - name: eslint
+      glob: '*.{js,jsx,ts,tsx}'
+      run: pnpm exec eslint --max-warnings=0 --fix {staged_files}
+      stage_fixed: true
+
+    - name: stylelint
+      glob: '**/*.css'
+      run: pnpm exec stylelint --max-warnings=0 --fix {staged_files}
+      stage_fixed: true
+
+    - name: svg-format
+      glob: '*.svg'
+      run: bash -lc 'for f in "$@"; do xmllint --format "$f" -o "$f"; done' -- {staged_files}
+      stage_fixed: true
+
+    - name: typecheck
+      run: pnpm exec tsc --noEmit
+
+    - name: test
+      run: pnpm test
+
+check:
+  jobs:
+    - name: eslint
+      run: pnpm exec eslint . --max-warnings=0
+
+    - name: stylelint
+      run: pnpm exec stylelint "**/*.css" --max-warnings=0
+
+    - name: svg-check
+      run: bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -n 1 xmllint --noout'
+
+    - name: typecheck
+      run: pnpm exec tsc --noEmit
+
+    - name: test
+      run: pnpm test
+
+check-fix:
+  jobs:
+    - name: prettier
+      run: pnpm exec prettier -u --write .
+
+    - name: eslint
+      run: pnpm exec eslint . --max-warnings=0 --fix
+
+    - name: stylelint
+      run: pnpm exec stylelint "**/*.css" --max-warnings=0 --fix
+
+    - name: svg-format
+      run:
+        bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -I {} xmllint --format
+        "{}" -o "{}"'
+
+    - name: typecheck
+      run: pnpm exec tsc --noEmit
+
+    - name: test
+      run: pnpm test

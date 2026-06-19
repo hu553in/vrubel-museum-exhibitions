@@ -1,0 +1,82 @@
+.galos {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+}
+
+.overlayMain {
+  background: radial-gradient(
+    max(75vmin, 270px) max(75vmin, 270px) at center,
+    transparent 50%,
+    #000 50%
+  );
+  display: inline-block;
+  z-index: 9997;
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+
+.pictureWrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  width: 100%;
+  min-height: 100%;
+}
+
+.picture {
+  object-fit: cover;
+  width: max(100vmin, 360px);
+  height: max(100vmin, 360px);
+}
+
+.overlayCircle {
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 9997;
+  pointer-events: none;
+}
+
+.overlayInfoBlock {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, max-content));
+  grid-template-columns: 1fr;
+  width: fit-content;
+  height: fit-content;
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.overlayTitle,
+.overlayAuthorAndYear {
+  font-family: Lighthaus, sans-serif;
+  font-size: max(4vmin, 14.4px);
+  color: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: max(6vmin, 21.6px);
+  background-color: #000;
+}
+
+.overlayHeader {
+  z-index: 9999;
+  position: absolute;
+  top: 0;
+}
+
+.pictureLink {
+  font-size: 0;
+}

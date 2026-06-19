@@ -1,0 +1,35 @@
+.revivedPaintingsTitle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.firstLine,
+.secondLine,
+.thirdLine {
+  color: #fff;
+  font-family: Lighthaus, sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+.firstLine {
+  font-size: max(10.22vmin, 36.8px);
+  line-height: max(13.2vmin, 47.5px);
+}
+
+.secondLine {
+  font-size: max(13.95vmin, 50.2px);
+  line-height: max(17.95vmin, 64.6px);
+}
+
+.thirdLine {
+  font-size: max(5.58vmin, 20.1px);
+  line-height: max(19.15vmin, 68.9px);
+}

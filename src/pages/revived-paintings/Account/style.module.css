@@ -1,0 +1,151 @@
+.account {
+  width: 80%;
+  max-width: 572px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-family: Lighthaus, sans-serif;
+  font-size: 70px;
+  color: #fff;
+  margin: 30px 0;
+  text-align: center;
+
+  @media (width <= 1250px) {
+    font-size: 50px;
+  }
+
+  @media (width <= 400px) {
+    font-size: 45px;
+  }
+}
+
+.socialSignInLabel {
+  font-size: 23px;
+  font-family: Montserrat, sans-serif;
+  color: #d2d2d2;
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-align: center;
+
+  @media (width <= 1250px) {
+    font-size: 20px;
+  }
+
+  @media (width <= 400px) {
+    font-size: 16px;
+  }
+}
+
+.socialSignInLinks {
+  display: flex;
+  justify-content: center;
+}
+
+.socialSignInLink {
+  width: 37px;
+  height: 37px;
+  margin-right: 40px;
+  display: inline-block;
+  cursor: not-allowed;
+
+  @media (width <= 1250px) {
+    width: 30px;
+    height: 30px;
+    margin-right: 32.4px;
+  }
+}
+
+.signInForm {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 75%;
+
+  @media (width <= 400px) {
+    width: 100%;
+  }
+}
+
+.signInPasswordFieldWrapper,
+.signInRememberMeCheckbox {
+  margin-top: 25px;
+}
+
+.signInPasswordFieldWrapper {
+  position: relative;
+}
+
+.signInPasswordTextField {
+  padding-right: 110px;
+  width: 100%;
+}
+
+.signInPasswordToggle {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #d2d2d2;
+  font-size: 14px;
+  font-family: Montserrat, sans-serif;
+  cursor: pointer;
+}
+
+.signInLinks {
+  margin-top: 40px;
+  border-top: 1px solid #fff;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.signInLink {
+  text-decoration: none;
+  color: #d2d2d2;
+  font-size: 14px;
+  cursor: not-allowed;
+}
+
+.signInButton {
+  margin-top: 10px;
+  width: 200px;
+  height: 45px;
+  background-size: 200px 45px;
+  font-size: 25px;
+
+  @media (width <= 450px) {
+    margin-top: 20px;
+  }
+}
+
+.socialSignInLink:last-child {
+  margin-right: 0;
+}
+
+.socialSignInLink .socialSignInIcon:hover {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .signInPasswordToggle:hover {
+    color: #fff;
+  }
+}
+
+.signInPasswordToggle:focus-visible {
+  color: #fff;
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+  border-radius: 6px;
+}

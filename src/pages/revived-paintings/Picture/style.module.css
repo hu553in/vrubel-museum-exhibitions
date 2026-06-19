@@ -1,0 +1,182 @@
+.picture {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 150px;
+  flex-shrink: 0;
+  background: linear-gradient(to bottom, #000, transparent);
+  z-index: 1;
+
+  @media (width <= 1250px) {
+    height: 125px;
+  }
+}
+
+.logo {
+  opacity: 0.7;
+}
+
+.controlButtons {
+  margin-right: 45px;
+
+  @media (width <= 1250px) {
+    margin-right: 40px;
+  }
+}
+
+.imageHotspotButton {
+  background-color: rgb(128 128 128);
+  background-image: url('../../../assets/common/icons/hotspot-search.svg');
+}
+
+.controlButton,
+.soundButton,
+.animatedVariationButton,
+.imageHotspotButton,
+.imageHotspotVideoCloseButton {
+  cursor: pointer;
+  border: 0;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+}
+
+.controlButton,
+.soundButton,
+.animatedVariationButton,
+.imageHotspotButton {
+  width: 45px;
+  height: 45px;
+  background-size: 45px 45px;
+
+  @media (width <= 1250px) {
+    width: 35px;
+    height: 35px;
+    background-size: 35px 35px;
+  }
+
+  @media (width <= 450px) {
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+  }
+}
+
+.controlButton,
+.soundButton,
+.animatedVariationButton {
+  background-color: transparent;
+  margin-right: 20px;
+
+  @media (width <= 1250px) {
+    margin-right: 15px;
+  }
+}
+
+.controlButton {
+  @media (width <= 450px) {
+    margin-right: 10px;
+  }
+}
+
+.soundButton,
+.animatedVariationButton {
+  @media (width <= 450px) {
+    margin-right: 0;
+  }
+}
+
+.controlButtonReturn {
+  background-image: url('../../../assets/common/icons/control-return.svg');
+}
+
+.controlButtonInfo {
+  background-image: url('../../../assets/common/icons/control-info.svg');
+}
+
+.imageHotspotVideoCloseButton {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 32px;
+  right: 32px;
+  z-index: 10002;
+  background-image: url('../../../assets/common/icons/control-close-circle.svg');
+  background-color: rgb(128 128 128);
+  background-size: 40px 40px;
+}
+
+.imageHotspotVideoOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10000;
+  background-color: rgb(0 0 0 / 50%);
+}
+
+.imageHotspotVideoPanel {
+  position: absolute;
+  inset: 30px;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #d2d2d2;
+  background-color: #000;
+  z-index: 10001;
+}
+
+.dynamicButtons {
+  @media (width <= 450px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    gap: 10px;
+  }
+}
+
+.animatedVariationButtonActive {
+  opacity: 1;
+  cursor: default;
+}
+
+@media (hover: hover) {
+  .controlButton:hover,
+  .soundButton:hover,
+  .animatedVariationButton:hover,
+  .imageHotspotButton:hover,
+  .imageHotspotVideoCloseButton:hover {
+    opacity: 1;
+  }
+}
+
+.controlButton:focus-visible,
+.soundButton:focus-visible,
+.animatedVariationButton:focus-visible,
+.imageHotspotButton:focus-visible,
+.imageHotspotVideoCloseButton:focus-visible {
+  opacity: 1;
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.controlButton:last-child,
+.soundButton:last-child,
+.animatedVariationButton:last-child {
+  margin-right: 0;
+}
