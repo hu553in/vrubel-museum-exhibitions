@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "author": "hu553in",
   "dependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
     "@radix-ui/react-dialog": "^1.1.16",
     "@react-spring/web": "^10.1.1",
     "classnames": "^2.5.1",

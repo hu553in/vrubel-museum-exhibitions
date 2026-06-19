@@ -39,6 +39,6 @@
     "jsx": "react-jsx",
     "allowJs": true
   },
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "commitlint.config.ts", "vite.config.ts"],
   "exclude": ["node_modules"]
 }
