@@ -1,5 +1,5 @@
 import { animated, useSpring } from '@react-spring/web';
-import { type RefObject, useRef } from 'react';
+import { type ComponentProps, type RefObject, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useIntersectionObserver, useResizeObserver } from 'usehooks-ts';
 
@@ -16,10 +16,10 @@ import { buildPictureRoute } from '@/utils/pictureRoutes';
 import styles from './style.module.css';
 
 interface PictureWrapperProps {
-  animationStyle: object;
+  animationStyle: ComponentProps<typeof animated.div>['style'];
   onVisible: () => void;
   picture: (typeof pictures)[number];
-  pictureStyle: object;
+  pictureStyle: ComponentProps<typeof animated.img>['style'];
   stopLoading: () => void;
 }
 
@@ -50,7 +50,7 @@ function PictureWrapper({
         className={styles['pictureLink'] ?? ''}
         to={buildPictureRoute(picture.id, `/revived-paintings/galos#${picture.id}`)}
       >
-        <img
+        <animated.img
           style={pictureStyle}
           className={styles['picture']}
           src={picture.preview}

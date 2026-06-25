@@ -1,18 +1,19 @@
+import type { CSSProperties } from 'react';
 import { useWindowSize } from 'usehooks-ts';
 
 import calculateImageSizeByContainerAndNaturalSizes from '@/utils/calculateImageSizeByContainerAndNaturalSizes';
 
-interface Size {
+type Size = CSSProperties & {
   width: number;
   height: number;
-}
+};
 
 interface ParentSize {
   clientWidth: number;
   clientHeight: number;
 }
 
-const EMPTY_SIZE = { width: 0, height: 0 };
+const EMPTY_SIZE: Size = { width: 0, height: 0 };
 const EMPTY_PARENT_SIZE: ParentSize = { clientWidth: 0, clientHeight: 0 };
 
 function useFittedImageSize(
@@ -29,12 +30,14 @@ function useFittedImageSize(
     return EMPTY_SIZE;
   }
 
-  return calculateImageSizeByContainerAndNaturalSizes(
+  const { width, height } = calculateImageSizeByContainerAndNaturalSizes(
     parentWidth,
     parentHeight,
     naturalWidth,
     naturalHeight
   );
+
+  return { width, height };
 }
 
 export default useFittedImageSize;
