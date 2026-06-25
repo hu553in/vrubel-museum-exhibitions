@@ -1,3 +1,6 @@
+import { animated } from '@react-spring/web';
+import type { ComponentProps } from 'react';
+
 interface PictureSizeStyle {
   maxHeight: number;
   maxWidth: number;
@@ -5,12 +8,12 @@ interface PictureSizeStyle {
   minWidth: number;
 }
 
-type GalosPictureStyle = PictureSizeStyle & Record<string, unknown>;
+type GalosPictureStyle = ComponentProps<typeof animated.img>['style'] & Partial<PictureSizeStyle>;
 
 const getGalosPictureStyle = (
   pictureSize: number | undefined,
-  animationStyle: Record<string, unknown>
-): GalosPictureStyle | Record<string, never> => {
+  animationStyle: ComponentProps<typeof animated.img>['style']
+): GalosPictureStyle => {
   if (pictureSize === undefined) {
     return {};
   }
