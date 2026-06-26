@@ -63,7 +63,7 @@ check-fix:
       run: pnpm exec stylelint "**/*.css" --max-warnings=0 --fix
 
     - name: svg-format
-      run:
+      run: >-
         bash -lc 'find src public -type f -name "*.svg" -print0 | xargs -0 -I {} xmllint --format
         "{}" -o "{}"'
 
