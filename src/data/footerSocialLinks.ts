@@ -1,4 +1,4 @@
-import { SocialNetwork } from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
+import { SocialNetwork } from '@/components/common/SocialNetworkIcon/socialNetworks';
 
 export interface FooterSocialLink {
   href: string;
