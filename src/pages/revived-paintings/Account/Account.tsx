@@ -1,8 +1,7 @@
 import Checkbox from '@/components/common/Checkbox/Checkbox';
 import RoundedButton from '@/components/common/RoundedButton/RoundedButton';
-import SocialNetworkIcon, {
-  SocialNetwork,
-} from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
+import SocialNetworkIcon from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';
+import { SocialNetwork } from '@/components/common/SocialNetworkIcon/socialNetworks';
 import TextField from '@/components/common/TextField/TextField';
 import useAccountForm from '@/hooks/useAccountForm';
 

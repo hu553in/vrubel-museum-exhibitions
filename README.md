@@ -22,34 +22,34 @@ Deployed site:
 
 ## Requirements
 
-- Node.js and pnpm
+- Bun 1.3.14
 - `xmllint` for SVG checks; CI installs it through `libxml2-utils`
 
 ## Setup
 
 ```bash
-pnpm i
-pnpm dev
+bun i
+bun dev
 ```
 
 Open <http://localhost:5173>.
-
-## Development
-
-```bash
-pnpm build
-pnpm test
-pnpm check
-pnpm check:fix
-```
-
-`pnpm build` writes the Vite production build to `build/`.
 
 ## Runtime behavior
 
 - The site is Russian-only
 - Vite serves the app locally and builds static files for deployment
 - `vercel.json` first serves existing files, then rewrites unmatched paths to `index.html`
+
+## Development
+
+```bash
+bun run build
+bun run test
+bun check
+bun check:fix
+```
+
+`bun run build` writes the Vite production build to `build/`.
 
 ## Co-authors
 
@@ -62,3 +62,4 @@ pnpm check:fix
 - React
 - TypeScript
 - Vite
+- Vitest, ESLint, Prettier, Stylelint, Knip

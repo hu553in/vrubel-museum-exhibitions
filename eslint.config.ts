@@ -1,20 +1,23 @@
-const { defineConfig, globalIgnores } = require('eslint/config');
-const js = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const jsxA11yPlugin = require('eslint-plugin-jsx-a11y');
-const reactPlugin = require('eslint-plugin-react');
-const reactHooksPlugin = require('eslint-plugin-react-hooks');
-const prettierPlugin = require('eslint-plugin-prettier');
-const simpleImportSortPlugin = require('eslint-plugin-simple-import-sort');
-const globals = require('globals');
+import js from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import reactRefreshPlugin from 'eslint-plugin-react-refresh';
+import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
-const sharedGlobals = {
-  ...globals.browser,
-  ...globals.node,
-};
+const reactRecommended = reactPlugin.configs.flat['recommended'];
+const reactJsxRuntime = reactPlugin.configs.flat['jsx-runtime'];
 
-module.exports = defineConfig(
-  globalIgnores(['**/build/**', '**/node_modules/**', '**/target/**']),
+if (!reactRecommended || !reactJsxRuntime) {
+  throw new Error('eslint-plugin-react flat configs are unavailable');
+}
+
+export default defineConfig(
+  globalIgnores(['**/build/**']),
   {
     linterOptions: {
       reportUnusedDisableDirectives: 'error',
@@ -29,14 +32,11 @@ module.exports = defineConfig(
           jsx: true,
         },
       },
-      globals: sharedGlobals,
     },
     plugins: {
-      prettier: prettierPlugin,
       'simple-import-sort': simpleImportSortPlugin,
     },
     rules: {
-      'prettier/prettier': 'error',
       'no-alert': 'error',
       'no-console': ['error', { allow: ['error'] }],
       'prefer-const': 'error',
@@ -58,16 +58,12 @@ module.exports = defineConfig(
           jsx: true,
         },
         projectService: true,
-        tsconfigRootDir: __dirname,
       },
-      globals: sharedGlobals,
     },
     plugins: {
-      prettier: prettierPlugin,
       'simple-import-sort': simpleImportSortPlugin,
     },
     rules: {
-      'prettier/prettier': 'error',
       'no-alert': 'error',
       'no-console': ['error', { allow: ['error'] }],
       'prefer-const': 'error',
@@ -85,19 +81,27 @@ module.exports = defineConfig(
     },
   },
   {
-    files: ['**/*.{jsx,tsx}'],
-    plugins: {
-      'jsx-a11y': jsxA11yPlugin,
-      react: reactPlugin,
-      'react-hooks': reactHooksPlugin,
-      prettier: prettierPlugin,
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      globals: globals.browser,
     },
+  },
+  {
+    files: ['*.config.{js,ts}'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    files: ['**/*.{jsx,tsx}'],
+    extends: [
+      jsxA11yPlugin.flatConfigs.strict,
+      reactRecommended,
+      reactJsxRuntime,
+      reactHooksPlugin.configs.flat['recommended-latest'],
+      reactRefreshPlugin.configs.vite,
+    ],
     rules: {
-      ...jsxA11yPlugin.flatConfigs.strict.rules,
-      ...reactPlugin.configs.flat.recommended.rules,
-      ...reactPlugin.configs.flat['jsx-runtime'].rules,
-      ...reactHooksPlugin.configs.recommended.rules,
-      'prettier/prettier': 'error',
       'jsx-a11y/media-has-caption': 'off',
       'react/display-name': 'off',
       'react/prop-types': 'off',
@@ -108,5 +112,6 @@ module.exports = defineConfig(
         version: '19',
       },
     },
-  }
+  },
+  eslintConfigPrettier
 );

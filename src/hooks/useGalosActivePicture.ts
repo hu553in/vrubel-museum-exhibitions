@@ -42,5 +42,4 @@ function useGalosActivePicture(navigate: NavigateToHash) {
   };
 }
 
-export type { ActivePictureState, GalosPictureIdentity, NavigateToHash };
 export default useGalosActivePicture;
