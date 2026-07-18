@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import vitest from '@vitest/eslint-plugin';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
@@ -6,6 +7,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import reactRefreshPlugin from 'eslint-plugin-react-refresh';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
+import testingLibrary from 'eslint-plugin-testing-library';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -84,6 +86,13 @@ export default defineConfig(
     files: ['src/**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
       globals: globals.browser,
+    },
+  },
+  {
+    files: ['**/*.{test,spec}.{ts,tsx,mts,cts}'],
+    extends: [vitest.configs.recommended, testingLibrary.configs['flat/react']],
+    rules: {
+      'testing-library/no-node-access': 'off',
     },
   },
   {
