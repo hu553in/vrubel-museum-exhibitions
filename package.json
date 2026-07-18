@@ -19,7 +19,7 @@
     "check": "bun lint && bun check:workflows && bun check:types && bun run build && bun check:unused && bun check:vulns && bun test:coverage",
     "check:fix": "bun lint:fix && bun check",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "bun run test --coverage",
     "prepare": "if [ -n \"${CI:-}\" ] || [ \"${LEFTHOOK:-}\" = \"0\" ]; then exit 0; fi; lefthook install"
   },
   "dependencies": {
@@ -47,6 +47,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "@vitest/coverage-v8": "^4.1.10",
+    "@vitest/eslint-plugin": "^1.6.18",
     "eslint": "^10.7.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -54,6 +55,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "eslint-plugin-simple-import-sort": "^14.0.0",
+    "eslint-plugin-testing-library": "^7.16.2",
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
     "knip": "^6.27.0",
