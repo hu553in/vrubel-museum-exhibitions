@@ -1,6 +1,6 @@
 import { animated, useSpring } from '@react-spring/web';
 import { type ComponentProps, type RefObject, useRef } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router';
 import { useIntersectionObserver, useResizeObserver } from 'usehooks-ts';
 
 import pictures from '@/assets/revived-paintings/pictures';

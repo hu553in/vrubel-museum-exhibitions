@@ -5,7 +5,7 @@ import useScrollToHashOnComponentMount from './useScrollToHashOnComponentMount';
 
 describe('useScrollToHashOnComponentMount', () => {
   const originalHash = window.location.hash;
-  const originalRequestAnimationFrame = window.requestAnimationFrame;
+  const originalRequestAnimationFrame = window.requestAnimationFrame.bind(window);
 
   afterEach(() => {
     window.history.replaceState(

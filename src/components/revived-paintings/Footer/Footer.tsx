@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 import Loading from '@/components/common/Loading/Loading';
 import SocialNetworkIcon from '@/components/common/SocialNetworkIcon/SocialNetworkIcon';

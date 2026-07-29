@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { lazy, Suspense, useRef, useState } from 'react';
-import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, NavLink, useLocation, useNavigate, useParams } from 'react-router';
 
 import pause from '@/assets/common/icons/control-pause.svg';
 import logo from '@/assets/common/icons/museum-mark.svg';
