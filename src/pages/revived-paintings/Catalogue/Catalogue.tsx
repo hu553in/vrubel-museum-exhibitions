@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 import pictures from '@/assets/revived-paintings/pictures';
 import Loading from '@/components/common/Loading/Loading';
