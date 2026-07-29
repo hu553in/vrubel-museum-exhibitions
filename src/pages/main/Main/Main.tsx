@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { useWindowSize } from 'usehooks-ts';
 
 import Loading from '@/components/common/Loading/Loading';

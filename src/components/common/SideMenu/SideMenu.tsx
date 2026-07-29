@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router';
 
 import Dialog from '@/components/common/Dialog/Dialog';
 import useDialogAccessibility from '@/hooks/useDialogAccessibility';
