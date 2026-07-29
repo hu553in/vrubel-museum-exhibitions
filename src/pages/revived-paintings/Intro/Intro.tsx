@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { useEventListener } from 'usehooks-ts';
 
 import FullSizeVideo from '@/components/common/FullSizeVideo/FullSizeVideo';
