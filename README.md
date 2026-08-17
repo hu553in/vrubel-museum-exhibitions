@@ -22,7 +22,7 @@ Deployed site:
 
 ## Requirements
 
-- Bun 1.3.14
+- Bun
 - `xmllint` for SVG checks; CI installs it through `libxml2-utils`
 
 ## Setup
