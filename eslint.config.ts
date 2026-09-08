@@ -26,27 +26,6 @@ export default defineConfig(
     },
   },
   {
-    files: ['**/*.{js,jsx}'],
-    extends: [js.configs.recommended],
-    languageOptions: {
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    plugins: {
-      'simple-import-sort': simpleImportSortPlugin,
-    },
-    rules: {
-      'no-alert': 'error',
-      'no-console': ['error', { allow: ['error'] }],
-      'prefer-const': 'error',
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
-    },
-  },
-  {
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
