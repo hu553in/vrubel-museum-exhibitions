@@ -30,9 +30,7 @@ function Dialog(props: Props) {
     initialFocusRef,
   } = props;
   const hiddenTitleId = useId();
-  const hiddenDescriptionId = useId();
   const dialogLabelledBy = labelledBy ?? hiddenTitleId;
-  const dialogDescribedBy = describedBy ?? (description ? hiddenDescriptionId : undefined);
 
   return (
     <DialogPrimitive.Root
@@ -48,7 +46,7 @@ function Dialog(props: Props) {
         <DialogPrimitive.Content
           asChild
           aria-labelledby={dialogLabelledBy}
-          aria-describedby={dialogDescribedBy}
+          aria-describedby={describedBy}
           onOpenAutoFocus={event => {
             if (!initialFocusRef?.current) {
               return;
@@ -65,11 +63,8 @@ function Dialog(props: Props) {
             >
               {title}
             </DialogPrimitive.Title>
-            {description ? (
-              <DialogPrimitive.Description
-                className='srOnly'
-                {...(!describedBy ? { id: hiddenDescriptionId } : {})}
-              >
+            {description && !describedBy ? (
+              <DialogPrimitive.Description className='srOnly'>
                 {description}
               </DialogPrimitive.Description>
             ) : null}

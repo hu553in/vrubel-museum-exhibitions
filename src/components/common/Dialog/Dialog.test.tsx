@@ -34,6 +34,7 @@ describe('Dialog', () => {
 
     expect(container).toContainElement(dialog);
     expect(dialog).toHaveAttribute('aria-describedby', 'dialog-description');
+    expect(dialog).toHaveAccessibleDescription('Dialog description');
     expect(container?.querySelector('.dialog-overlay')).toBeInTheDocument();
     expect(container?.querySelector('.dialog-panel')).toBe(dialog);
   });
@@ -103,5 +104,6 @@ describe('Dialog', () => {
     expect(screen.getByText('Hotspot video dialog')).toHaveClass('srOnly');
     expect(screen.getByRole('dialog', { name: 'Hotspot video dialog' })).toBeInTheDocument();
     expect(screen.getByText('Hotspot video description')).toHaveClass('srOnly');
+    expect(screen.getByRole('dialog')).toHaveAccessibleDescription('Hotspot video description');
   });
 });
