@@ -27,7 +27,7 @@ Deployed site:
 ## Setup
 
 ```bash
-bun i
+bun ci
 bun dev
 ```
 
@@ -35,7 +35,6 @@ Open <http://localhost:5173>.
 
 ## Runtime behavior
 
-- The site is Russian-only
 - Vite serves the app locally and builds static files for deployment
 - `vercel.json` first serves existing files, then rewrites unmatched paths to `index.html`
 
