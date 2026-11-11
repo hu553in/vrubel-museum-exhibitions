@@ -43,7 +43,7 @@ Open <http://localhost:5173>.
 ```bash
 bun run build
 bun run test
-bun check
+bun check:all
 bun check:fix
 ```
 
@@ -60,4 +60,4 @@ bun check:fix
 - React
 - TypeScript
 - Vite
-- Vitest, ESLint, Prettier, Stylelint, Knip
+- Vitest, ESLint, Stylelint, Knip
