@@ -2,8 +2,6 @@
 Thumbs.db
 node_modules/
 build/
-dist/
-out/
 coverage/
 .cache/
 .vscode/
@@ -14,4 +12,3 @@ coverage/
 .env*
 !.env.example
 !.env.example.*
-*.tsbuildinfo

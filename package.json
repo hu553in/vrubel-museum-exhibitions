@@ -10,8 +10,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "bun fmt --check && eslint --cache --cache-location .cache/eslint --cache-strategy content --max-warnings 0 . && stylelint --max-warnings 0 --ignore-path .gitignore '**/*.css'",
-    "lint:fix": "bun fmt && eslint --cache --cache-location .cache/eslint --cache-strategy content --max-warnings 0 --fix . && stylelint --max-warnings 0 --fix --ignore-path .gitignore '**/*.css'",
+    "lint": "bun fmt --check && eslint --max-warnings 0 . && stylelint --max-warnings 0 --ignore-path .gitignore '**/*.css'",
+    "lint:fix": "eslint --max-warnings 0 --fix . && stylelint --max-warnings 0 --fix --ignore-path .gitignore '**/*.css' && bun fmt",
     "check:hooks": "lefthook validate",
     "check:workflows": "bunx --minimum-release-age 259200 github-actionlint",
     "check:types": "bun check",
@@ -49,7 +49,6 @@
     "@vitest/coverage-v8": "^5.1.1",
     "@vitest/eslint-plugin": "^1.6.28",
     "eslint": "^10.15.0",
-    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",

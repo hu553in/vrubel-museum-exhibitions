@@ -23,6 +23,7 @@ Deployed site:
 ## Requirements
 
 - Bun
+- Node.js for Vitest coverage checks
 
 ## Setup
 
@@ -41,11 +42,10 @@ Open <http://localhost:5173>.
 ## Development
 
 ```bash
-bun run build
-bun run test
 bun check:all
-bun check:fix
 ```
+
+Use `bun check:fix` to apply supported fixes before the full check.
 
 `bun run build` writes the Vite production build to `build/`.
 
